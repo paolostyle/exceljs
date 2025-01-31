@@ -56,42 +56,15 @@
     "preversion": "npm run clean && npm run build && npm run test:version",
     "postversion": "git push --no-verify && git push --tags --no-verify"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier-eslint --write",
-      "eslint --format node_modules/eslint-friendly-formatter",
-      "git add"
-    ]
-  },
   "keywords": [
+    "xls",
     "xlsx",
-    "json",
     "csv",
     "excel",
-    "font",
-    "border",
-    "fill",
-    "number",
-    "format",
-    "number format",
-    "alignment",
     "office",
     "spreadsheet",
     "workbook",
-    "defined names",
-    "data validations",
-    "rich text",
-    "in-cell format",
-    "outlineLevel",
-    "views",
-    "frozen",
-    "split",
-    "pageSetup"
+    "sheets"
   ],
   "dependencies": {
     "archiver": "^5.0.0",
@@ -143,5 +116,13 @@
     "sax": "^1.2.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
+  },
+  "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "core-js",
+      "puppeteer",
+      "husky"
+    ]
   }
 }
