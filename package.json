@@ -2,20 +2,19 @@
   "name": "exceljs",
   "version": "4.4.0",
   "description": "Excel Workbook Manager - Read and Write xlsx and csv Files.",
-  "private": false,
   "license": "MIT",
-  "author": {
-    "name": "Guyon Roche",
-    "email": "guyon@live.com"
-  },
+  "contributors": [
+    "Guyon Roche <guyon@live.com>",
+    "Paweł Dąbrowski <dabrowskip9@gmail.com>"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/exceljs/exceljs.git"
+    "url": "https://github.com/paolostyle/exceljs.git"
   },
   "engines": {
-    "node": ">=8.3.0"
+    "node": ">=20"
   },
-  "main": "./excel.js",
+  "main": "./dist/exceljs.nodejs.js",
   "browser": "./dist/exceljs.min.js",
   "types": "./index.d.ts",
   "files": [
@@ -25,7 +24,6 @@
     "LICENSE",
     "README.md",
     "README_zh.md",
-    "index.ts",
     "index.d.ts"
   ],
   "scripts": {
