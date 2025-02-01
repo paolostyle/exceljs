@@ -1,4 +1,4 @@
-const ExcelJS = require('./lib/index.js');
+const ExcelJS = require('#lib');
 
 const runs = 3;
 

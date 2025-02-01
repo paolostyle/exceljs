@@ -36,13 +36,14 @@
     "test:integration": "mocha --require spec/config/setup spec/integration --recursive",
     "test:end-to-end": "mocha --require spec/config/setup spec/end-to-end --recursive",
     "test:manual": "node spec/manual/app.js",
-    "lint": "eslint --format node_modules/eslint-friendly-formatter .",
-    "lint:fix": "prettier-eslint --write $(pwd)'/**/*.js'",
+    "lint": "biome check",
+    "lint:fix": "biome check --fix",
     "benchmark": "node --expose-gc benchmark",
     "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
     "build": "tsup",
     "postversion": "git push --no-verify && git push --tags --no-verify",
-    "prepare": "husky"
+    "prepare": "husky",
+    "knip": "knip"
   },
   "keywords": [
     "xls",
@@ -69,7 +70,7 @@
     "@biomejs/biome": "1.9.4",
     "@types/chai": "^4.2.12",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^14.11.2",
+    "@types/node": "^14.18.63",
     "chai": "^4.2.0",
     "chai-datetime": "^1.7.0",
     "chai-xml": "^0.3.2",
@@ -77,6 +78,7 @@
     "express": "^4.16.4",
     "got": "^9.0.0",
     "husky": "^9.1.7",
+    "knip": "^5.43.6",
     "mocha": "^7.2.0",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
