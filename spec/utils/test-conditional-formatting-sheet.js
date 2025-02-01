@@ -21,7 +21,7 @@ const self = {
     expect(ws).to.not.be.undefined();
     expect(ws.conditionalFormattings).to.not.be.undefined();
     (ws.conditionalFormattings && ws.conditionalFormattings).forEach((item) => {
-      const type = item.rules && item.rules[0].type;
+      const type = item.rules?.[0].type;
       const conditionalFormatting = self.getConditionalFormatting(type);
       expect(item).to.have.property('ref');
       expect(item).to.have.property('rules');

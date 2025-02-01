@@ -151,7 +151,7 @@ module.exports = {
           f = opt;
           opt = {};
         }
-        if (opt && opt.includeEmpty) {
+        if (opt?.includeEmpty) {
           const n = this.rows.length;
           for (let i = 1; i <= n; i++) {
             f(this.getRow(i), i);

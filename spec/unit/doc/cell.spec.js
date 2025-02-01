@@ -55,7 +55,7 @@ const sheetMock = {
   findCell(address) {
     const fullAddress = colCache.decodeAddress(address);
     const row = this.getRow(fullAddress.row);
-    return row && row.findCell(fullAddress.col);
+    return row?.findCell(fullAddress.col);
   },
 };
 const fonts = {

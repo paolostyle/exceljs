@@ -58,7 +58,7 @@ function checkTable(ref, ws, testValues) {
     const row = nRow >= 1 && ws.getRow(nRow);
     if (!row) continue;
     for (let j = -1; j <= testValues[0].length + 1; j++) {
-      const value = (vRow && vRow[j]) || null;
+      const value = (vRow?.[j]) || null;
       const nCol = j + a.col;
       const cellValue = nCol >= 1 && row.getCell(nCol).value;
       if (!cellValue) continue;

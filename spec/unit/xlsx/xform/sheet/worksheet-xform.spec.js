@@ -14,7 +14,7 @@ const fakeStyles = {
     if (cellType === Enums.ValueType.Date) {
       return 1;
     }
-    if (style && style.font) {
+    if (style?.font) {
       return 2;
     }
     return 0;

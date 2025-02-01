@@ -213,7 +213,7 @@ wb.xlsx.readFile(filename).then(() => {
   );
   const column9 = ws.getColumn(9);
   assert(
-    column9 && column9.hidden,
+    column9?.hidden,
     `Expected column 9 to be hidden: \n${JSON.stringify(
       column9.defn,
       null,
@@ -222,7 +222,7 @@ wb.xlsx.readFile(filename).then(() => {
   );
 
   const row16 = ws.getRow(16);
-  assert(row16 && row16.hidden, 'Expected row 16 to be hidden');
+  assert(row16?.hidden, 'Expected row 16 to be hidden');
 
   assert(ws.getCell('A2').value === 7, 'Expected A2 === 7');
   assert(
