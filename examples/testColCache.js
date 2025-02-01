@@ -10,7 +10,7 @@ if (match) {
   l = colCache.n2l(n);
   console.log(`${arg} --> ${n} --> ${l}`);
 } else {
-  l = colCache.n2l(parseInt(arg, 10));
+  l = colCache.n2l(Number.parseInt(arg, 10));
   n = colCache.l2n(l);
   console.log(`${arg} --> ${l} --> ${n}`);
 }
