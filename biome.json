@@ -28,7 +28,11 @@
         "noDelete": "off"
       },
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "noAssignInExpressions": "warn"
+      },
+      "style": {
+        "noParameterAssign": "warn"
       }
     }
   },
