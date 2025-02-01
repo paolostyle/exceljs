@@ -1,5 +1,5 @@
 const ExcelJS = require('#lib');
-const fs = require('fs');
+const fs = require('node:fs');
 
 describe('github issues: Date field with cache style', () => {
   const rows = [];

@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('node:path');
 const Excel = require('#lib');
 const HrStopwatch = require('./utils/hr-stopwatch');
 

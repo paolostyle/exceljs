@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 
-const fs = require('fs');
+const fs = require('node:fs');
 const express = require('express');
-const path = require('path');
+const path = require('node:path');
 const ExcelJS = require('#lib');
 const StreamBuf = require('#lib/utils/stream-buf.js');
 
