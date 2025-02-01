@@ -5,7 +5,7 @@ const tools = {
   fix: function fix(o) {
     // clone the object and replace any date-like strings with new Date()
     let clone;
-    if (o instanceof Array) {
+    if (Array.isArray(o)) {
       clone = [];
     } else if (typeof o === 'object') {
       clone = {};

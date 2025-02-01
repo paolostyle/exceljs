@@ -818,7 +818,7 @@ describe('Worksheet', () => {
       ,
       [, 11, , 'C1'],
       [, 21, 'B2'],
-      , // eslint-disable-line comma-style
+      ,
       [, 'end'],
     ]);
   });

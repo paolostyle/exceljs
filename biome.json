@@ -20,7 +20,10 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "complexity": {
+        "noForEach": "off"
+      }
     }
   },
   "javascript": {
@@ -33,6 +36,16 @@
       "include": ["package.json"],
       "formatter": {
         "lineWidth": 1
+      }
+    },
+    {
+      "include": ["spec/**/*.js"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noSparseArray": "off"
+          }
+        }
       }
     }
   ]

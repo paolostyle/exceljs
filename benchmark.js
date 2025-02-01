@@ -1,4 +1,3 @@
-/* eslint-disable no-console, no-unused-vars */
 const ExcelJS = require('./lib/index.js');
 
 const runs = 3;
@@ -56,7 +55,7 @@ const runs = 3;
     });
   } catch (err) {
     console.error(err);
-    process.exit(1); // eslint-disable-line no-process-exit
+    process.exit(1);
   }
 })();
 
@@ -86,7 +85,7 @@ async function runProfiling(name, run) {
     console.log('####################################################');
     console.log(`RUN ${i}: ${name} profiling started`);
     const startTime = Date.now();
-    await run(); // eslint-disable-line no-await-in-loop
+    await run();
     console.log(
       `RUN ${i}: ${name} profiling finished in ${Date.now() - startTime}ms`,
     );

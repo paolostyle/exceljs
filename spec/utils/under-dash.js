@@ -26,7 +26,7 @@ const _ = Object.assign(
       if (obj instanceof Date) {
         return obj;
       }
-      if (obj instanceof Array) {
+      if (Array.isArray(obj)) {
         clone = [];
       } else if (typeof obj === 'object') {
         clone = {};

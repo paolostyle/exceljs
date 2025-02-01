@@ -1538,7 +1538,7 @@ export interface Worksheet {
   /**
    *  fetch table
    */
-  getTables(): [Table, void][];
+  getTables(): [Table, undefined][];
   /**
    * add conditionalFormattingOptions
    */

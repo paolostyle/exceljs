@@ -7,7 +7,7 @@ const XmlStream = require('#lib/utils/xml-stream.js');
 const BooleanXform = require('#lib/xlsx/xform/simple/boolean-xform.js');
 
 function getExpectation(expectation, name) {
-  if (!expectation.hasOwnProperty(name)) {
+  if (!Object.hasOwn(expectation, name)) {
     throw new Error(`Expectation missing required field: ${name}`);
   }
   return cloneDeep(expectation[name]);
