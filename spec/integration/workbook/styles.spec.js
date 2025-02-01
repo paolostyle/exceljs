@@ -1,7 +1,7 @@
 const stream = require('readable-stream');
 const testUtils = require('../../utils/index');
 
-const ExcelJS = verquire('exceljs');
+const ExcelJS = require('#lib');
 
 const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 

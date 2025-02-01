@@ -1,5 +1,5 @@
 const fs = require('fs');
-const _ = require('../lib/utils/under-dash.js');
+const _ = require('#lib/utils/under-dash.js');
 
 const HrStopwatch = require('./utils/hr-stopwatch');
 

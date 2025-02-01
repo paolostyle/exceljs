@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const HyperlinkXform = verquire('xlsx/xform/sheet/hyperlink-xform');
+const HyperlinkXform = require('#lib/xlsx/xform/sheet/hyperlink-xform.js');
 
 const expectations = [
   {

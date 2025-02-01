@@ -5,8 +5,8 @@
 const fs = require('fs');
 const express = require('express');
 const path = require('path');
-const ExcelJS = require('../../lib/exceljs.nodejs.js');
-const StreamBuf = require('../../lib/utils/stream-buf');
+const ExcelJS = require('#lib');
+const StreamBuf = require('#lib/utils/stream-buf.js');
 
 console.log('Copying bundle.js to public folder');
 fs.createReadStream(`${__dirname}/../../dist/exceljs.min.js`).pipe(

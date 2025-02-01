@@ -1,4 +1,4 @@
-const ExcelJS = verquire('exceljs');
+const ExcelJS = require('#lib');
 
 describe('github issues', () => {
   describe('pull request 1576 - inlineStr cell type support', () => {

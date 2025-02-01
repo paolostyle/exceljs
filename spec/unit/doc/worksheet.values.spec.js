@@ -1,7 +1,7 @@
 const testUtils = require('../../utils/index');
 
-const _ = verquire('utils/under-dash');
-const Excel = verquire('exceljs');
+const _ = require('#lib/utils/under-dash.js');
+const Excel = require('#lib');
 
 describe('Worksheet', () => {
   describe('Values', () => {

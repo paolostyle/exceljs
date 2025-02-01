@@ -1,4 +1,4 @@
-const ExcelJS = verquire('exceljs');
+const ExcelJS = require('#lib');
 
 describe('github issues', () => {
   it('issue 176 - Unexpected xml node in parseOpen', () => {

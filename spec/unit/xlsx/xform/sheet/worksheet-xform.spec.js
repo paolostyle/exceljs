@@ -2,12 +2,12 @@ const fs = require('fs');
 
 const testXformHelper = require('../test-xform-helper');
 
-const Enums = verquire('doc/enums');
-const XmlStream = verquire('utils/xml-stream');
-const WorksheetXform = verquire('xlsx/xform/sheet/worksheet-xform');
+const Enums = require('#lib/doc/enums.js');
+const XmlStream = require('#lib/utils/xml-stream.js');
+const WorksheetXform = require('#lib/xlsx/xform/sheet/worksheet-xform.js');
 
-const SharedStringsXform = verquire('xlsx/xform/strings/shared-strings-xform');
-const StylesXform = verquire('xlsx/xform/style/styles-xform');
+const SharedStringsXform = require('#lib/xlsx/xform/strings/shared-strings-xform.js');
+const StylesXform = require('#lib/xlsx/xform/style/styles-xform.js');
 
 const fakeStyles = {
   addStyleModel(style, cellType) {

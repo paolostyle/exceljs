@@ -1,6 +1,6 @@
 const testXformHelper = require('../../test-xform-helper');
 
-const CfvoXform = verquire('xlsx/xform/sheet/cf/cfvo-xform');
+const CfvoXform = require('#lib/xlsx/xform/sheet/cf/cfvo-xform.js');
 
 const expectations = [
   {

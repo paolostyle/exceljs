@@ -1,4 +1,4 @@
-const _ = require('../../lib/utils/under-dash.js');
+const _ = require('#lib/utils/under-dash.js');
 
 const ColumnSum = (module.exports = function(columns) {
   this.columns = columns;

@@ -1,5 +1,5 @@
-const Enums = verquire('doc/enums');
-const ExcelJS = verquire('exceljs');
+const Enums = require('#lib/doc/enums.js');
+const ExcelJS = require('#lib');
 
 describe('github issues', () => {
   describe('Shared Formulas', () => {

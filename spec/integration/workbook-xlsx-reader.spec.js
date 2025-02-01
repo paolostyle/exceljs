@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const testutils = require('../utils/index');
 
-const ExcelJS = verquire('exceljs');
+const ExcelJS = require('#lib');
 
 const TEST_FILE_NAME = './spec/out/wb.test.xlsx';
 

@@ -4,11 +4,9 @@ const chai = require('chai');
 
 process.env.EXCEL_NATIVE = 'yes';
 
-const verquire = require('../../../utils/verquire');
-
 const tools = require('../../../utils/tools');
 
-const Excel = verquire('exceljs');
+const Excel = require('#lib');
 
 const {expect} = chai;
 

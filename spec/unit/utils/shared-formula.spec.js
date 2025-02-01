@@ -1,4 +1,4 @@
-const {slideFormula} = verquire('utils/shared-formula');
+const {slideFormula} = require('#lib/utils/shared-formula.js');
 
 describe('shared-formula', () => {
   describe('slideFormula', () => {

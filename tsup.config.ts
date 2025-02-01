@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['lib/exceljs.nodejs.js'],
+  entry: ['lib/index.js'],
   clean: true,
   format: ['esm', 'cjs'],
 });

@@ -1,4 +1,4 @@
-const utils = verquire('utils/utils');
+const utils = require('#lib/utils/utils.js');
 
 describe('utils', () => {
   describe('xmlEncode', () => {

@@ -2,9 +2,9 @@ const {PassThrough} = require('readable-stream');
 const {cloneDeep, each} = require('../../../utils/under-dash');
 const CompyXform = require('./compy-xform');
 
-const parseSax = verquire('utils/parse-sax');
-const XmlStream = verquire('utils/xml-stream');
-const BooleanXform = verquire('xlsx/xform/simple/boolean-xform');
+const parseSax = require('#lib/utils/parse-sax.js');
+const XmlStream = require('#lib/utils/xml-stream.js');
+const BooleanXform = require('#lib/xlsx/xform/simple/boolean-xform.js');
 
 function getExpectation(expectation, name) {
   if (!expectation.hasOwnProperty(name)) {

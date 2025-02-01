@@ -1,6 +1,6 @@
 const tools = require('./tools');
 
-const ExcelJS = verquire('exceljs');
+const ExcelJS = require('#lib');
 
 const self = {
   testValues: tools.fix(require('./data/sheet-values.json')),

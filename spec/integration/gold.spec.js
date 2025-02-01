@@ -1,4 +1,4 @@
-const ExcelJS = verquire('exceljs');
+const ExcelJS = require('#lib');
 
 // =============================================================================
 // This spec is based around a gold standard Excel workbook 'gold.xlsx'

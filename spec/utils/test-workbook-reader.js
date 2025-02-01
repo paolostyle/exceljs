@@ -1,8 +1,8 @@
 const tools = require('./tools');
 const testValues = tools.fix(require('./data/sheet-values.json'));
 
-const utils = verquire('utils/utils');
-const ExcelJS = verquire('exceljs');
+const utils = require('#lib/utils/utils.js');
+const ExcelJS = require('#lib');
 
 function fillFormula(f) {
   return Object.assign({formula: undefined}, f);

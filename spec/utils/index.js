@@ -1,12 +1,10 @@
-const verquire = require('./verquire');
-
 const _ = require('./under-dash');
 const tools = require('./tools');
 
 const testWorkbookReader = require('./test-workbook-reader');
 
-const Row = verquire('doc/row');
-const Column = verquire('doc/column');
+const Row = require('#lib/doc/row.js');
+const Column = require('#lib/doc/column.js');
 
 const testSheets = {
   dataValidations: require('./test-data-validation-sheet'),

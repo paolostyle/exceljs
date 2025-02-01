@@ -1,6 +1,6 @@
 const {createSheetMock} = require('../../utils/index');
 
-const Column = verquire('doc/column');
+const Column = require('#lib/doc/column.js');
 
 describe('Column', () => {
   it('creates by defn', () => {

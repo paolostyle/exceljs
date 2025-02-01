@@ -1,4 +1,4 @@
-const BaseXform = verquire('xlsx/xform/base-xform');
+const BaseXform = require('#lib/xlsx/xform/base-xform.js');
 
 class CompyXform extends BaseXform {
   constructor(options) {

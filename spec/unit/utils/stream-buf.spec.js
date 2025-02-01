@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const StreamBuf = verquire('utils/stream-buf');
-const StringBuf = verquire('utils/string-buf');
+const StreamBuf = require('#lib/utils/stream-buf.js');
+const StringBuf = require('#lib/utils/string-buf.js');
 
 describe('StreamBuf', () => {
   // StreamBuf is designed as a general-purpose writable-readable stream

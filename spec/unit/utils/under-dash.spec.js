@@ -1,4 +1,4 @@
-const _ = verquire('utils/under-dash');
+const _ = require('#lib/utils/under-dash.js');
 const util = require('util');
 
 describe('under-dash', () => {

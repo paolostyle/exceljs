@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const testXformHelper = require('../test-xform-helper');
 
-const DrawingXform = verquire('xlsx/xform/drawing/drawing-xform');
+const DrawingXform = require('#lib/xlsx/xform/drawing/drawing-xform.js');
 
 const options = {
   rels: {

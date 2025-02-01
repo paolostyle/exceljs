@@ -1,6 +1,6 @@
 const testXformHelper = require('../../test-xform-helper');
 
-const ColorScaleXform = verquire('xlsx/xform/sheet/cf/color-scale-xform');
+const ColorScaleXform = require('#lib/xlsx/xform/sheet/cf/color-scale-xform.js');
 
 const expectations = [
   {

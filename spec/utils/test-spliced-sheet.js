@@ -1,4 +1,4 @@
-const Enums = verquire('doc/enums');
+const Enums = require('#lib/doc/enums.js');
 
 module.exports = {
   rows: {

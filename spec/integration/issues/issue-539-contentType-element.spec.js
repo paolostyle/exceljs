@@ -1,4 +1,4 @@
-const ExcelJS = verquire('exceljs');
+const ExcelJS = require('#lib');
 
 describe('github issues', () => {
   describe('issue 539 - <contentType /> element', () => {

@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const SharedStringXform = verquire('xlsx/xform/strings/shared-string-xform');
+const SharedStringXform = require('#lib/xlsx/xform/strings/shared-string-xform.js');
 
 const expectations = [
   {

@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const PrintOptionsXform = verquire('xlsx/xform/sheet/print-options-xform');
+const PrintOptionsXform = require('#lib/xlsx/xform/sheet/print-options-xform.js');
 
 const expectations = [
   {

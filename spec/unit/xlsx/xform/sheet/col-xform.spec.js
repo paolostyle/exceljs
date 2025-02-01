@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const ColXform = verquire('xlsx/xform/sheet/col-xform');
+const ColXform = require('#lib/xlsx/xform/sheet/col-xform.js');
 
 const expectations = [
   {

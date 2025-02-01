@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const TableColumnXform = verquire('xlsx/xform/table/table-column-xform');
+const TableColumnXform = require('#lib/xlsx/xform/table/table-column-xform.js');
 
 const expectations = [
   {

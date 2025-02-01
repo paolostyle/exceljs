@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const testXformHelper = require('../test-xform-helper');
 
-const RelationshipsXform = verquire('xlsx/xform/core/relationships-xform');
+const RelationshipsXform = require('#lib/xlsx/xform/core/relationships-xform.js');
 
 const expectations = [
   {

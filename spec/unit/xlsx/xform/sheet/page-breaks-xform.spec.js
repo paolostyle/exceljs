@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const PageBreaksXform = verquire('xlsx/xform/sheet/page-breaks-xform');
+const PageBreaksXform = require('#lib/xlsx/xform/sheet/page-breaks-xform.js');
 
 const expectations = [
   {

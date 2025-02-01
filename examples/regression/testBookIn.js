@@ -1,6 +1,6 @@
 /* eslint-disable node/no-unpublished-require */
-const _ = require('../../lib/utils/under-dash');
-const ExcelJS = require('../../lib/exceljs.nodejs');
+const _ = require('#lib/utils/under-dash.js');
+const ExcelJS = require('#lib');
 
 const HrStopwatch = require('./utils/hr-stopwatch');
 

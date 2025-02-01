@@ -1,4 +1,4 @@
-const CellMatrix = verquire('utils/cell-matrix');
+const CellMatrix = require('#lib/utils/cell-matrix.js');
 
 describe('CellMatrix', () => {
   it('getCell always returns a cell', () => {

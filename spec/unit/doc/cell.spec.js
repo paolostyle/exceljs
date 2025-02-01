@@ -1,6 +1,6 @@
-const colCache = verquire('utils/col-cache');
-const Cell = verquire('doc/cell');
-const Enums = verquire('doc/enums');
+const colCache = require('#lib/utils/col-cache.js');
+const Cell = require('#lib/doc/cell.js');
+const Enums = require('#lib/doc/enums.js');
 
 const sheetMock = {
   reset() {

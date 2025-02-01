@@ -2,8 +2,8 @@ const fs = require('fs');
 
 const testXformHelper = require('../test-xform-helper');
 
-const StylesXform = verquire('xlsx/xform/style/styles-xform');
-const XmlStream = verquire('utils/xml-stream');
+const StylesXform = require('#lib/xlsx/xform/style/styles-xform.js');
+const XmlStream = require('#lib/utils/xml-stream.js');
 
 const expectations = [
   {

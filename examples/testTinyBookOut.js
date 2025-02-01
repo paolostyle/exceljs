@@ -1,5 +1,5 @@
 const HrStopwatch = require('./utils/hr-stopwatch');
-const Workbook = require('../lib/doc/workbook');
+const Workbook = require('#lib/doc/workbook');
 
 const filename = process.argv[2];
 

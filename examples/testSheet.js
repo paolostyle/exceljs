@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const Worksheet = require('../lib/doc/worksheet');
+const Worksheet = require('#lib/doc/worksheet');
 
 const sheetname = process.argv[2];
 const stringname = process.argv[3];

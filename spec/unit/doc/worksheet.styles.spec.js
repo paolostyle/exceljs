@@ -1,6 +1,6 @@
 const testUtils = require('../../utils/index');
 
-const Excel = verquire('exceljs');
+const Excel = require('#lib');
 
 describe('Worksheet', () => {
   describe('Styles', () => {

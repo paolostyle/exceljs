@@ -1,4 +1,4 @@
-const colCache = verquire('utils/col-cache');
+const colCache = require('#lib/utils/col-cache.js');
 
 describe('colCache', () => {
   it('caches values', () => {

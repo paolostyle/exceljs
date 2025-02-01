@@ -1,16 +1,4 @@
-/* global ExcelJS */
-// ExcelJS is a global injected by `./dist/exceljs.js` during jasmine's setup
-
-'use strict';
-
-function unexpectedError(done) {
-  return function(error) {
-    // eslint-disable-next-line no-console
-    console.error('Error Caught', error.message, error.stack);
-    expect(true).toEqual(false);
-    done();
-  };
-}
+const ExcelJS = require('#lib');
 
 describe('ExcelJS', () => {
   it('should read and write xlsx via binary buffer', done => {
@@ -26,17 +14,12 @@ describe('ExcelJS', () => {
         const wb2 = new ExcelJS.Workbook();
         return wb2.xlsx.load(buffer).then(() => {
           const ws2 = wb2.getWorksheet('blort');
-          expect(ws2).toBeTruthy();
 
-          expect(ws2.getCell('A1').value).toEqual('Hello, World!');
-          expect(ws2.getCell('A2').value).toEqual(7);
+          expect(ws2.getCell('A1').value).to.equal('Hello, World!');
+          expect(ws2.getCell('A2').value).to.equal(7);
           done();
         });
-      })
-      .catch(error => {
-        throw error;
-      })
-      .catch(unexpectedError(done));
+      });
   });
   it('should read and write xlsx via base64 buffer', done => {
     const options = {
@@ -54,17 +37,12 @@ describe('ExcelJS', () => {
         const wb2 = new ExcelJS.Workbook();
         return wb2.xlsx.load(buffer.toString('base64'), options).then(() => {
           const ws2 = wb2.getWorksheet('blort');
-          expect(ws2).toBeTruthy();
 
-          expect(ws2.getCell('A1').value).toEqual('Hello, World!');
-          expect(ws2.getCell('A2').value).toEqual(7);
+          expect(ws2.getCell('A1').value).to.equal('Hello, World!');
+          expect(ws2.getCell('A2').value).to.equal(7);
           done();
         });
-      })
-      .catch(error => {
-        throw error;
-      })
-      .catch(unexpectedError(done));
+      });
   });
   it('should write csv via buffer', done => {
     const wb = new ExcelJS.Workbook();
@@ -78,14 +56,10 @@ describe('ExcelJS', () => {
     wb.csv
       .writeBuffer()
       .then(buffer => {
-        expect(buffer.toString()).toEqual(
+        expect(buffer.toString()).to.equal(
           '"Hello, World!",What time is it?\n7,12pm'
         );
         done();
-      })
-      .catch(error => {
-        throw error;
-      })
-      .catch(unexpectedError(done));
+      });
   });
 });

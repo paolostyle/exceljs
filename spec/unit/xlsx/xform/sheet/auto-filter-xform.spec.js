@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const AutoFilterXform = verquire('xlsx/xform/sheet/auto-filter-xform');
+const AutoFilterXform = require('#lib/xlsx/xform/sheet/auto-filter-xform.js');
 
 const expectations = [
   {

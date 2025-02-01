@@ -1,4 +1,4 @@
-const _ = require('../lib/utils/under-dash.js');
+const _ = require('#lib/utils/under-dash.js');
 const Excel = require('../excel');
 
 // const { Workbook } = Excel;

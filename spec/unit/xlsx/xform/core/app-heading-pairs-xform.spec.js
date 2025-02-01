@@ -1,7 +1,7 @@
 const testXformHelper = require('../test-xform-helper');
 
-const AppHeadingPairsXform = verquire(
-  'xlsx/xform/core/app-heading-pairs-xform'
+const AppHeadingPairsXform = require(
+  '#lib/xlsx/xform/core/app-heading-pairs-xform.js'
 );
 
 const expectations = [

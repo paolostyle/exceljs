@@ -1,5 +1,5 @@
-const WorksheetWriter = verquire('stream/xlsx/worksheet-writer');
-const StreamBuf = verquire('utils/stream-buf');
+const WorksheetWriter = require('#lib/stream/xlsx/worksheet-writer.js');
+const StreamBuf = require('#lib/utils/stream-buf.js');
 
 describe('Workbook Writer', () => {
   it('generates valid xml even when there is no data', () =>

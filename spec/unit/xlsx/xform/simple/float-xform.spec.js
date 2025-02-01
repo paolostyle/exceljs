@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const FloatXform = verquire('xlsx/xform/simple/float-xform');
+const FloatXform = require('#lib/xlsx/xform/simple/float-xform.js');
 
 const expectations = [
   {

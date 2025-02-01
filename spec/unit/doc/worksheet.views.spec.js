@@ -1,4 +1,4 @@
-const Excel = verquire('exceljs');
+const Excel = require('#lib');
 
 describe('Worksheet', () => {
   describe('Views', () => {

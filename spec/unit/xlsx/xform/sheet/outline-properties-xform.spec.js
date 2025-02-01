@@ -1,7 +1,7 @@
 const testXformHelper = require('../test-xform-helper');
 
-const OutlinePropertiesXform = verquire(
-  'xlsx/xform/sheet/outline-properties-xform'
+const OutlinePropertiesXform = require(
+  '#lib/xlsx/xform/sheet/outline-properties-xform.js'
 );
 
 const expectations = [

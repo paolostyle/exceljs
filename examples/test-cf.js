@@ -1,5 +1,5 @@
-const Excel = require('../lib/exceljs.nodejs.js');
-const Range = require('../lib/doc/range');
+const Excel = require('#lib');
+const Range = require('#lib/doc/range');
 
 const HrStopwatch = require('./utils/hr-stopwatch');
 

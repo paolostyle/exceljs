@@ -14,21 +14,25 @@
   "engines": {
     "node": ">=20"
   },
-  "main": "./dist/exceljs.nodejs.js",
-  "browser": "./dist/exceljs.min.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "browser": "./dist/index.mjs",
   "types": "./index.d.ts",
   "files": [
     "dist",
     "lib",
-    "excel.js",
     "LICENSE",
     "README.md",
     "README_zh.md",
     "index.d.ts"
   ],
+  "imports": {
+    "#lib": "./lib/index.js",
+    "#lib/*": "./lib/*"
+  },
   "scripts": {
     "test": "npm run build && npm run test:unit && npm run test:integration && npm run test:end-to-end",
-    "test:unit": "mocha --require spec/config/setup --require spec/config/setup-unit spec/unit --recursive",
+    "test:unit": "mocha --require spec/config/setup spec/unit --recursive",
     "test:integration": "mocha --require spec/config/setup spec/integration --recursive",
     "test:end-to-end": "mocha --require spec/config/setup spec/end-to-end --recursive",
     "test:manual": "node spec/manual/app.js",

@@ -1,6 +1,6 @@
 const testXformHelper = require('../test-xform-helper');
 
-const AlignmentXform = verquire('xlsx/xform/style/alignment-xform');
+const AlignmentXform = require('#lib/xlsx/xform/style/alignment-xform.js');
 
 const expectations = [
   {
