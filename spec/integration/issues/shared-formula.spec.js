@@ -19,8 +19,8 @@ describe('github issues', () => {
               result: 4,
             });
             expect(ws.getCell('A5').value).to.deep.equal(
-              {sharedFormula: 'A4', result: 5},
-              explain
+              { sharedFormula: 'A4', result: 5 },
+              explain,
             );
           });
       });

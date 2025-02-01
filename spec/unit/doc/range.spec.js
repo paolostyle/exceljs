@@ -13,7 +13,7 @@ describe('Range', () => {
     left,
     bottom,
     right,
-    sheetName
+    sheetName,
   ) {
     expect(d.range).to.equal(range);
     expect(d.$range).to.equal($range);
@@ -47,7 +47,7 @@ describe('Range', () => {
       5,
       2,
       10,
-      4
+      4,
     );
     check(
       new Range('B10:D5'),
@@ -60,7 +60,7 @@ describe('Range', () => {
       5,
       2,
       10,
-      4
+      4,
     );
     check(
       new Range('D5:B10'),
@@ -73,7 +73,7 @@ describe('Range', () => {
       5,
       2,
       10,
-      4
+      4,
     );
     check(
       new Range('D10:B5'),
@@ -86,7 +86,7 @@ describe('Range', () => {
       5,
       2,
       10,
-      4
+      4,
     );
 
     check(
@@ -100,7 +100,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range('C7', 'G16'),
@@ -113,7 +113,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range('C16', 'G7'),
@@ -126,7 +126,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range('G16', 'C7'),
@@ -139,7 +139,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
 
     check(
@@ -153,7 +153,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range(16, 3, 7, 7),
@@ -166,7 +166,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range(7, 7, 16, 3),
@@ -179,7 +179,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range(16, 7, 7, 3),
@@ -192,7 +192,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
 
     check(
@@ -206,7 +206,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range([16, 3, 7, 7]),
@@ -219,7 +219,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range([7, 7, 16, 3]),
@@ -232,7 +232,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
     check(
       new Range([16, 7, 7, 3]),
@@ -245,7 +245,7 @@ describe('Range', () => {
       7,
       3,
       16,
-      7
+      7,
     );
 
     check(
@@ -259,7 +259,7 @@ describe('Range', () => {
       5,
       2,
       10,
-      4
+      4,
     );
     check(
       new Range('blort!$B$5:$D$10'),
@@ -273,7 +273,7 @@ describe('Range', () => {
       2,
       10,
       4,
-      'blort'
+      'blort',
     );
   });
 
@@ -291,7 +291,7 @@ describe('Range', () => {
     expect(d.toString()).to.equal('A1:C3');
   });
 
-  it('doesn\'t always include the default row/col', () => {
+  it("doesn't always include the default row/col", () => {
     const d = new Range();
 
     d.expand(2, 2, 4, 4);

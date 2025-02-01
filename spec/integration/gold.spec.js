@@ -20,7 +20,7 @@ describe('Gold Book', () => {
       // const b4 = ws.getCell('B4').value;
       // console.log(typeof b4, b4);
       expect(ws.getCell('B4').value).to.equalDate(
-        new Date('2016-05-17T00:00:00.000Z')
+        new Date('2016-05-17T00:00:00.000Z'),
       );
       expect(ws.getCell('B5').value).to.deep.equal({
         formula: 'B1',

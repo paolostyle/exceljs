@@ -1,5 +1,3 @@
-'use strict';
-
 const HrStopwatch = require('./utils/hr-stopwatch');
 const Excel = require('../excel');
 
@@ -21,6 +19,6 @@ wb.xlsx
       console.log(id, sheet.name);
     });
   })
-  .catch(error => {
+  .catch((error) => {
     console.error('something went wrong', error.stack);
   });

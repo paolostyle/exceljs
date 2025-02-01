@@ -43,7 +43,7 @@ const _ = Object.assign(
       return clone;
     },
   },
-  require('#lib/utils/under-dash.js')
+  require('#lib/utils/under-dash.js'),
 );
 
 module.exports = _;

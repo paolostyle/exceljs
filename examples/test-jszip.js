@@ -10,11 +10,11 @@ const jsZip = new JSZip();
 
 fsp
   .readFileAsync(filename)
-  .then(data => {
+  .then((data) => {
     console.log('data', data);
     return jsZip.loadAsync(data);
   })
-  .then(zip => {
+  .then((zip) => {
     zip.forEach((path, entry) => {
       if (!entry.dir) {
         // console.log(path, entry)
@@ -22,7 +22,7 @@ fsp
           path,
           entry.name,
           entry._data.compressedSize,
-          entry._data.uncompressedSize
+          entry._data.uncompressedSize,
         );
       }
     });

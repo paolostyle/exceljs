@@ -18,7 +18,7 @@ async function save() {
 
   // options defined but spinCount not
   stopwatch.start();
-  await ws.protect(password, {insertRows: true}); // default 100000
+  await ws.protect(password, { insertRows: true }); // default 100000
   console.log('Protection Time [spinCount default]:', stopwatch.microseconds);
 
   await wb.xlsx.writeFile(`${1}-${filename}`);
@@ -31,9 +31,9 @@ async function save() {
     -1,
     undefined,
     null,
-    NaN,
-    Infinity,
-    -Infinity,
+    Number.NaN,
+    Number.POSITIVE_INFINITY,
+    Number.NEGATIVE_INFINITY,
     31415.9265,
   ];
 
@@ -42,10 +42,10 @@ async function save() {
     const value = values[index];
 
     stopwatch.start();
-    await ws.protect(password, {spinCount: value});
+    await ws.protect(password, { spinCount: value });
     console.log(
       `Protection Time [spinCount ${value}]:`,
-      stopwatch.microseconds
+      stopwatch.microseconds,
     );
 
     await wb.xlsx.writeFile(`${index + 2}-${filename}`);
@@ -53,6 +53,6 @@ async function save() {
   /*eslint-enable no-await-in-loop*/
 }
 
-save().catch(error => {
+save().catch((error) => {
   console.log(error.message);
 });

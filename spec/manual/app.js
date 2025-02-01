@@ -1,5 +1,3 @@
-'use strict';
-
 /* eslint-disable no-console */
 
 const fs = require('fs');
@@ -10,10 +8,10 @@ const StreamBuf = require('#lib/utils/stream-buf.js');
 
 console.log('Copying bundle.js to public folder');
 fs.createReadStream(`${__dirname}/../../dist/exceljs.min.js`).pipe(
-  fs.createWriteStream(`${__dirname}/public/exceljs.min.js`)
+  fs.createWriteStream(`${__dirname}/public/exceljs.min.js`),
 );
 fs.createReadStream(`${__dirname}/../../dist/exceljs.js`).pipe(
-  fs.createWriteStream(`${__dirname}/public/exceljs.js`)
+  fs.createWriteStream(`${__dirname}/public/exceljs.js`),
 );
 
 const app = express();
@@ -27,7 +25,7 @@ app.post('/api/upload', (req, res) => {
   stream.on('finish', () => {
     const base64 = stream.read();
 
-    wb.xlsx.load(base64, {base64: true}).then(() => {
+    wb.xlsx.load(base64, { base64: true }).then(() => {
       const ws = wb.getWorksheet('blort');
 
       console.log('XLSX uploaded:');

@@ -5,9 +5,9 @@ const main = {
   cleanDir(path) {
     const deferred = Promise.defer();
 
-    const remove = function(file) {
+    const remove = (file) => {
       const myDeferred = Promise.defer();
-      const myHandler = function(err) {
+      const myHandler = (err) => {
         if (err) {
           myDeferred.reject(err);
         } else {
@@ -38,7 +38,7 @@ const main = {
         deferred.reject(err);
       } else {
         const promises = [];
-        _.each(files, file => {
+        _.each(files, (file) => {
           promises.push(remove(`${path}/${file}`));
         });
 
@@ -46,7 +46,7 @@ const main = {
           .then(() => {
             deferred.resolve();
           })
-          .catch(error => {
+          .catch((error) => {
             deferred.reject(error);
           });
       }

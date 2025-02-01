@@ -53,7 +53,7 @@ module.exports = {
   properties: tools.fix(require('./data/sheet-properties.json')),
   pageSetup: tools.fix(require('./data/page-setup.json')),
   conditionalFormatting: tools.fix(
-    require('./data/conditional-formatting.json')
+    require('./data/conditional-formatting.json'),
   ),
   headerFooter: tools.fix(require('./data/header-footer.json')),
 
@@ -62,10 +62,10 @@ module.exports = {
     sheets = sheets || ['values'];
 
     workbook.views = [
-      {x: 1, y: 2, width: 10000, height: 20000, firstSheet: 0, activeTab: 0},
+      { x: 1, y: 2, width: 10000, height: 20000, firstSheet: 0, activeTab: 0 },
     ];
 
-    sheets.forEach(sheet => {
+    sheets.forEach((sheet) => {
       const testSheet = _.get(testSheets, sheet);
       testSheet.addSheet(workbook, options);
     });
@@ -93,7 +93,7 @@ module.exports = {
       ]);
     }
 
-    sheets.forEach(sheet => {
+    sheets.forEach((sheet) => {
       const testSheet = _.get(testSheets, sheet);
       testSheet.checkSheet(workbook, options);
     });

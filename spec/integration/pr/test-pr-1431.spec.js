@@ -5,8 +5,8 @@ describe('github issues', () => {
     const rowData = [
       {
         richText: [
-          {font: {bold: true}, text: 'This should '},
-          {font: {italic: true}, text: 'be one shared string value'},
+          { font: { bold: true }, text: 'This should ' },
+          { font: { italic: true }, text: 'be one shared string value' },
         ],
       },
       'this should be the second shared string',
@@ -32,16 +32,16 @@ describe('github issues', () => {
           sharedStrings: 'cache',
           styles: 'cache',
           worksheets: 'emit',
-        }
+        },
       );
 
-      workbookReader.on('worksheet', worksheet =>
-        worksheet.on('row', row => {
+      workbookReader.on('worksheet', (worksheet) =>
+        worksheet.on('row', (row) => {
           expect(row.values[1]).to.eql(rowData[0]);
           expect(row.values[2]).to.equal(rowData[1]);
 
           resolve();
-        })
+        }),
       );
       workbookReader.on('error', reject);
 

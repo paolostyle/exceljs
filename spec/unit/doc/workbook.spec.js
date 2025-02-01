@@ -37,7 +37,7 @@ function createSimpleWorkbook() {
   };
 
   // number formula
-  ws.getCell('A2').value = {formula: 'A1', result: 7};
+  ws.getCell('A2').value = { formula: 'A1', result: 7 };
   ws.getCell('A2').name = 'TheFormula';
 
   // string formula
@@ -48,8 +48,8 @@ function createSimpleWorkbook() {
   ws.getCell('B2').name = 'TheFormula';
 
   // date formula
-  ws.getCell('C2').value = {formula: 'D1', result: new Date()};
-  ws.getCell('C3').value = {formula: 'D1'};
+  ws.getCell('C2').value = { formula: 'D1', result: new Date() };
+  ws.getCell('C3').value = { formula: 'D1' };
 
   return wb;
 }
@@ -103,7 +103,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 0},
+            color: { theme: 0 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -114,7 +114,7 @@ describe('Workbook', () => {
           font: {
             italic: true,
             size: 12,
-            color: {theme: 0},
+            color: { theme: 0 },
             name: 'Calibri',
             scheme: 'minor',
           },
@@ -123,7 +123,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -133,7 +133,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {argb: 'FFFF6600'},
+            color: { argb: 'FFFF6600' },
             name: 'Calibri',
             scheme: 'minor',
           },
@@ -142,7 +142,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -152,7 +152,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {argb: 'FFCCFFCC'},
+            color: { argb: 'FFCCFFCC' },
             name: 'Calibri',
             scheme: 'minor',
           },
@@ -161,7 +161,7 @@ describe('Workbook', () => {
         {
           font: {
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -172,7 +172,7 @@ describe('Workbook', () => {
           font: {
             bold: true,
             size: 12,
-            color: {theme: 1},
+            color: { theme: 1 },
             name: 'Calibri',
             family: 2,
             scheme: 'minor',
@@ -183,7 +183,7 @@ describe('Workbook', () => {
     };
 
     expect(ws.getCell('A1').text).to.equal(
-      'This is a colorful text with in-cell format'
+      'This is a colorful text with in-cell format',
     );
     expect(ws.getCell('A1').type).to.equal(Excel.ValueType.RichText);
   });
@@ -246,23 +246,23 @@ describe('Workbook', () => {
 
       for (let i = 1; i <= 3; i++) {
         expect(ws.getCell(`A${i}`).font).to.deep.equal(
-          testUtils.styles.fonts.arialBlackUI14
+          testUtils.styles.fonts.arialBlackUI14,
         );
         expect(ws.getCell(`B${i}`).font).to.deep.equal(
-          testUtils.styles.fonts.comicSansUdB16
+          testUtils.styles.fonts.comicSansUdB16,
         );
         expect(ws.getCell(`C${i}`).fill).to.deep.equal(
-          testUtils.styles.fills.redDarkVertical
+          testUtils.styles.fills.redDarkVertical,
         );
       }
       expect(ws.getCell('A4').alignment).to.deep.equal(
-        testUtils.styles.namedAlignments.topLeft
+        testUtils.styles.namedAlignments.topLeft,
       );
       expect(ws.getCell('B4').alignment).to.deep.equal(
-        testUtils.styles.namedAlignments.middleCentre
+        testUtils.styles.namedAlignments.middleCentre,
       );
       expect(ws.getCell('C4').alignment).to.deep.equal(
-        testUtils.styles.namedAlignments.bottomRight
+        testUtils.styles.namedAlignments.bottomRight,
       );
 
       expect(ws.getRow(1).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
@@ -306,15 +306,15 @@ describe('Workbook', () => {
 
       for (let i = 1; i <= 2; i++) {
         expect(ws.getCell(`A${i}`).font).to.deep.equal(
-          testUtils.styles.fonts.arialBlackUI14
+          testUtils.styles.fonts.arialBlackUI14,
         );
         expect(ws.getCell(`A${i}`).alignment).to.be.undefined();
         expect(ws.getCell(`B${i}`).font).to.deep.equal(
-          testUtils.styles.fonts.comicSansUdB16
+          testUtils.styles.fonts.comicSansUdB16,
         );
         expect(ws.getCell(`B${i}`).alignment).to.undefined();
         expect(ws.getCell(`C${i}`).fill).to.deep.equal(
-          testUtils.styles.fills.redDarkVertical
+          testUtils.styles.fills.redDarkVertical,
         );
         expect(ws.getCell(`C${i}`).alignment).to.undefined();
       }
@@ -323,7 +323,7 @@ describe('Workbook', () => {
       expect(ws.getRow(2).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
       expect(ws.getRow(3).numFmt).to.be.undefined();
       expect(ws.getRow(3).font).to.deep.equal(
-        testUtils.styles.fonts.broadwayRedOutline20
+        testUtils.styles.fonts.broadwayRedOutline20,
       );
     });
   });

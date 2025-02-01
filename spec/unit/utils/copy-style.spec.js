@@ -1,6 +1,6 @@
 const testUtils = require('../../utils/index');
 
-const {copyStyle} = require('#lib/utils/copy-style.js');
+const { copyStyle } = require('#lib/utils/copy-style.js');
 
 const style1 = {
   numFmt: testUtils.styles.numFmts.numFmt1,

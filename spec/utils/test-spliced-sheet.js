@@ -114,7 +114,7 @@ module.exports = {
           2,
           ['one', 'two', 'three'],
           ['une', 'deux', 'trois'],
-          ['uno', 'due', 'tre']
+          ['uno', 'due', 'tre'],
         );
       },
 
@@ -142,13 +142,13 @@ module.exports = {
         ws.getCell('B2').fill = {
           type: 'pattern',
           pattern: 'darkVertical',
-          fgColor: {argb: 'FFFF0000'},
+          fgColor: { argb: 'FFFF0000' },
         };
         ws.getRow(3).border = {
-          top: {style: 'thin'},
-          left: {style: 'thin'},
-          bottom: {style: 'thin'},
-          right: {style: 'thin'},
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
         };
         ws.getRow(4).alignment = {
           horizontal: 'left',
@@ -198,7 +198,7 @@ module.exports = {
         ws.getCell('A2').fill = {
           type: 'pattern',
           pattern: 'darkVertical',
-          fgColor: {argb: 'FFFF0000'},
+          fgColor: { argb: 'FFFF0000' },
         };
         ws.getRow(2).alignment = {
           horizontal: 'left',
@@ -207,10 +207,10 @@ module.exports = {
 
         ws.spliceRows(2, 0, ['one', 'two', 'three']);
         ws.getCell('A2').border = {
-          top: {style: 'thin'},
-          left: {style: 'thin'},
-          bottom: {style: 'thin'},
-          right: {style: 'thin'},
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
         };
       },
 
@@ -227,10 +227,10 @@ module.exports = {
           vertical: 'middle',
         });
         expect(ws.getCell('A2').style.border).to.deep.equal({
-          top: {style: 'thin'},
-          left: {style: 'thin'},
-          bottom: {style: 'thin'},
-          right: {style: 'thin'},
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
         });
         expect(ws.getCell('A3').style.alignment).to.deep.equal({
           horizontal: 'left',
@@ -239,7 +239,7 @@ module.exports = {
         expect(ws.getCell('A3').style.fill).to.deep.equal({
           type: 'pattern',
           pattern: 'darkVertical',
-          fgColor: {argb: 'FFFF0000'},
+          fgColor: { argb: 'FFFF0000' },
         });
       },
     },
@@ -335,8 +335,8 @@ module.exports = {
         wsSquare.addRow(['3,1', '3,2', '3,3', '3,4']);
         wsSquare.addRow(['4,1', '4,2', '4,3', '4,4']);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             wsSquare.getCell(col + row).name = 'square';
           });
         });
@@ -349,8 +349,8 @@ module.exports = {
         wsSingles.getCell('D1').value = '1,4';
         wsSingles.getCell('D4').value = '4,4';
 
-        ['A', 'D'].forEach(col => {
-          [1, 4].forEach(row => {
+        ['A', 'D'].forEach((col) => {
+          [1, 4].forEach((row) => {
             wsSingles.getCell(col + row).name = `single-${col}${row}`;
           });
         });
@@ -377,8 +377,8 @@ module.exports = {
           '4,4',
         ]);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3].forEach((row) => {
             if (row === 3) {
               expect(wsSquare.getCell(col + row).name).to.be.undefined();
             } else {
@@ -407,8 +407,8 @@ module.exports = {
         wsSquare.addRow(['3,1', '3,2', '3,3', '3,4']);
         wsSquare.addRow(['4,1', '4,2', '4,3', '4,4']);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             wsSquare.getCell(col + row).name = 'square';
           });
         });
@@ -421,8 +421,8 @@ module.exports = {
         wsSingles.getCell('D1').value = '1,4';
         wsSingles.getCell('D4').value = '4,4';
 
-        ['A', 'D'].forEach(col => {
-          [1, 4].forEach(row => {
+        ['A', 'D'].forEach((col) => {
+          [1, 4].forEach((row) => {
             wsSingles.getCell(col + row).name = `single-${col}${row}`;
           });
         });
@@ -470,8 +470,8 @@ module.exports = {
           '4,4',
         ]);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4, 5].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4, 5].forEach((row) => {
             if (row === 3) {
               expect(wsSquare.getCell(col + row).name).to.be.undefined();
             } else {
@@ -506,8 +506,8 @@ module.exports = {
         wsSquare.addRow(['3,1', '3,2', '3,3', '3,4']);
         wsSquare.addRow(['4,1', '4,2', '4,3', '4,4']);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             wsSquare.getCell(col + row).name = 'square';
           });
         });
@@ -520,8 +520,8 @@ module.exports = {
         wsSingles.getCell('D1').value = '1,4';
         wsSingles.getCell('D4').value = '4,4';
 
-        ['A', 'D'].forEach(col => {
-          [1, 4].forEach(row => {
+        ['A', 'D'].forEach((col) => {
+          [1, 4].forEach((row) => {
             wsSingles.getCell(col + row).name = `single-${col}${row}`;
           });
         });
@@ -562,8 +562,8 @@ module.exports = {
           '4,4',
         ]);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             if (row === 2) {
               expect(wsSquare.getCell(col + row).name).to.be.undefined();
             } else {
@@ -598,14 +598,14 @@ module.exports = {
         const ws = wb.addWorksheet('splice-column-remove-only');
 
         ws.columns = [
-          {key: 'id', width: 10},
-          {key: 'name', width: 32},
-          {key: 'dob', width: 10},
+          { key: 'id', width: 10 },
+          { key: 'name', width: 32 },
+          { key: 'dob', width: 10 },
         ];
 
-        ws.addRow({id: 'id1', name: 'name1', dob: 'dob1'});
-        ws.addRow({id: 2, dob: 'dob2'});
-        ws.addRow({name: 'name3', dob: 3});
+        ws.addRow({ id: 'id1', name: 'name1', dob: 'dob1' });
+        ws.addRow({ id: 2, dob: 'dob2' });
+        ws.addRow({ name: 'name3', dob: 3 });
 
         ws.spliceColumns(2, 1);
       },
@@ -690,7 +690,7 @@ module.exports = {
           2,
           2,
           ['one', 'two', 'three', 'four', 'five'],
-          ['une', 'deux', 'trois', 'quatre', 'cinq']
+          ['une', 'deux', 'trois', 'quatre', 'cinq'],
         );
       },
 
@@ -749,7 +749,7 @@ module.exports = {
           2,
           ['one', 'two', 'three', 'four', 'five'],
           ['une', 'deux', 'trois', 'quatre', 'cinq'],
-          ['uno', 'due', 'tre', 'quatro', 'cinque']
+          ['uno', 'due', 'tre', 'quatro', 'cinque'],
         );
       },
 
@@ -814,13 +814,13 @@ module.exports = {
         ws.getCell('B2').fill = {
           type: 'pattern',
           pattern: 'darkVertical',
-          fgColor: {argb: 'FFFF0000'},
+          fgColor: { argb: 'FFFF0000' },
         };
         ws.getColumn(3).border = {
-          top: {style: 'thin'},
-          left: {style: 'thin'},
-          bottom: {style: 'thin'},
-          right: {style: 'thin'},
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
         };
         ws.getColumn(4).alignment = {
           horizontal: 'left',
@@ -867,7 +867,7 @@ module.exports = {
         ws.getCell('B2').fill = {
           type: 'pattern',
           pattern: 'darkVertical',
-          fgColor: {argb: 'FFFF0000'},
+          fgColor: { argb: 'FFFF0000' },
         };
         ws.getColumn(2).alignment = {
           horizontal: 'left',
@@ -876,10 +876,10 @@ module.exports = {
 
         ws.spliceColumns(2, 0, ['one', 'two', 'three']);
         ws.getCell('B2').border = {
-          top: {style: 'thin'},
-          left: {style: 'thin'},
-          bottom: {style: 'thin'},
-          right: {style: 'thin'},
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
         };
       },
 
@@ -917,10 +917,10 @@ module.exports = {
         });
         expect(ws.getCell('B2').style).to.deep.equal({
           border: {
-            top: {style: 'thin'},
-            left: {style: 'thin'},
-            bottom: {style: 'thin'},
-            right: {style: 'thin'},
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
           },
         });
         expect(ws.getCell('C2').style).to.deep.equal({
@@ -931,7 +931,7 @@ module.exports = {
           fill: {
             type: 'pattern',
             pattern: 'darkVertical',
-            fgColor: {argb: 'FFFF0000'},
+            fgColor: { argb: 'FFFF0000' },
           },
         });
       },
@@ -1028,8 +1028,8 @@ module.exports = {
         wsSquare.addRow(['3,1', '3,2', '3,3', '3,4']);
         wsSquare.addRow(['4,1', '4,2', '4,3', '4,4']);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             wsSquare.getCell(col + row).name = 'square';
           });
         });
@@ -1042,8 +1042,8 @@ module.exports = {
         wsSingles.getCell('D1').value = '1,4';
         wsSingles.getCell('D4').value = '4,4';
 
-        ['A', 'D'].forEach(col => {
-          [1, 4].forEach(row => {
+        ['A', 'D'].forEach((col) => {
+          [1, 4].forEach((row) => {
             wsSingles.getCell(col + row).name = `single-${col}${row}`;
           });
         });
@@ -1060,8 +1060,8 @@ module.exports = {
         expect(wsSquare.getRow(3).values).to.deep.equal([, '3,1', '3,4']);
         expect(wsSquare.getRow(4).values).to.deep.equal([, '4,1', '4,4']);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3].forEach((row) => {
             if (['C', 'D'].includes(col)) {
               expect(wsSquare.getCell(col + row).name).to.be.undefined();
             } else {
@@ -1090,8 +1090,8 @@ module.exports = {
         wsSquare.addRow(['3,1', '3,2', '3,3', '3,4']);
         wsSquare.addRow(['4,1', '4,2', '4,3', '4,4']);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             wsSquare.getCell(col + row).name = 'square';
           });
         });
@@ -1104,8 +1104,8 @@ module.exports = {
         wsSingles.getCell('D1').value = '1,4';
         wsSingles.getCell('D4').value = '4,4';
 
-        ['A', 'D'].forEach(col => {
-          [1, 4].forEach(row => {
+        ['A', 'D'].forEach((col) => {
+          [1, 4].forEach((row) => {
             wsSingles.getCell(col + row).name = `single-${col}${row}`;
           });
         });
@@ -1150,8 +1150,8 @@ module.exports = {
           '4,4',
         ]);
 
-        ['A', 'B', 'C', 'D', 'E'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D', 'E'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             if (col === 'C') {
               expect(wsSquare.getCell(col + row).name).to.be.undefined();
             } else {
@@ -1194,8 +1194,8 @@ module.exports = {
         wsSquare.addRow(['3,1', '3,2', '3,3', '3,4']);
         wsSquare.addRow(['4,1', '4,2', '4,3', '4,4']);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             wsSquare.getCell(col + row).name = 'square';
           });
         });
@@ -1208,8 +1208,8 @@ module.exports = {
         wsSingles.getCell('D1').value = '1,4';
         wsSingles.getCell('D4').value = '4,4';
 
-        ['A', 'D'].forEach(col => {
-          [1, 4].forEach(row => {
+        ['A', 'D'].forEach((col) => {
+          [1, 4].forEach((row) => {
             wsSingles.getCell(col + row).name = `single-${col}${row}`;
           });
         });
@@ -1250,8 +1250,8 @@ module.exports = {
           '4,4',
         ]);
 
-        ['A', 'B', 'C', 'D'].forEach(col => {
-          [1, 2, 3, 4].forEach(row => {
+        ['A', 'B', 'C', 'D'].forEach((col) => {
+          [1, 2, 3, 4].forEach((row) => {
             if (col === 'B') {
               expect(wsSquare.getCell(col + row).name).to.be.undefined();
             } else {
