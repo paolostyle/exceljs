@@ -41,7 +41,8 @@
     "benchmark": "node --expose-gc benchmark",
     "benchmark:debug": "node --expose-gc --inspect-brk --trace-deopt benchmark",
     "build": "tsup",
-    "postversion": "git push --no-verify && git push --tags --no-verify"
+    "postversion": "git push --no-verify && git push --tags --no-verify",
+    "prepare": "husky"
   },
   "keywords": [
     "xls",
@@ -65,6 +66,7 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/chai": "^4.2.12",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.11.2",
@@ -72,29 +74,19 @@
     "chai-datetime": "^1.7.0",
     "chai-xml": "^0.3.2",
     "dirty-chai": "^2.0.1",
-    "eslint": "^6.5.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-prettier": "^6.12.0",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
     "express": "^4.16.4",
     "got": "^9.0.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.2.13",
+    "husky": "^9.1.7",
     "mocha": "^7.2.0",
-    "prettier-eslint": "^11.0.0",
-    "prettier-eslint-cli": "^5.0.0",
-    "regenerator-runtime": "^0.13.7",
     "tsup": "^8.3.6",
     "typescript": "^5.7.3"
   },
   "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b",
   "pnpm": {
     "onlyBuiltDependencies": [
-      "puppeteer",
       "husky",
-      "esbuild"
+      "esbuild",
+      "@biomejs/biome"
     ]
   }
 }
