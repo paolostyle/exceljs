@@ -1,4 +1,4 @@
-const utils = require('./utils/utils');
+const utils = require('./utils/utils').default;
 const HrStopwatch = require('./utils/hr-stopwatch');
 
 const StringBuf = require('#lib/utils/string-buf.js');

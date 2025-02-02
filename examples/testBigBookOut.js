@@ -1,4 +1,4 @@
-const utils = require('./utils/utils');
+const utils = require('./utils/utils').default;
 const HrStopwatch = require('./utils/hr-stopwatch');
 const ColumnSum = require('./utils/column-sum');
 

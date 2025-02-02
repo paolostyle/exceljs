@@ -1,5 +1,5 @@
-const fs = require('node:fs');
-const _ = require('#lib/utils/under-dash.js');
+import { stat as _stat, readdir, rmdir, unlink } from 'node:fs';
+import { each } from '#lib/utils/under-dash.js';
 
 const main = {
   cleanDir(path) {
@@ -14,18 +14,18 @@ const main = {
           myDeferred.resolve();
         }
       };
-      fs.stat(file, (err, stat) => {
+      _stat(file, (err, stat) => {
         if (err) {
           myDeferred.reject(err);
         } else if (stat.isFile()) {
           console.log(`unlink ${file}`);
-          fs.unlink(file, myHandler);
+          unlink(file, myHandler);
         } else if (stat.isDirectory()) {
           main
             .cleanDir(file)
             .then(() => {
               console.log(`rmdir ${file}`);
-              fs.rmdir(file, myHandler);
+              rmdir(file, myHandler);
             })
             .catch(myHandler);
         }
@@ -33,12 +33,12 @@ const main = {
       return myDeferred.promise;
     };
 
-    fs.readdir(path, (err, files) => {
+    readdir(path, (err, files) => {
       if (err) {
         deferred.reject(err);
       } else {
         const promises = [];
-        _.each(files, (file) => {
+        each(files, (file) => {
           promises.push(remove(`${path}/${file}`));
         });
 
@@ -55,8 +55,7 @@ const main = {
     return deferred.promise;
   },
 
-  randomName(length) {
-    length = length || 5;
+  randomName(length = 5) {
     const text = [];
     const possible =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -88,4 +87,4 @@ const main = {
   },
 };
 
-module.exports = main;
+export default main;
