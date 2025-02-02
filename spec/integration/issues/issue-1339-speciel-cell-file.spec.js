@@ -1,12 +1,11 @@
 import ExcelJS from '#lib';
-
-// this file to contain integration tests created from github issues
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
+import { getTempFileName } from '../../utils/index';
 
 describe('github issues', () => {
   it('issue 1339 - Special cell value results invalid file', async () => {
+    const testFileName = getTempFileName();
     const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
-      filename: TEST_XLSX_FILE_NAME,
+      filename: testFileName,
       useStyles: true,
       useSharedStrings: true,
     });
@@ -32,7 +31,7 @@ describe('github issues', () => {
     }
     await wb.commit();
     const wb2 = new ExcelJS.Workbook();
-    await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+    await wb2.xlsx.readFile(testFileName);
     const ws2 = wb2.getWorksheet('Sheet1');
     for (let i = 0, len = specialValues.length; i < len; i++) {
       const value = specialValues[i];

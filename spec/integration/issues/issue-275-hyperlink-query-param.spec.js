@@ -1,7 +1,7 @@
 import ExcelJS from '#lib';
 
 // this file to contain integration tests created from github issues
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
+const TEST_XLSX_FILE_NAME = './spec/out/test-issue-275.xlsx';
 
 describe('github issues', () => {
   it('issue 275 - hyperlink with query arguments corrupts workbook', () => {

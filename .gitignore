@@ -12,11 +12,11 @@ dist
 build
 
 # Test Output Folder
-out/*
-spec/out/*
+out
+spec/out
 
 # Tmp folder
-tmp/*
+tmp
 
 # WebStorm
 .idea

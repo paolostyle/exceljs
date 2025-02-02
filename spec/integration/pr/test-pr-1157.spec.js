@@ -1,9 +1,9 @@
 import ExcelJS from '#lib';
-
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
+import { getTempFileName } from '../../utils';
 
 describe('github issues', () => {
   it('pull request 1204 - Read and write data validation should be successful', async () => {
+    const testFileName = getTempFileName();
     const wb = new ExcelJS.Workbook();
     await wb.xlsx.readFile('./spec/integration/data/test-pr-1204.xlsx');
     const expected = {
@@ -24,6 +24,6 @@ describe('github issues', () => {
     };
     const ws = wb.getWorksheet(1);
     expect(ws.dataValidations.model).to.deep.equal(expected);
-    await wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
+    await wb.xlsx.writeFile(testFileName);
   });
 });

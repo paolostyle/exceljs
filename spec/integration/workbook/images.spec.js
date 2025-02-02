@@ -2,9 +2,9 @@ import fs from 'node:fs';
 import { promisify } from 'node:util';
 
 import ExcelJS from '#lib';
+import { getTempFileName } from '../../utils/index';
 
 const IMAGE_FILENAME = `${__dirname}/../data/image.png`;
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 const fsReadFileAsync = promisify(fs.readFile);
 
 // =============================================================================
@@ -12,6 +12,12 @@ const fsReadFileAsync = promisify(fs.readFile);
 
 describe('Workbook', () => {
   describe('Images', () => {
+    let testFileName;
+
+    beforeEach(() => {
+      testFileName = getTempFileName();
+    });
+
     it('stores background image', () => {
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('blort');
@@ -26,10 +32,10 @@ describe('Workbook', () => {
       ws.addBackgroundImage(imageId);
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
@@ -64,10 +70,10 @@ describe('Workbook', () => {
       ws.addImage(imageId, 'C3:E6');
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
@@ -114,10 +120,10 @@ describe('Workbook', () => {
       });
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
@@ -155,10 +161,10 @@ describe('Workbook', () => {
       });
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
@@ -202,10 +208,10 @@ describe('Workbook', () => {
       });
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
@@ -260,10 +266,10 @@ describe('Workbook', () => {
       });
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');

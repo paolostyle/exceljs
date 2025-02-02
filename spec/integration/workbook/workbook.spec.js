@@ -1,23 +1,26 @@
-import testUtils from '../../utils/index';
+import testUtils, { getTempFileName } from '../../utils/index';
 
 import ExcelJS from '#lib';
-
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
-const TEST_CSV_FILE_NAME = './spec/out/wb.test.csv';
 
 // =============================================================================
 // Tests
 
 describe('Workbook', () => {
   describe('Serialise', () => {
+    let testFileName;
+
+    beforeEach(() => {
+      testFileName = getTempFileName();
+    });
+
     it('xlsx file', () => {
       const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           testUtils.checkTestBook(wb2, 'xlsx');
@@ -28,7 +31,7 @@ describe('Workbook', () => {
         const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME, {
+          .writeFile(testFileName, {
             zip: {
               compression: 'DEFLATE',
               compressionOptions: {
@@ -38,7 +41,7 @@ describe('Workbook', () => {
           })
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             testUtils.checkTestBook(wb2, 'xlsx');
@@ -49,14 +52,14 @@ describe('Workbook', () => {
         const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME, {
+          .writeFile(testFileName, {
             zip: {
               compression: 'DEFLATE',
             },
           })
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             testUtils.checkTestBook(wb2, 'xlsx');
@@ -67,7 +70,7 @@ describe('Workbook', () => {
         const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME, {
+          .writeFile(testFileName, {
             zip: {
               compression: 'DEFLATE',
               compressionOptions: {
@@ -77,7 +80,7 @@ describe('Workbook', () => {
           })
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             testUtils.checkTestBook(wb2, 'xlsx');
@@ -88,14 +91,14 @@ describe('Workbook', () => {
         const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME, {
+          .writeFile(testFileName, {
             zip: {
               compression: 'STORE',
             },
           })
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             testUtils.checkTestBook(wb2, 'xlsx');
@@ -115,10 +118,10 @@ describe('Workbook', () => {
       wb.addWorksheet('This & That');
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           expect(wb2.getWorksheet('Hello, World!')).toBeTruthy();
@@ -135,10 +138,10 @@ describe('Workbook', () => {
       wb.created = new Date(2016, 0, 1);
       wb.modified = new Date(2016, 4, 19);
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           expect(wb2.creator).to.equal(wb.creator);
@@ -162,10 +165,10 @@ describe('Workbook', () => {
       ws.pageSetup.printTitlesRow = '1:2';
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('printHeader');
@@ -173,7 +176,7 @@ describe('Workbook', () => {
           expect(ws2.pageSetup.printTitlesColumn).toBeUndefined();
         });
     });
-    it('printTitlesColumn', () => {
+    it('printTitlesColumn', async () => {
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('printColumn');
 
@@ -191,17 +194,12 @@ describe('Workbook', () => {
 
       ws.pageSetup.printTitlesRow = 'A:B';
 
-      return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
-        .then(() => {
-          const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
-        })
-        .then((wb2) => {
-          const ws2 = wb2.getWorksheet('printColumn');
-          expect(ws2.pageSetup.printTitlesRow).toBeUndefined();
-          expect(ws2.pageSetup.printTitlesColumn).to.equal('A:B');
-        });
+      await wb.xlsx.writeFile(testFileName);
+      const wb2 = new ExcelJS.Workbook();
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
+      const ws2 = wb2_1.getWorksheet('printColumn');
+      expect(ws2.pageSetup.printTitlesRow).toBeUndefined();
+      expect(ws2.pageSetup.printTitlesColumn).to.equal('A:B');
     });
     it('printTitlesRowAndColumn', () => {
       const wb = new ExcelJS.Workbook();
@@ -237,10 +235,10 @@ describe('Workbook', () => {
       }
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('printHeaderAndColumn');
@@ -257,10 +255,10 @@ describe('Workbook', () => {
         [3, 4],
       ]);
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('Hello');
@@ -298,10 +296,10 @@ describe('Workbook', () => {
       ws.autoFilter = 'A1:B1';
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('Hello');
@@ -316,10 +314,10 @@ describe('Workbook', () => {
       wb.company = 'Cyber Sapiens, Ltd';
       wb.manager = 'Guyon Roche';
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           expect(wb2.company).to.equal(wb.company);
@@ -336,9 +334,9 @@ describe('Workbook', () => {
       wb.keywords = 'the keywords';
       wb.category = 'the category';
       wb.description = 'the description';
-      await wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
+      await wb.xlsx.writeFile(testFileName);
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       expect(wb2_1.title).to.equal(wb.title);
       expect(wb2_1.subject).to.equal(wb.subject);
       expect(wb2_1.keywords).to.equal(wb.keywords);
@@ -354,10 +352,10 @@ describe('Workbook', () => {
       wb.revision = 2;
       wb.contentStauts = 'Final';
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           expect(wb2.language).to.equal(wb.language);
@@ -373,10 +371,10 @@ describe('Workbook', () => {
       ws.getCell('A2').value = '';
       ws.getCell('A3').value = 'Baz';
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('Hello');
@@ -393,10 +391,10 @@ describe('Workbook', () => {
       ]);
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           testUtils.checkTestBook(wb2, 'xlsx', ['dataValidations']);
@@ -414,40 +412,36 @@ describe('Workbook', () => {
 
       ws.addRow({ id: 1, name: '' });
 
-      return wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
+      return wb.xlsx.writeFile(testFileName);
     });
 
-    it(
-      'a lot of sheets to xlsx file',
-      async () => {
-        let i;
-        const wb = new ExcelJS.Workbook();
-        const numSheets = 90;
-        // add numSheets sheets
-        for (i = 1; i <= numSheets; i++) {
-          const ws = wb.addWorksheet(`sheet${i}`);
-          ws.getCell('A1').value = i;
-        }
-        await wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
-        const wb2 = new ExcelJS.Workbook();
-        const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
-        for (i = 1; i <= numSheets; i++) {
-          const ws2 = wb2_1.getWorksheet(`sheet${i}`);
-          expect(ws2).toBeTruthy();
-          expect(ws2.getCell('A1').value).to.equal(i);
-        }
-      },
-      { timeout: 10000 },
-    );
+    it('a lot of sheets to xlsx file', { timeout: 10000 }, async () => {
+      let i;
+      const wb = new ExcelJS.Workbook();
+      const numSheets = 90;
+      // add numSheets sheets
+      for (i = 1; i <= numSheets; i++) {
+        const ws = wb.addWorksheet(`sheet${i}`);
+        ws.getCell('A1').value = i;
+      }
+      await wb.xlsx.writeFile(testFileName);
+      const wb2 = new ExcelJS.Workbook();
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
+      for (i = 1; i <= numSheets; i++) {
+        const ws2 = wb2_1.getWorksheet(`sheet${i}`);
+        expect(ws2).toBeTruthy();
+        expect(ws2.getCell('A1').value).to.equal(i);
+      }
+    });
 
     it('csv file', () => {
       const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'csv');
 
       return wb.csv
-        .writeFile(TEST_CSV_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.csv.readFile(TEST_CSV_FILE_NAME).then(() => wb2);
+          return wb2.csv.readFile(testFileName).then(() => wb2);
         })
         .then((wb2) => {
           testUtils.checkTestBook(wb2, 'csv');
@@ -477,12 +471,10 @@ describe('Workbook', () => {
       const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'csv');
 
       return wb.csv
-        .writeFile(TEST_CSV_FILE_NAME, writeOptions)
+        .writeFile(testFileName, writeOptions)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.csv
-            .readFile(TEST_CSV_FILE_NAME, readOptions)
-            .then(() => wb2);
+          return wb2.csv.readFile(testFileName, readOptions).then(() => wb2);
         })
         .then((wb2) => {
           testUtils.checkTestBook(wb2, 'csv', false, writeOptions);
@@ -536,10 +528,10 @@ describe('Workbook', () => {
       ws1a.getCell('G2').removeName('once');
 
       return wb1.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2a = wb2.getWorksheet('blort');
@@ -619,10 +611,10 @@ describe('Workbook', () => {
           ws.duplicateRow(1, 2);
 
           return wb.xlsx
-            .writeFile(TEST_XLSX_FILE_NAME)
+            .writeFile(testFileName)
             .then(() => {
               const wb2 = new ExcelJS.Workbook();
-              return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+              return wb2.xlsx.readFile(testFileName);
             })
             .then((wb2) => {
               const ws2 = wb2.getWorksheet('duplicateTest');
@@ -646,10 +638,10 @@ describe('Workbook', () => {
         ws.duplicateRow(1, 2, false);
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME)
+          .writeFile(testFileName)
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             const ws2 = wb2.getWorksheet('duplicateTest');
@@ -671,10 +663,10 @@ describe('Workbook', () => {
         ws.duplicateRow(1, 2, true);
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME)
+          .writeFile(testFileName)
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             const ws2 = wb2.getWorksheet('duplicateTest');
@@ -696,10 +688,10 @@ describe('Workbook', () => {
         ws.duplicateRow(1, 1, true);
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME)
+          .writeFile(testFileName)
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             const ws2 = wb2.getWorksheet('duplicateTest');
@@ -723,10 +715,10 @@ describe('Workbook', () => {
         ws.mergeCells('B2:C3');
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME)
+          .writeFile(testFileName)
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             const ws2 = wb2.getWorksheet('blort');
@@ -760,10 +752,10 @@ describe('Workbook', () => {
         ws.mergeCells('B2:C3');
 
         return wb.xlsx
-          .writeFile(TEST_XLSX_FILE_NAME)
+          .writeFile(testFileName)
           .then(() => {
             const wb2 = new ExcelJS.Workbook();
-            return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+            return wb2.xlsx.readFile(testFileName);
           })
           .then((wb2) => {
             const ws2 = wb2.getWorksheet('blort');
@@ -837,6 +829,7 @@ describe('Workbook', () => {
   });
 
   it('spliced meat and ham', () => {
+    const testFileName = getTempFileName();
     const wb = new ExcelJS.Workbook();
     const sheets = [
       'splice.rows.removeOnly',
@@ -858,10 +851,10 @@ describe('Workbook', () => {
     testUtils.createTestBook(wb, 'xlsx', sheets, options);
 
     return wb.xlsx
-      .writeFile(TEST_XLSX_FILE_NAME)
+      .writeFile(testFileName)
       .then(() => {
         const wb2 = new ExcelJS.Workbook();
-        return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+        return wb2.xlsx.readFile(testFileName);
       })
       .then((wb2) => {
         testUtils.checkTestBook(wb2, 'xlsx', sheets, options);
@@ -914,6 +907,12 @@ describe('Workbook', () => {
   });
 
   describe('Sheet Views', () => {
+    let testFileName;
+
+    beforeEach(() => {
+      testFileName = getTempFileName();
+    });
+
     it('frozen panes', () => {
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('frozen');
@@ -931,10 +930,10 @@ describe('Workbook', () => {
       ws.getCell('A1').value = 'Let it Snow!';
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('frozen');
@@ -1008,10 +1007,10 @@ describe('Workbook', () => {
       ws.getCell('A1').value = 'Do the splits!';
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('split');
@@ -1076,10 +1075,10 @@ describe('Workbook', () => {
       ws2.views = [testUtils.views.sheet.split];
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           expect(wb2.views).to.deep.equal(wb.views);

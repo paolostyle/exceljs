@@ -1,7 +1,6 @@
 import ExcelJS from '#lib';
 
-// this file to contain integration tests created from github issues
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
+const TEST_XLSX_FILE_NAME = './spec/out/test-issue-703.xlsx';
 
 describe('github issues', () => {
   it('issue 703 - Special cell value results invalid file', () => {

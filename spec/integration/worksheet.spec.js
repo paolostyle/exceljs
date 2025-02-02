@@ -676,7 +676,7 @@ describe('Worksheet', () => {
 
       expect(ws.getRows(1, 0)).to.equal(undefined);
     });
-    context('when worksheet name is less than or equal 31', () => {
+    describe('when worksheet name is less than or equal 31', () => {
       it('save the original name', () => {
         const wb = new ExcelJS.Workbook();
         let ws = wb.addWorksheet();
@@ -689,7 +689,7 @@ describe('Worksheet', () => {
       });
     });
 
-    context('name is be not empty string', () => {
+    describe('name is be not empty string', () => {
       it('when empty should thrown an error', () => {
         const wb = new ExcelJS.Workbook();
 
@@ -708,7 +708,7 @@ describe('Worksheet', () => {
       });
     });
 
-    context('when worksheet name is `History`', () => {
+    describe('when worksheet name is `History`', () => {
       it('thrown an error', () => {
         const wb = new ExcelJS.Workbook();
 
@@ -721,7 +721,7 @@ describe('Worksheet', () => {
       });
     });
 
-    context('when worksheet name is longer than 31', () => {
+    describe('when worksheet name is longer than 31', () => {
       it('keep first 31 characters', () => {
         const wb = new ExcelJS.Workbook();
         const ws = wb.addWorksheet();
@@ -731,7 +731,7 @@ describe('Worksheet', () => {
       });
     });
 
-    context('when the worksheet name contains illegal characters', () => {
+    describe('when the worksheet name contains illegal characters', () => {
       it('throws an error', () => {
         const workbook = new ExcelJS.Workbook();
 
@@ -763,7 +763,7 @@ describe('Worksheet', () => {
       });
     });
 
-    context('when worksheet name already exists', () => {
+    describe('when worksheet name already exists', () => {
       it('throws an error', () => {
         const wb = new ExcelJS.Workbook();
 
@@ -1194,34 +1194,22 @@ describe('Worksheet', () => {
     ];
 
     for (const file of fileList) {
-      it(`Should set hidden attribute correctly (${file})`, (done) => {
+      it(`Should set hidden attribute correctly (${file})`, async () => {
         const wb = new ExcelJS.Workbook();
-        wb.xlsx
-          .readFile(
-            path.resolve(__dirname, 'data', 'hidden-test', `${file}.xlsx`),
-          )
-          .then(() => {
-            const ws = wb.getWorksheet(1);
+        await wb.xlsx.readFile(
+          path.resolve(__dirname, 'data', 'hidden-test', `${file}.xlsx`),
+        );
+        const ws = wb.getWorksheet(1);
 
-            //  Check rows
-            expect(ws.getRow(1).hidden, `${file} : Row 1`).to.equal(false);
-            expect(ws.getRow(2).hidden, `${file} : Row 2`).to.equal(true);
-            expect(ws.getRow(3).hidden, `${file} : Row 3`).to.equal(false);
+        //  Check rows
+        expect(ws.getRow(1).hidden, `${file} : Row 1`).to.equal(false);
+        expect(ws.getRow(2).hidden, `${file} : Row 2`).to.equal(true);
+        expect(ws.getRow(3).hidden, `${file} : Row 3`).to.equal(false);
 
-            //  Check columns
-            expect(ws.getColumn(1).hidden, `${file} : Column 1`).to.equal(
-              false,
-            );
-            expect(ws.getColumn(2).hidden, `${file} : Column 2`).to.equal(true);
-            expect(ws.getColumn(3).hidden, `${file} : Column 3`).to.equal(
-              false,
-            );
-
-            done();
-          })
-          .catch((error) => {
-            done(error);
-          });
+        //  Check columns
+        expect(ws.getColumn(1).hidden, `${file} : Column 1`).to.equal(false);
+        expect(ws.getColumn(2).hidden, `${file} : Column 2`).to.equal(true);
+        expect(ws.getColumn(3).hidden, `${file} : Column 3`).to.equal(false);
       });
     }
   });

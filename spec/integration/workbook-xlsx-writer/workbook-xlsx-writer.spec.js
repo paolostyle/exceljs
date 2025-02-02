@@ -1,11 +1,10 @@
 import fs from 'node:fs';
 import { promisify } from 'node:util';
 
-import testUtils from '../../utils/index';
+import testUtils, { getTempFileName } from '../../utils/index';
 
 import ExcelJS from '#lib';
 
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 const IMAGE_FILENAME = `${__dirname}/../data/image.png`;
 const fsReadFileAsync = promisify(fs.readFile);
 
@@ -20,26 +19,31 @@ describe('WorkbookWriter', () => {
   });
 
   describe('Serialise', () => {
+    let testFileName;
+
+    beforeEach(() => {
+      testFileName = getTempFileName();
+    });
+
     it('xlsx file', async () => {
-      const options = {
-        filename: TEST_XLSX_FILE_NAME,
-        useStyles: true,
-      };
       const wb = testUtils.createTestBook(
-        new ExcelJS.stream.xlsx.WorkbookWriter(options),
+        new ExcelJS.stream.xlsx.WorkbookWriter({
+          filename: testFileName,
+          useStyles: true,
+        }),
         'xlsx',
       );
 
-      wb.commit();
+      await wb.commit();
 
       const wb2 = new ExcelJS.Workbook();
-      await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      await wb2.xlsx.readFile(testFileName);
       testUtils.checkTestBook(wb2, 'xlsx');
     });
 
     it('shared formula', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useStyles: false,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
@@ -56,7 +60,7 @@ describe('WorkbookWriter', () => {
       ws.commit();
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2_1.getWorksheet('Hello');
       expect(ws2.getCell('A1').value).to.deep.equal({
         formula: 'ROW()+COLUMN()',
@@ -80,7 +84,7 @@ describe('WorkbookWriter', () => {
 
     it('auto filter', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useStyles: false,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
@@ -97,14 +101,14 @@ describe('WorkbookWriter', () => {
 
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2_1.getWorksheet('Hello');
       expect(ws2.autoFilter).to.equal('A1:B1');
     });
 
     it('Without styles', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useStyles: false,
       };
       const wb = testUtils.createTestBook(
@@ -114,7 +118,7 @@ describe('WorkbookWriter', () => {
 
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      await wb2.xlsx.readFile(testFileName);
       testUtils.checkTestBook(wb2, 'xlsx', undefined, {
         checkStyles: false,
       });
@@ -122,7 +126,7 @@ describe('WorkbookWriter', () => {
 
     it('serializes row styles and columns properly', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useStyles: true,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
@@ -150,7 +154,7 @@ describe('WorkbookWriter', () => {
 
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2_1.getWorksheet('blort');
       ['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3'].forEach(
         (address) => {
@@ -193,7 +197,7 @@ describe('WorkbookWriter', () => {
 
     it('rich text', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useStyles: true,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
@@ -217,7 +221,7 @@ describe('WorkbookWriter', () => {
       ws.commit();
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2_1.getWorksheet('Hello');
       expect(ws2.getCell('A1').value).to.deep.equal({
         richText: [
@@ -237,7 +241,7 @@ describe('WorkbookWriter', () => {
     it('A lot of sheets', async () => {
       let i;
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
       });
       const numSheets = 90;
       // add numSheets sheets
@@ -247,7 +251,7 @@ describe('WorkbookWriter', () => {
       }
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       for (i = 1; i <= numSheets; i++) {
         const ws2 = wb2_1.getWorksheet(`sheet${i}`);
         expect(ws2).toBeTruthy();
@@ -257,7 +261,7 @@ describe('WorkbookWriter', () => {
 
     it('addRow', () => {
       const options = {
-        stream: fs.createWriteStream(TEST_XLSX_FILE_NAME, { flags: 'w' }),
+        stream: fs.createWriteStream(testFileName, { flags: 'w' }),
         useStyles: true,
         useSharedStrings: true,
       };
@@ -271,7 +275,7 @@ describe('WorkbookWriter', () => {
 
     it('defined names', async () => {
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
       });
       const ws = wb.addWorksheet('blort');
       ws.getCell('A1').value = 5;
@@ -293,7 +297,7 @@ describe('WorkbookWriter', () => {
 
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2_1.getWorksheet('blort');
       expect(ws2.getCell('A1').name).to.equal('five');
       expect(ws2.getCell('A3').name).to.equal('threes');
@@ -306,7 +310,7 @@ describe('WorkbookWriter', () => {
 
     it('does not escape special xml characters', async () => {
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter({
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useSharedStrings: true,
       });
       const ws = wb.addWorksheet('blort');
@@ -316,13 +320,13 @@ describe('WorkbookWriter', () => {
 
       await wb.commit();
       const wb2 = new ExcelJS.Workbook();
-      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2_1.getWorksheet('blort');
       expect(ws2.getCell('A1').value).to.equal(xmlCharacters);
     });
 
     it('serializes and deserializes dataValidations', () => {
-      const options = { filename: TEST_XLSX_FILE_NAME };
+      const options = { filename: testFileName };
       const wb = testUtils.createTestBook(
         new ExcelJS.stream.xlsx.WorkbookWriter(options),
         'xlsx',
@@ -333,7 +337,7 @@ describe('WorkbookWriter', () => {
         .commit()
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           testUtils.checkTestBook(wb2, 'xlsx', ['dataValidations']);
@@ -342,7 +346,7 @@ describe('WorkbookWriter', () => {
 
     it('with zip compression option', () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useStyles: true,
         zip: {
           zlib: { level: 9 }, // Sets the compression level.
@@ -358,7 +362,7 @@ describe('WorkbookWriter', () => {
         .commit()
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           testUtils.checkTestBook(wb2, 'xlsx', ['dataValidations']);
@@ -367,7 +371,7 @@ describe('WorkbookWriter', () => {
 
     it('writes notes', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
@@ -402,7 +406,7 @@ describe('WorkbookWriter', () => {
       await wb.commit();
 
       const wb2 = new ExcelJS.Workbook();
-      await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2.getWorksheet('Hello');
 
       expect(ws2.getCell('B2').value).to.equal(5);
@@ -416,7 +420,7 @@ describe('WorkbookWriter', () => {
 
     it('Cell annotation supports setting margins and protection properties', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
@@ -450,7 +454,7 @@ describe('WorkbookWriter', () => {
       await wb.commit();
 
       const wb2 = new ExcelJS.Workbook();
-      await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2.getWorksheet('Hello');
       expect(ws2.getCell('B2').value).to.equal(5);
       expect(ws2.getCell('B2').note).to.equal('five');
@@ -464,7 +468,7 @@ describe('WorkbookWriter', () => {
 
     it('with background image', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
@@ -479,7 +483,7 @@ describe('WorkbookWriter', () => {
       await wb.commit();
 
       const wb2 = new ExcelJS.Workbook();
-      await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2.getWorksheet('Hello');
 
       const backgroundId2 = ws2.getBackgroundImageId();
@@ -490,7 +494,7 @@ describe('WorkbookWriter', () => {
 
     it('with background image where worksheet is commited in advance', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
       };
       const wb = new ExcelJS.stream.xlsx.WorkbookWriter(options);
       const ws = wb.addWorksheet('Hello');
@@ -506,7 +510,7 @@ describe('WorkbookWriter', () => {
       await wb.commit();
 
       const wb2 = new ExcelJS.Workbook();
-      await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2.getWorksheet('Hello');
 
       const backgroundId2 = ws2.getBackgroundImageId();
@@ -517,7 +521,7 @@ describe('WorkbookWriter', () => {
 
     it('with conditional formatting', async () => {
       const options = {
-        filename: TEST_XLSX_FILE_NAME,
+        filename: testFileName,
         useStyles: true,
         useSharedStrings: true,
       };
@@ -531,7 +535,7 @@ describe('WorkbookWriter', () => {
         .commit()
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           testUtils.checkTestBook(wb2, 'xlsx', ['conditionalFormatting']);
@@ -540,7 +544,7 @@ describe('WorkbookWriter', () => {
 
     it('with conditional formatting that contains numFmt (#1814)', async () => {
       const sheet = 'conditionalFormatting';
-      const options = { filename: TEST_XLSX_FILE_NAME, useStyles: true };
+      const options = { filename: testFileName, useStyles: true };
 
       // generate file with conditional formatting that contains styles with numFmt
       const wb1 = new ExcelJS.stream.xlsx.WorkbookWriter(options);
@@ -551,7 +555,7 @@ describe('WorkbookWriter', () => {
 
       // read generated file and extract saved conditional formatting rule
       const wb2 = new ExcelJS.Workbook();
-      await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      await wb2.xlsx.readFile(testFileName);
       const ws2 = wb2.getWorksheet(sheet);
       const [cf2] = ws2.conditionalFormattings;
 

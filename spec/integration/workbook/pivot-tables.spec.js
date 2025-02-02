@@ -1,13 +1,7 @@
-// *Note*: `fs.promises` not supported before Node.js 11.14.0;
-// ExcelJS version range '>=8.3.0' (as of 2023-10-08).
-import fs from 'node:fs';
-import { promisify } from 'node:util';
-
-const fsReadFileAsync = promisify(fs.readFile);
-
+import { readFile } from 'node:fs/promises';
 import JSZip from 'jszip';
-
 import ExcelJS from '#lib';
+import { getTempFileName } from '../../utils';
 
 const PIVOT_TABLE_FILEPATHS = [
   'xl/pivotCache/pivotCacheRecords1.xml',
@@ -16,8 +10,6 @@ const PIVOT_TABLE_FILEPATHS = [
   'xl/pivotTables/pivotTable1.xml',
   'xl/pivotTables/_rels/pivotTable1.xml.rels',
 ];
-
-const TEST_XLSX_FILEPATH = './spec/out/wb.test.xlsx';
 
 const TEST_DATA = [
   ['A', 'B', 'C', 'D', 'E'],
@@ -34,6 +26,12 @@ const TEST_DATA = [
 
 describe('Workbook', () => {
   describe('Pivot Tables', () => {
+    let testFileName;
+
+    beforeEach(() => {
+      testFileName = getTempFileName();
+    });
+
     it('if pivot table added, then certain xml and rels files are added', async () => {
       const workbook = new ExcelJS.Workbook();
 
@@ -49,8 +47,8 @@ describe('Workbook', () => {
         metric: 'sum',
       });
 
-      return workbook.xlsx.writeFile(TEST_XLSX_FILEPATH).then(async () => {
-        const buffer = await fsReadFileAsync(TEST_XLSX_FILEPATH);
+      return workbook.xlsx.writeFile(testFileName).then(async () => {
+        const buffer = await readFile(testFileName);
         const zip = await JSZip.loadAsync(buffer);
         for (const filepath of PIVOT_TABLE_FILEPATHS) {
           expect(zip.files[filepath]).not.toBeUndefined();
@@ -66,8 +64,8 @@ describe('Workbook', () => {
 
       workbook.addWorksheet('Sheet2');
 
-      return workbook.xlsx.writeFile(TEST_XLSX_FILEPATH).then(async () => {
-        const buffer = await fsReadFileAsync(TEST_XLSX_FILEPATH);
+      return workbook.xlsx.writeFile(testFileName).then(async () => {
+        const buffer = await readFile(testFileName);
         const zip = await JSZip.loadAsync(buffer);
         for (const filepath of PIVOT_TABLE_FILEPATHS) {
           expect(zip.files[filepath]).toBeUndefined();

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-
+import { vi } from 'vitest';
 import StreamBuf from '#lib/utils/stream-buf.js';
 import StringBuf from '#lib/utils/string-buf.js';
 
@@ -27,13 +27,14 @@ describe('StreamBuf', () => {
     expect(chunk.toString('UTF8')).to.equal('Hello, World!');
   });
 
-  it('signals end', (done) => {
+  it('signals end', () => {
+    const cb = vi.fn();
     const stream = new StreamBuf();
-    stream.on('finish', () => {
-      done();
-    });
+    stream.on('finish', cb);
     stream.write('Hello, World!');
     stream.end();
+
+    expect(cb).toHaveBeenCalledTimes(1);
   });
 
   it('handles buffers', () =>

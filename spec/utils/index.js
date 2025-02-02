@@ -172,4 +172,6 @@ const utils = {
 
 export const { createSheetMock } = utils;
 
+export const getTempFileName = () => `./spec/out/${crypto.randomUUID()}.xlsx`;
+
 export default utils;

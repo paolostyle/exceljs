@@ -1,10 +1,10 @@
 import ExcelJS from '#lib';
-
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
+import { getTempFileName } from '../../utils/index';
 
 describe('pr related issues', () => {
   describe('pr 896 leading and trailing whitespace', () => {
     it('Should preserve leading and trailing whitespace', () => {
+      const testFileName = getTempFileName();
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('foo');
       ws.getCell('A1').value = ' leading';
@@ -14,10 +14,10 @@ describe('pr related issues', () => {
       ws.getCell('C1').value = ' both ';
       ws.getCell('C1').note = ' both ';
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('foo');
@@ -31,6 +31,7 @@ describe('pr related issues', () => {
     });
 
     it('Should preserve newlines', () => {
+      const testFileName = getTempFileName();
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('foo');
       ws.getCell('A1').value = 'Hello,\nWorld!';
@@ -38,10 +39,10 @@ describe('pr related issues', () => {
       ws.getCell('B1').value = ' Hello, \n World! ';
       ws.getCell('B1').note = ' Later, \n Alligator! ';
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('foo');

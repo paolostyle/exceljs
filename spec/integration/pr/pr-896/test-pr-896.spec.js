@@ -1,8 +1,7 @@
+import Excel from '#lib';
+import { getTempFileName } from '../../../utils/index';
 import tools from '../../../utils/tools';
 
-import Excel from '#lib';
-
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 const RT_ARR = [
   { text: 'First Line:\n', font: { bold: true } },
   { text: 'Second Line\n' },
@@ -19,6 +18,8 @@ const TEST_NOTE = {
 describe('pr related issues', () => {
   describe('pr 896 add xml:space="preserve" for all whitespaces', () => {
     it('should store cell text and comment with leading new line', () => {
+      const testFileName = getTempFileName();
+
       const properties = tools.fix(
         require('../../../utils/data/sheet-properties.json'),
       );
@@ -38,10 +39,10 @@ describe('pr related issues', () => {
       ws.getCell('A1').alignment = { wrapText: true };
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new Excel.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('sheet1');

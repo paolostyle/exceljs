@@ -1,13 +1,15 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import stream from 'readable-stream';
 import ExcelJS from '#lib';
-import testUtils from '../../utils/index';
-
-const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
+import testUtils, { getTempFileName } from '../../utils/index';
 
 // =============================================================================
 // Sample Data
-const richTextSample = fs.readFileSync('../data/rich-text-sample.txt', 'utf-8');
+const richTextSample = fs.readFileSync(
+  path.resolve(__dirname, '../data/rich-text-sample.txt'),
+  'utf-8',
+);
 const richTextSampleA1 = require('../data/rich-text-sample-a1.json');
 
 // =============================================================================
@@ -15,7 +17,8 @@ const richTextSampleA1 = require('../data/rich-text-sample-a1.json');
 
 describe('Workbook', () => {
   describe('Styles', () => {
-    it('row styles and columns properly', () => {
+    it('row styles and columns properly', async () => {
+      const testFileName = getTempFileName();
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('blort');
 
@@ -41,52 +44,46 @@ describe('Workbook', () => {
       ws.getCell('B3').value = 'B3';
       ws.getCell('C3').value = 'C3';
 
-      return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
-        .then(() => {
-          const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
-        })
-        .then((wb2) => {
-          const ws2 = wb2.getWorksheet('blort');
-          ['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3'].forEach(
-            (address) => {
-              expect(ws2.getCell(address).value).to.equal(address);
-            },
-          );
-          expect(ws2.getCell('B1').font).to.deep.equal(
-            testUtils.styles.fonts.comicSansUdB16,
-          );
-          expect(ws2.getCell('B1').alignment).to.deep.equal(
-            testUtils.styles.alignments[1].alignment,
-          );
-          expect(ws2.getCell('A2').font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20,
-          );
-          expect(ws2.getCell('B2').font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20,
-          );
-          expect(ws2.getCell('C2').font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20,
-          );
-          expect(ws2.getCell('B3').font).to.deep.equal(
-            testUtils.styles.fonts.comicSansUdB16,
-          );
-          expect(ws2.getCell('B3').alignment).to.deep.equal(
-            testUtils.styles.alignments[1].alignment,
-          );
+      await wb.xlsx.writeFile(testFileName);
+      const wb2 = new ExcelJS.Workbook();
+      const wb2_1 = await wb2.xlsx.readFile(testFileName);
+      const ws2 = wb2_1.getWorksheet('blort');
 
-          expect(ws2.getColumn(2).font).to.deep.equal(
-            testUtils.styles.fonts.comicSansUdB16,
-          );
-          expect(ws2.getColumn(2).alignment).to.deep.equal(
-            testUtils.styles.alignments[1].alignment,
-          );
-
-          expect(ws2.getRow(2).font).to.deep.equal(
-            testUtils.styles.fonts.broadwayRedOutline20,
-          );
-        });
+      ['A1', 'B1', 'C1', 'A2', 'B2', 'C2', 'A3', 'B3', 'C3'].forEach(
+        (address) => {
+          expect(ws2.getCell(address).value).to.equal(address);
+        },
+      );
+      expect(ws2.getCell('B1').font).to.deep.equal(
+        testUtils.styles.fonts.comicSansUdB16,
+      );
+      expect(ws2.getCell('B1').alignment).to.deep.equal(
+        testUtils.styles.alignments[1].alignment,
+      );
+      expect(ws2.getCell('A2').font).to.deep.equal(
+        testUtils.styles.fonts.broadwayRedOutline20,
+      );
+      expect(ws2.getCell('B2').font).to.deep.equal(
+        testUtils.styles.fonts.broadwayRedOutline20,
+      );
+      expect(ws2.getCell('C2').font).to.deep.equal(
+        testUtils.styles.fonts.broadwayRedOutline20,
+      );
+      expect(ws2.getCell('B3').font).to.deep.equal(
+        testUtils.styles.fonts.comicSansUdB16,
+      );
+      expect(ws2.getCell('B3').alignment).to.deep.equal(
+        testUtils.styles.alignments[1].alignment,
+      );
+      expect(ws2.getColumn(2).font).to.deep.equal(
+        testUtils.styles.fonts.comicSansUdB16,
+      );
+      expect(ws2.getColumn(2).alignment).to.deep.equal(
+        testUtils.styles.alignments[1].alignment,
+      );
+      expect(ws2.getRow(2).font).to.deep.equal(
+        testUtils.styles.fonts.broadwayRedOutline20,
+      );
     });
 
     it('in-cell formats properly in xlsx file', () => {
@@ -109,6 +106,7 @@ describe('Workbook', () => {
     });
 
     it('null cells retain style', () => {
+      const testFileName = getTempFileName();
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('blort');
 
@@ -120,10 +118,10 @@ describe('Workbook', () => {
       ws.getCell('B4').font = testUtils.styles.fonts.broadwayRedOutline20;
 
       return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
+        .writeFile(testFileName)
         .then(() => {
           const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+          return wb2.xlsx.readFile(testFileName);
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('blort');
