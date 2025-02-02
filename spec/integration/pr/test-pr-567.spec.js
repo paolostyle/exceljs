@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const TEST_567_XLSX_FILE_NAME = './spec/integration/data/test-pr-567.xlsx';
 

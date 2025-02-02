@@ -1,13 +1,13 @@
-const stream = require('readable-stream');
-const testUtils = require('../../utils/index');
-
-const ExcelJS = require('#lib');
+import fs from 'node:fs';
+import stream from 'readable-stream';
+import ExcelJS from '#lib';
+import testUtils from '../../utils/index';
 
 const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 
 // =============================================================================
 // Sample Data
-const richTextSample = require('../data/rich-text-sample');
+const richTextSample = fs.readFileSync('../data/rich-text-sample.txt', 'utf-8');
 const richTextSampleA1 = require('../data/rich-text-sample-a1.json');
 
 // =============================================================================
@@ -172,7 +172,7 @@ describe('Workbook', () => {
         testUtils.styles.fills.redGreenDarkTrellis,
       );
 
-      expect(ws.findCell('B1')).to.be.undefined();
+      expect(ws.findCell('B1')).toBeUndefined();
 
       expect(ws.getCell('C1').numFmt).to.equal(
         testUtils.styles.numFmts.numFmt2,
@@ -244,7 +244,7 @@ describe('Workbook', () => {
         testUtils.styles.fills.redGreenDarkTrellis,
       );
 
-      expect(ws.findRow(2)).to.be.undefined();
+      expect(ws.findRow(2)).toBeUndefined();
 
       expect(ws.getCell('A3').numFmt).to.equal(
         testUtils.styles.numFmts.numFmt2,

@@ -1,8 +1,8 @@
-const fs = require('node:fs');
+import fs from 'node:fs';
 
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const SharedStringsXform = require('#lib/xlsx/xform/strings/shared-strings-xform.js');
+import SharedStringsXform from '#lib/xlsx/xform/strings/shared-strings-xform.js';
 
 const expectations = [
   {

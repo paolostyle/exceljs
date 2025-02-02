@@ -1,5 +1,5 @@
-const Enums = require('#lib/doc/enums.js');
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
+import Enums from '#lib/doc/enums.js';
 
 describe('github issues', () => {
   describe('Shared Formulas', () => {

@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 describe('github issues', () => {
   it('pull request 1262 - protect should work with streaming workbook writer', async () => {
@@ -11,8 +11,6 @@ describe('github issues', () => {
     row.getCell(1).protection = {
       locked: true,
     };
-
-    expect(sheet.protect).to.exist();
 
     sheet.protect('password', {
       spinCount: 1,

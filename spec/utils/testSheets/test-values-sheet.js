@@ -1,13 +1,12 @@
-const tools = require('./tools');
-
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
+import tools from '../tools.js';
 
 const self = {
-  testValues: tools.fix(require('./data/sheet-values.json')),
-  styles: tools.fix(require('./data/styles.json')),
-  properties: tools.fix(require('./data/sheet-properties.json')),
-  pageSetup: tools.fix(require('./data/page-setup.json')),
-  headerFooter: tools.fix(require('./data/header-footer.json')),
+  testValues: tools.fix(require('../data/sheet-values.json')),
+  styles: tools.fix(require('../data/styles.json')),
+  properties: tools.fix(require('../data/sheet-properties.json')),
+  pageSetup: tools.fix(require('../data/page-setup.json')),
+  headerFooter: tools.fix(require('../data/header-footer.json')),
 
   addSheet(wb, options) {
     // call it sheet1 so this sheet can be used for csv testing
@@ -126,7 +125,7 @@ const self = {
 
   checkSheet(wb, options) {
     const ws = wb.getWorksheet('sheet1');
-    expect(ws).to.not.be.undefined();
+    expect(ws).not.toBeUndefined();
 
     if (options.checkSheetProperties) {
       expect(ws.getColumn(10).outlineLevel).to.equal(1);
@@ -158,7 +157,7 @@ const self = {
       expect(ws.getCell('E1').value.formula).to.equal(
         self.testValues.formulas[1].formula,
       );
-      expect(ws.getCell('E1').value.value).to.be.undefined();
+      expect(ws.getCell('E1').value.value).toBeUndefined();
       expect(ws.getCell('E1').type).to.equal(ExcelJS.ValueType.Formula);
       expect(ws.getCell('F1').value).to.deep.equal(self.testValues.hyperlink);
       expect(ws.getCell('F1').type).to.equal(ExcelJS.ValueType.Hyperlink);
@@ -168,7 +167,7 @@ const self = {
         self.testValues.formulas[0].result,
       );
       expect(ws.getCell('D1').type).to.equal(ExcelJS.ValueType.Number);
-      expect(ws.getCell('E1').value).to.be.null();
+      expect(ws.getCell('E1').value).toBeNull();
       expect(ws.getCell('E1').type).to.equal(ExcelJS.ValueType.Null);
       expect(ws.getCell('F1').value).to.deep.equal(
         self.testValues.hyperlink.hyperlink,
@@ -211,19 +210,19 @@ const self = {
       expect(ws.getCell('B3').master).to.equal(ws.getCell('A2'));
 
       // C2:D3
-      expect(ws.getCell('C2').value).to.be.null();
+      expect(ws.getCell('C2').value).toBeNull();
       expect(ws.getCell('C2').type).to.equal(ExcelJS.ValueType.Null);
       expect(ws.getCell('C2').master).to.equal(ws.getCell('C2'));
 
-      expect(ws.getCell('D2').value).to.be.null();
+      expect(ws.getCell('D2').value).toBeNull();
       expect(ws.getCell('D2').type).to.equal(ExcelJS.ValueType.Merge);
       expect(ws.getCell('D2').master).to.equal(ws.getCell('C2'));
 
-      expect(ws.getCell('C3').value).to.be.null();
+      expect(ws.getCell('C3').value).toBeNull();
       expect(ws.getCell('C3').type).to.equal(ExcelJS.ValueType.Merge);
       expect(ws.getCell('C3').master).to.equal(ws.getCell('C2'));
 
-      expect(ws.getCell('D3').value).to.be.null();
+      expect(ws.getCell('D3').value).toBeNull();
       expect(ws.getCell('D3').type).to.equal(ExcelJS.ValueType.Merge);
       expect(ws.getCell('D3').master).to.equal(ws.getCell('C2'));
     }
@@ -280,7 +279,7 @@ const self = {
         self.styles.fonts.comicSansUdB16,
       );
 
-      expect(ws.getRow(5).height).to.be.undefined();
+      expect(ws.getRow(5).height).toBeUndefined();
       expect(ws.getRow(6).height).to.equal(42);
       self.styles.alignments.forEach((alignment, index) => {
         const rowNumber = 6;
@@ -296,7 +295,7 @@ const self = {
           const colNumber = index + 1;
           const cell = ws.getCell(rowNumber, colNumber);
           expect(cell.value).to.equal(alignment.text);
-          expect(cell.alignment).to.be.undefined();
+          expect(cell.alignment).toBeUndefined();
         });
       }
 
@@ -372,4 +371,4 @@ const self = {
   },
 };
 
-module.exports = self;
+export default self;

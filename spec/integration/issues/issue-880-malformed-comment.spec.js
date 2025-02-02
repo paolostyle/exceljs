@@ -1,6 +1,6 @@
-const fs = require('node:fs');
+import fs from 'node:fs';
 
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 // this file to contain integration tests created from github issues
 const TEST_XLSX_FILE_NAME = './spec/out/wb-issue-880.test.xlsx';

@@ -1,6 +1,6 @@
-const testXformHelper = require('../../test-xform-helper');
+import testXformHelper from '../../test-xform-helper';
 
-const SqrefExtXform = require('#lib/xlsx/xform/sheet/cf-ext/sqref-ext-xform.js');
+import SqrefExtXform from '#lib/xlsx/xform/sheet/cf-ext/sqref-ext-xform.js';
 
 const expectations = [
   {

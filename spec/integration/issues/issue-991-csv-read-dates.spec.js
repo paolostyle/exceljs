@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 describe('github issues', () => {
   it('issue 991 - differentiates between strings with leading numbers and dates when reading csv files', () => {

@@ -1,4 +1,4 @@
-const Excel = require('#lib');
+import Excel from '#lib';
 
 describe('Worksheet', () => {
   describe('Page Breaks', () => {

@@ -1,6 +1,6 @@
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const PageMarginsXform = require('#lib/xlsx/xform/sheet/page-margins-xform.js');
+import PageMarginsXform from '#lib/xlsx/xform/sheet/page-margins-xform.js';
 
 const expectations = [
   {

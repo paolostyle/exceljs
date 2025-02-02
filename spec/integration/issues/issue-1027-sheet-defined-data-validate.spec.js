@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 

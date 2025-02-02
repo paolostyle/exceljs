@@ -1,4 +1,4 @@
-const utils = require('#lib/utils/utils.js');
+import utils from '#lib/utils/utils.js';
 
 describe('utils', () => {
   describe('xmlEncode', () => {
@@ -27,13 +27,13 @@ describe('utils', () => {
   describe('isDateFmt', () => {
     ['yyyy-mm-dd'].forEach((fmt) => {
       it(`'${fmt}' a date`, () => {
-        expect(utils.isDateFmt(fmt)).to.be.true();
+        expect(utils.isDateFmt(fmt)).toBe(true);
       });
     });
 
     ['', '[Green]#,##0 ;[Red](#,##0)'].forEach((fmt) => {
       it(`'${fmt}' is not a date`, () => {
-        expect(utils.isDateFmt(fmt)).to.be.false();
+        expect(utils.isDateFmt(fmt)).toBe(false);
       });
     });
   });

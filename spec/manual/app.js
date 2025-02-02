@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 
-const fs = require('node:fs');
-const express = require('express');
-const path = require('node:path');
-const ExcelJS = require('#lib');
-const StreamBuf = require('#lib/utils/stream-buf.js');
+import fs from 'node:fs';
+import path from 'node:path';
+import express from 'express';
+import ExcelJS from '#lib';
+import StreamBuf from '#lib/utils/stream-buf.js';
 
 console.log('Copying bundle.js to public folder');
 fs.createReadStream(`${__dirname}/../../dist/exceljs.min.js`).pipe(

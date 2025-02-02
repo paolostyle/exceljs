@@ -1,6 +1,6 @@
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const PhoneticTextXform = require('#lib/xlsx/xform/strings/phonetic-text-xform.js');
+import PhoneticTextXform from '#lib/xlsx/xform/strings/phonetic-text-xform.js';
 
 const expectations = [
   {

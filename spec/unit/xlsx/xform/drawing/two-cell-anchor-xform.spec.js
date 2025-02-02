@@ -1,4 +1,4 @@
-const TwoCellAnchorXform = require('#lib/xlsx/xform/drawing/two-cell-anchor-xform.js');
+import TwoCellAnchorXform from '#lib/xlsx/xform/drawing/two-cell-anchor-xform.js';
 
 describe('TwoCellAnchorXform', () => {
   describe('reconcile', () => {

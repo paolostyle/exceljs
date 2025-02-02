@@ -1,5 +1,5 @@
-const colCache = require('#lib/utils/col-cache.js');
-const Excel = require('#lib');
+import Excel from '#lib';
+import colCache from '#lib/utils/col-cache.js';
 
 const spliceArray = (a, index, count, ...rest) => {
   const clone = [...a];
@@ -66,7 +66,7 @@ function checkTable(ref, ws, testValues) {
       if (value instanceof Date) {
         expect(cellValue).to.equalDate(value);
       } else if (value === null) {
-        expect(cellValue).to.be.null();
+        expect(cellValue).toBeNull();
       } else if (typeof value === 'object') {
         expect(cellValue).to.deep.equal(value);
       } else {

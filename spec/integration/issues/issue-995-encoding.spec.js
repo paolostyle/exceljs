@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const TEST_CSV_FILE_NAME = './spec/out/issue-995-encoding.test.csv';
 const HEBREW_TEST_STRING = 'משהו שכתוב בעברית';

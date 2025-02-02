@@ -1,5 +1,5 @@
-const _ = require('#lib/utils/under-dash.js');
-const util = require('node:util');
+import util from 'node:util';
+import _ from '#lib/utils/under-dash.js';
 
 describe('under-dash', () => {
   describe('isEqual', () => {

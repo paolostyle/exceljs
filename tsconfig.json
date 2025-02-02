@@ -13,6 +13,7 @@
     "verbatimModuleSyntax": true,
     "lib": ["es2022", "DOM", "DOM.Iterable"],
     "module": "preserve",
-    "noEmit": true
+    "noEmit": true,
+    "types": ["vitest/globals"]
   }
 }

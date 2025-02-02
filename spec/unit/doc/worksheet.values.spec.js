@@ -1,7 +1,7 @@
-const testUtils = require('../../utils/index');
+import testUtils from '../../utils/index';
 
-const _ = require('#lib/utils/under-dash.js');
-const Excel = require('#lib');
+import Excel from '#lib';
+import _ from '#lib/utils/under-dash.js';
 
 describe('Worksheet', () => {
   describe('Values', () => {
@@ -588,8 +588,8 @@ describe('Worksheet', () => {
           });
 
           expect(ws.getColumn(1).width).to.equal(10);
-          expect(ws.getColumn(2).width).to.be.undefined();
-          expect(ws.getColumn(3).width).to.be.undefined();
+          expect(ws.getColumn(2).width).toBeUndefined();
+          expect(ws.getColumn(3).width).toBeUndefined();
           expect(ws.getColumn(4).width).to.equal(30);
           expect(ws.getColumn(5).width).to.equal(40);
         });
@@ -614,31 +614,31 @@ describe('Worksheet', () => {
           expect(ws.getCell(1, 1).value).to.equal('Col-1');
           expect(ws.getCell(1, 2).value).to.equal('Col-2');
           expect(ws.getCell(1, 3).value).to.equal('Col-3');
-          expect(ws.getCell(1, 4).value).to.be.null();
-          expect(ws.getCell(1, 5).value).to.be.null();
-          expect(ws.getCell(1, 6).value).to.be.null();
-          expect(ws.getCell(1, 7).value).to.be.null();
+          expect(ws.getCell(1, 4).value).toBeNull();
+          expect(ws.getCell(1, 5).value).toBeNull();
+          expect(ws.getCell(1, 6).value).toBeNull();
+          expect(ws.getCell(1, 7).value).toBeNull();
           expect(ws.getCell(2, 1).value).to.equal(1);
           expect(ws.getCell(2, 2).value).to.equal(2);
           expect(ws.getCell(2, 3).value).to.equal(3);
-          expect(ws.getCell(2, 4).value).to.be.null();
-          expect(ws.getCell(2, 5).value).to.be.null();
-          expect(ws.getCell(2, 6).value).to.be.null();
-          expect(ws.getCell(2, 7).value).to.be.null();
+          expect(ws.getCell(2, 4).value).toBeNull();
+          expect(ws.getCell(2, 5).value).toBeNull();
+          expect(ws.getCell(2, 6).value).toBeNull();
+          expect(ws.getCell(2, 7).value).toBeNull();
           expect(ws.getCell(3, 1).value).to.equal(1);
           expect(ws.getCell(3, 2).value).to.equal(2);
           expect(ws.getCell(3, 3).value).to.equal(3);
-          expect(ws.getCell(3, 4).value).to.be.null();
-          expect(ws.getCell(3, 5).value).to.be.null();
-          expect(ws.getCell(3, 6).value).to.be.null();
-          expect(ws.getCell(3, 7).value).to.be.null();
+          expect(ws.getCell(3, 4).value).toBeNull();
+          expect(ws.getCell(3, 5).value).toBeNull();
+          expect(ws.getCell(3, 6).value).toBeNull();
+          expect(ws.getCell(3, 7).value).toBeNull();
 
           expect(ws.getColumn(1).header).to.equal('Col-1');
           expect(ws.getColumn(2).header).to.equal('Col-2');
           expect(ws.getColumn(3).header).to.equal('Col-3');
-          expect(ws.getColumn(4).header).to.be.undefined();
-          expect(ws.getColumn(5).header).to.be.undefined();
-          expect(ws.getColumn(6).header).to.be.undefined();
+          expect(ws.getColumn(4).header).toBeUndefined();
+          expect(ws.getColumn(5).header).toBeUndefined();
+          expect(ws.getColumn(6).header).toBeUndefined();
         });
         it('Splices past end', () => {
           const wb = new Excel.Workbook();
@@ -660,31 +660,31 @@ describe('Worksheet', () => {
           expect(ws.getCell(1, 1).value).to.equal('Col-1');
           expect(ws.getCell(1, 2).value).to.equal('Col-2');
           expect(ws.getCell(1, 3).value).to.equal('Col-3');
-          expect(ws.getCell(1, 4).value).to.be.null();
-          expect(ws.getCell(1, 5).value).to.be.null();
-          expect(ws.getCell(1, 6).value).to.be.null();
-          expect(ws.getCell(1, 7).value).to.be.null();
+          expect(ws.getCell(1, 4).value).toBeNull();
+          expect(ws.getCell(1, 5).value).toBeNull();
+          expect(ws.getCell(1, 6).value).toBeNull();
+          expect(ws.getCell(1, 7).value).toBeNull();
           expect(ws.getCell(2, 1).value).to.equal(1);
           expect(ws.getCell(2, 2).value).to.equal(2);
           expect(ws.getCell(2, 3).value).to.equal(3);
-          expect(ws.getCell(2, 4).value).to.be.null();
-          expect(ws.getCell(2, 5).value).to.be.null();
-          expect(ws.getCell(2, 6).value).to.be.null();
-          expect(ws.getCell(2, 7).value).to.be.null();
+          expect(ws.getCell(2, 4).value).toBeNull();
+          expect(ws.getCell(2, 5).value).toBeNull();
+          expect(ws.getCell(2, 6).value).toBeNull();
+          expect(ws.getCell(2, 7).value).toBeNull();
           expect(ws.getCell(3, 1).value).to.equal(1);
           expect(ws.getCell(3, 2).value).to.equal(2);
           expect(ws.getCell(3, 3).value).to.equal(3);
-          expect(ws.getCell(3, 4).value).to.be.null();
-          expect(ws.getCell(3, 5).value).to.be.null();
-          expect(ws.getCell(3, 6).value).to.be.null();
-          expect(ws.getCell(3, 7).value).to.be.null();
+          expect(ws.getCell(3, 4).value).toBeNull();
+          expect(ws.getCell(3, 5).value).toBeNull();
+          expect(ws.getCell(3, 6).value).toBeNull();
+          expect(ws.getCell(3, 7).value).toBeNull();
 
           expect(ws.getColumn(1).header).to.equal('Col-1');
           expect(ws.getColumn(2).header).to.equal('Col-2');
           expect(ws.getColumn(3).header).to.equal('Col-3');
-          expect(ws.getColumn(4).header).to.be.undefined();
-          expect(ws.getColumn(5).header).to.be.undefined();
-          expect(ws.getColumn(6).header).to.be.undefined();
+          expect(ws.getColumn(4).header).toBeUndefined();
+          expect(ws.getColumn(5).header).toBeUndefined();
+          expect(ws.getColumn(6).header).toBeUndefined();
         });
         it('Splices almost to end', () => {
           const wb = new Excel.Workbook();
@@ -707,30 +707,30 @@ describe('Worksheet', () => {
           expect(ws.getCell(1, 2).value).to.equal('Col-2');
           expect(ws.getCell(1, 3).value).to.equal('Col-3');
           expect(ws.getCell(1, 4).value).to.equal('Col-6');
-          expect(ws.getCell(1, 5).value).to.be.null();
-          expect(ws.getCell(1, 6).value).to.be.null();
-          expect(ws.getCell(1, 7).value).to.be.null();
+          expect(ws.getCell(1, 5).value).toBeNull();
+          expect(ws.getCell(1, 6).value).toBeNull();
+          expect(ws.getCell(1, 7).value).toBeNull();
           expect(ws.getCell(2, 1).value).to.equal(1);
           expect(ws.getCell(2, 2).value).to.equal(2);
           expect(ws.getCell(2, 3).value).to.equal(3);
           expect(ws.getCell(2, 4).value).to.equal(6);
-          expect(ws.getCell(2, 5).value).to.be.null();
-          expect(ws.getCell(2, 6).value).to.be.null();
-          expect(ws.getCell(2, 7).value).to.be.null();
+          expect(ws.getCell(2, 5).value).toBeNull();
+          expect(ws.getCell(2, 6).value).toBeNull();
+          expect(ws.getCell(2, 7).value).toBeNull();
           expect(ws.getCell(3, 1).value).to.equal(1);
           expect(ws.getCell(3, 2).value).to.equal(2);
           expect(ws.getCell(3, 3).value).to.equal(3);
           expect(ws.getCell(3, 4).value).to.equal(6);
-          expect(ws.getCell(3, 5).value).to.be.null();
-          expect(ws.getCell(3, 6).value).to.be.null();
-          expect(ws.getCell(3, 7).value).to.be.null();
+          expect(ws.getCell(3, 5).value).toBeNull();
+          expect(ws.getCell(3, 6).value).toBeNull();
+          expect(ws.getCell(3, 7).value).toBeNull();
 
           expect(ws.getColumn(1).header).to.equal('Col-1');
           expect(ws.getColumn(2).header).to.equal('Col-2');
           expect(ws.getColumn(3).header).to.equal('Col-3');
           expect(ws.getColumn(4).header).to.equal('Col-6');
-          expect(ws.getColumn(5).header).to.be.undefined();
-          expect(ws.getColumn(6).header).to.be.undefined();
+          expect(ws.getColumn(5).header).toBeUndefined();
+          expect(ws.getColumn(6).header).toBeUndefined();
         });
 
         it('Remove style', () => {

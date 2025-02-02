@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 describe('github issues', () => {
   it('pull request 728 - Read worksheet hidden state', () => {

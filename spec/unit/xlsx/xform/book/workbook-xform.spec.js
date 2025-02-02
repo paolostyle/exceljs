@@ -1,8 +1,8 @@
-const fs = require('node:fs');
+import fs from 'node:fs';
 
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const WorkbookXform = require('#lib/xlsx/xform/book/workbook-xform.js');
+import WorkbookXform from '#lib/xlsx/xform/book/workbook-xform.js';
 
 const expectations = [
   {

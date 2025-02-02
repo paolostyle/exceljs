@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 describe('github issues', () => {
   describe('pull request 1487 - lastColumn with an empty column', () => {

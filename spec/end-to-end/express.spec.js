@@ -1,13 +1,12 @@
-const { PassThrough } = require('readable-stream');
-const express = require('express');
-const got = require('got');
-const testutils = require('../utils/index');
-
-const Excel = require('#lib');
+import express from 'express';
+import got from 'got';
+import { PassThrough } from 'readable-stream';
+import Excel from '#lib';
+import testutils from '../utils/index';
 
 describe('Express', () => {
   let server;
-  before(() => {
+  beforeAll(() => {
     const app = express();
     app.get('/workbook', (req, res) => {
       const wb = testutils.createTestBook(new Excel.Workbook(), 'xlsx');
@@ -23,12 +22,11 @@ describe('Express', () => {
     server = app.listen(3003);
   });
 
-  after(() => {
+  afterAll(() => {
     server.close();
   });
 
-  it('downloads a workbook', async function () {
-    this.timeout(5000);
+  it('downloads a workbook', async () => {
     const res = got.stream('http://127.0.0.1:3003/workbook', {
       decompress: false,
     });

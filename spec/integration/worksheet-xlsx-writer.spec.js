@@ -1,6 +1,6 @@
-const testutils = require('../utils/index');
+import testutils from '../utils/index';
 
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const CONCATENATE_HELLO_WORLD = 'CONCATENATE("Hello", ", ", "World!")';
 
@@ -355,7 +355,7 @@ describe('WorksheetWriter', () => {
         testutils.styles.fills.redGreenDarkTrellis,
       );
 
-      expect(ws.findCell('B1')).to.be.undefined();
+      expect(ws.findCell('B1')).toBeUndefined();
 
       expect(ws.getCell('C1').numFmt).to.equal(
         testutils.styles.numFmts.numFmt2,
@@ -427,7 +427,7 @@ describe('WorksheetWriter', () => {
         testutils.styles.fills.redGreenDarkTrellis,
       );
 
-      expect(ws.findRow(2)).to.be.undefined();
+      expect(ws.findRow(2)).toBeUndefined();
 
       expect(ws.getCell('A3').numFmt).to.equal(
         testutils.styles.numFmts.numFmt2,

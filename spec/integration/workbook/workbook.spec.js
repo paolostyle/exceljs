@@ -1,6 +1,6 @@
-const testUtils = require('../../utils/index');
+import testUtils from '../../utils/index';
 
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 const TEST_CSV_FILE_NAME = './spec/out/wb.test.csv';
@@ -121,8 +121,8 @@ describe('Workbook', () => {
           return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
         })
         .then((wb2) => {
-          expect(wb2.getWorksheet('Hello, World!')).to.be.ok();
-          expect(wb2.getWorksheet('This & That')).to.be.ok();
+          expect(wb2.getWorksheet('Hello, World!')).toBeTruthy();
+          expect(wb2.getWorksheet('This & That')).toBeTruthy();
         });
     });
 
@@ -170,7 +170,7 @@ describe('Workbook', () => {
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('printHeader');
           expect(ws2.pageSetup.printTitlesRow).to.equal('1:2');
-          expect(ws2.pageSetup.printTitlesColumn).to.be.undefined();
+          expect(ws2.pageSetup.printTitlesColumn).toBeUndefined();
         });
     });
     it('printTitlesColumn', () => {
@@ -199,7 +199,7 @@ describe('Workbook', () => {
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('printColumn');
-          expect(ws2.pageSetup.printTitlesRow).to.be.undefined();
+          expect(ws2.pageSetup.printTitlesRow).toBeUndefined();
           expect(ws2.pageSetup.printTitlesColumn).to.equal('A:B');
         });
     });
@@ -327,7 +327,7 @@ describe('Workbook', () => {
         });
     });
 
-    it('title, subject, etc', () => {
+    it('title, subject, etc', async () => {
       const wb = new ExcelJS.Workbook();
       const ws = wb.addWorksheet('Hello');
       ws.getCell('A1').value = 'World!';
@@ -336,19 +336,14 @@ describe('Workbook', () => {
       wb.keywords = 'the keywords';
       wb.category = 'the category';
       wb.description = 'the description';
-      return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
-        .then(() => {
-          const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
-        })
-        .then((wb2) => {
-          expect(wb2.title).to.equal(wb.title);
-          expect(wb2.subject).to.equal(wb.subject);
-          expect(wb2.keywords).to.equal(wb.keywords);
-          expect(wb2.category).to.equal(wb.category);
-          expect(wb2.description).to.equal(wb.description);
-        });
+      await wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
+      const wb2 = new ExcelJS.Workbook();
+      const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+      expect(wb2_1.title).to.equal(wb.title);
+      expect(wb2_1.subject).to.equal(wb.subject);
+      expect(wb2_1.keywords).to.equal(wb.keywords);
+      expect(wb2_1.category).to.equal(wb.category);
+      expect(wb2_1.description).to.equal(wb.description);
     });
 
     it('language, revision and contentStatus', () => {
@@ -422,35 +417,30 @@ describe('Workbook', () => {
       return wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
     });
 
-    it('a lot of sheets to xlsx file', function () {
-      this.timeout(10000);
+    it(
+      'a lot of sheets to xlsx file',
+      async () => {
+        let i;
+        const wb = new ExcelJS.Workbook();
+        const numSheets = 90;
+        // add numSheets sheets
+        for (i = 1; i <= numSheets; i++) {
+          const ws = wb.addWorksheet(`sheet${i}`);
+          ws.getCell('A1').value = i;
+        }
+        await wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
+        const wb2 = new ExcelJS.Workbook();
+        const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+        for (i = 1; i <= numSheets; i++) {
+          const ws2 = wb2_1.getWorksheet(`sheet${i}`);
+          expect(ws2).toBeTruthy();
+          expect(ws2.getCell('A1').value).to.equal(i);
+        }
+      },
+      { timeout: 10000 },
+    );
 
-      let i;
-      const wb = new ExcelJS.Workbook();
-      const numSheets = 90;
-      // add numSheets sheets
-      for (i = 1; i <= numSheets; i++) {
-        const ws = wb.addWorksheet(`sheet${i}`);
-        ws.getCell('A1').value = i;
-      }
-      return wb.xlsx
-        .writeFile(TEST_XLSX_FILE_NAME)
-        .then(() => {
-          const wb2 = new ExcelJS.Workbook();
-          return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
-        })
-        .then((wb2) => {
-          for (i = 1; i <= numSheets; i++) {
-            const ws2 = wb2.getWorksheet(`sheet${i}`);
-            expect(ws2).to.be.ok();
-            expect(ws2.getCell('A1').value).to.equal(i);
-          }
-        });
-    });
-
-    it('csv file', function () {
-      this.timeout(5000);
-
+    it('csv file', () => {
       const wb = testUtils.createTestBook(new ExcelJS.Workbook(), 'csv');
 
       return wb.csv
@@ -464,8 +454,7 @@ describe('Workbook', () => {
         });
     });
 
-    it('CSV file and its configuration', function () {
-      this.timeout(5000);
+    it('CSV file and its configuration', () => {
       const writeOptions = {
         dateFormat: 'DD/MM/YYYY HH:mm:ss',
         dateUTC: false,
@@ -642,7 +631,7 @@ describe('Workbook', () => {
               expect(ws2.getCell('A2').style).to.equal(ws2.getCell('A1').style);
               expect(ws2.getCell('A3').value).to.equal('OneInfo');
               expect(ws2.getCell('A3').style).to.equal(ws2.getCell('A1').style);
-              expect(ws2.getCell('A4').value).to.be.null();
+              expect(ws2.getCell('A4').value).toBeNull();
             });
         });
       });
@@ -949,7 +938,7 @@ describe('Workbook', () => {
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('frozen');
-          expect(ws2).to.be.ok();
+          expect(ws2).toBeTruthy();
           expect(ws2.getCell('A1').value).to.equal('Let it Snow!');
           expect(ws2.views).to.deep.equal([
             {
@@ -1026,7 +1015,7 @@ describe('Workbook', () => {
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('split');
-          expect(ws2).to.be.ok();
+          expect(ws2).toBeTruthy();
           expect(ws2.getCell('A1').value).to.equal('Do the splits!');
           expect(ws2.views).to.deep.equal([
             {

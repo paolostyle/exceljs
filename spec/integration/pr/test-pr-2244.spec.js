@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 describe('pull request  2244', () => {
   it('pull request 2244- Fix xlsx.writeFile() not catching error when error occurs', async () => {

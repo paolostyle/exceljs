@@ -1,8 +1,6 @@
-const fs = require('node:fs');
-
-const testutils = require('../utils/index');
-
-const ExcelJS = require('#lib');
+import fs from 'node:fs';
+import ExcelJS from '#lib';
+import testutils from '../utils/index';
 
 const TEST_FILE_NAME = './spec/out/wb.test.xlsx';
 
@@ -10,14 +8,17 @@ const TEST_FILE_NAME = './spec/out/wb.test.xlsx';
 // because of: shared strings, sheet names, etc are not read in guaranteed order
 describe('WorkbookReader', () => {
   describe('Serialise', () => {
-    it('xlsx file', function () {
-      this.timeout(10000);
-      const wb = testutils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
+    it(
+      'xlsx file',
+      () => {
+        const wb = testutils.createTestBook(new ExcelJS.Workbook(), 'xlsx');
 
-      return wb.xlsx
-        .writeFile(TEST_FILE_NAME)
-        .then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
-    });
+        return wb.xlsx
+          .writeFile(TEST_FILE_NAME)
+          .then(() => testutils.checkTestBookReader(TEST_FILE_NAME));
+      },
+      { timeout: 10000 },
+    );
   });
 
   describe('#readFile', () => {
@@ -37,8 +38,7 @@ describe('WorkbookReader', () => {
           );
       });
 
-      it('should fail fast on a huge file', function () {
-        this.timeout(5000);
+      it('should fail fast on a huge file', () => {
         const workbook = new ExcelJS.Workbook();
         return workbook.xlsx
           .readFile('./spec/integration/data/huge.xlsx', { maxRows: 100 })
@@ -79,8 +79,7 @@ describe('WorkbookReader', () => {
           );
       });
 
-      it('should fail fast on a huge file', function () {
-        this.timeout(5000);
+      it('should fail fast on a huge file', () => {
         const workbook = new ExcelJS.Workbook();
         return workbook.xlsx
           .readFile('./spec/integration/data/huge.xlsx', { maxCols: 10 })
@@ -150,38 +149,37 @@ describe('WorkbookReader', () => {
         }
       });
 
-      expect(ws.getRow(3).font.color.argb).to.be.equal(
+      expect(ws.getRow(3).font.color.argb).toEqual(
         ws.getRow(6).font.color.argb,
       );
-      expect(ws.getRow(6).font.color.argb).to.be.equal(
+      expect(ws.getRow(6).font.color.argb).toEqual(
         ws.getRow(9).font.color.argb,
       );
-      expect(ws.getRow(9).font.color.argb).to.be.equal(
+      expect(ws.getRow(9).font.color.argb).toEqual(
         ws.getRow(12).font.color.argb,
       );
-      expect(ws.getRow(12).font.color.argb).not.to.be.equal(
+      expect(ws.getRow(12).font.color.argb).not.toEqual(
         ws.getRow(15).font.color.argb,
       );
-      expect(ws.getRow(15).font.color.argb).not.to.be.equal(
+      expect(ws.getRow(15).font.color.argb).not.toEqual(
         ws.getRow(18).font.color.argb,
       );
-      expect(ws.getRow(15).font.color.argb).to.be.equal(
+      expect(ws.getRow(15).font.color.argb).toEqual(
         ws.getRow(10).font.color.argb,
       );
-      expect(ws.getRow(10).font.color.argb).to.be.equal(
+      expect(ws.getRow(10).font.color.argb).toEqual(
         ws.getRow(5).font.color.argb,
       );
     });
   });
 
   describe('with a spreadsheet that contains formulas', () => {
-    before(function () {
+    beforeAll(async function () {
       const workbook = new ExcelJS.Workbook();
-      return workbook.xlsx
-        .read(fs.createReadStream('./spec/integration/data/formulas.xlsx'))
-        .then(() => {
-          this.worksheet = workbook.getWorksheet();
-        });
+      await workbook.xlsx.read(
+        fs.createReadStream('./spec/integration/data/formulas.xlsx'),
+      );
+      this.worksheet = workbook.getWorksheet();
     });
 
     describe('with a cell that contains a regular formula', () => {
@@ -281,7 +279,7 @@ describe('WorkbookReader', () => {
           },
         )
         .then(() => {
-          expect(unhandledRejection).to.be.undefined();
+          expect(unhandledRejection).toBeUndefined();
         });
     });
   });

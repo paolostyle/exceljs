@@ -1,13 +1,12 @@
-const tools = require('./tools');
-const testValues = tools.fix(require('./data/sheet-values.json'));
-
-const utils = require('#lib/utils/utils.js');
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
+import utils from '#lib/utils/utils.js';
+import tools from './tools.js';
 
 function fillFormula(f) {
   return Object.assign({ formula: undefined }, f);
 }
 
+const testValues = tools.fix(require('./data/sheet-values.json'));
 const streamedValues = {
   B1: { sharedString: 0 },
   C1: utils.dateToExcel(testValues.date),
@@ -16,8 +15,9 @@ const streamedValues = {
   F1: { sharedString: 1 },
   G1: { sharedString: 2 },
 };
-module.exports = {
-  testValues: tools.fix(require('./data/sheet-values.json')),
+
+export default {
+  testValues,
   styles: tools.fix(require('./data/styles.json')),
   properties: tools.fix(require('./data/sheet-properties.json')),
   pageSetup: tools.fix(require('./data/page-setup.json')),
@@ -79,10 +79,10 @@ module.exports = {
                 expect(row.getCell('B').type).to.equal(ExcelJS.ValueType.Null);
 
                 // C2:D3
-                expect(row.getCell('C').value).to.be.null();
+                expect(row.getCell('C').value).toBeNull();
                 expect(row.getCell('C').type).to.equal(ExcelJS.ValueType.Null);
 
-                expect(row.getCell('D').value).to.be.null();
+                expect(row.getCell('D').value).toBeNull();
                 expect(row.getCell('D').type).to.equal(ExcelJS.ValueType.Null);
 
                 break;
@@ -94,10 +94,10 @@ module.exports = {
                 expect(row.getCell('B').value).to.equal(null);
                 expect(row.getCell('B').type).to.equal(ExcelJS.ValueType.Null);
 
-                expect(row.getCell('C').value).to.be.null();
+                expect(row.getCell('C').value).toBeNull();
                 expect(row.getCell('C').type).to.equal(ExcelJS.ValueType.Null);
 
-                expect(row.getCell('D').value).to.be.null();
+                expect(row.getCell('D').value).toBeNull();
                 expect(row.getCell('D').type).to.equal(ExcelJS.ValueType.Null);
                 break;
 

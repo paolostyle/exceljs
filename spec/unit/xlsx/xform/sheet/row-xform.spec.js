@@ -1,8 +1,8 @@
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const RowXform = require('#lib/xlsx/xform/sheet/row-xform.js');
-const SharedStringsXform = require('#lib/xlsx/xform/strings/shared-strings-xform.js');
-const Enums = require('#lib/doc/enums.js');
+import Enums from '#lib/doc/enums.js';
+import RowXform from '#lib/xlsx/xform/sheet/row-xform.js';
+import SharedStringsXform from '#lib/xlsx/xform/strings/shared-strings-xform.js';
 
 const fakeStyles = {
   addStyleModel(style) {

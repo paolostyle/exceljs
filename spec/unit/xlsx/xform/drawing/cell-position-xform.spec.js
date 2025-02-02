@@ -1,6 +1,6 @@
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const CellPositionXform = require('#lib/xlsx/xform/drawing/cell-position-xform.js');
+import CellPositionXform from '#lib/xlsx/xform/drawing/cell-position-xform.js';
 
 const expectations = [
   {

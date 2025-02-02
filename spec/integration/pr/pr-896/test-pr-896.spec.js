@@ -1,12 +1,6 @@
-const chai = require('chai');
+import tools from '../../../utils/tools';
 
-process.env.EXCEL_NATIVE = 'yes';
-
-const tools = require('../../../utils/tools');
-
-const Excel = require('#lib');
-
-const { expect } = chai;
+import Excel from '#lib';
 
 const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
 const RT_ARR = [
@@ -51,7 +45,7 @@ describe('pr related issues', () => {
         })
         .then((wb2) => {
           const ws2 = wb2.getWorksheet('sheet1');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
           expect(ws2.getCell('A1').value).to.deep.equal(TEST_VALUE);
         });
     });

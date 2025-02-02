@@ -1,4 +1,4 @@
-const SharedStrings = require('#lib/utils/shared-strings.js');
+import SharedStrings from '#lib/utils/shared-strings.js';
 
 describe('SharedStrings', () => {
   it('Stores and shares string values', () => {

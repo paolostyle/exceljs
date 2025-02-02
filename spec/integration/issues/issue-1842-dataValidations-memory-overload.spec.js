@@ -1,7 +1,7 @@
-const { join } = require('node:path');
-const { readFileSync } = require('node:fs');
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const fileName = './spec/integration/data/test-issue-1842.xlsx';
 

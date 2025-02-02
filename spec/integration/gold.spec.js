@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 // =============================================================================
 // This spec is based around a gold standard Excel workbook 'gold.xlsx'
@@ -6,7 +6,7 @@ const ExcelJS = require('#lib');
 describe('Gold Book', () => {
   describe('Read', () => {
     let wb;
-    before(() => {
+    beforeAll(() => {
       wb = new ExcelJS.Workbook();
       return wb.xlsx.readFile(`${__dirname}/data/gold.xlsx`);
     });
@@ -35,7 +35,5 @@ describe('Gold Book', () => {
       expect(ws.lastColumn).to.equal(ws.getColumn(2));
       expect(ws.lastRow).to.equal(ws.getRow(6));
     });
-
-    it('Styles', () => {});
   });
 });

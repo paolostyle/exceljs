@@ -1,6 +1,6 @@
-const Stream = require('readable-stream');
+import Stream from 'readable-stream';
 
-const Excel = require('#lib');
+import Excel from '#lib';
 
 describe('Workbook Writer', () => {
   it('returns undefined for non-existant sheet', () => {

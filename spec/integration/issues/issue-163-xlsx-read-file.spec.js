@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 describe('github issues', () => {
   it('issue 163 - Error while using xslx readFile method', () => {

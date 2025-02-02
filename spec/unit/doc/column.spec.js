@@ -1,6 +1,6 @@
-const { createSheetMock } = require('../../utils/index');
+import { createSheetMock } from '../../utils/index';
 
-const Column = require('#lib/doc/column.js');
+import Column from '#lib/doc/column.js';
 
 describe('Column', () => {
   it('creates by defn', () => {

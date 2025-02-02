@@ -1,7 +1,7 @@
 const simpleWorkbookModel = require('../data/simpleWorkbook.json');
-const testUtils = require('../../utils/index');
+import testUtils from '../../utils/index';
 
-const Excel = require('#lib');
+import Excel from '#lib';
 
 // =============================================================================
 // Helpers
@@ -308,20 +308,20 @@ describe('Workbook', () => {
         expect(ws.getCell(`A${i}`).font).to.deep.equal(
           testUtils.styles.fonts.arialBlackUI14,
         );
-        expect(ws.getCell(`A${i}`).alignment).to.be.undefined();
+        expect(ws.getCell(`A${i}`).alignment).toBeUndefined();
         expect(ws.getCell(`B${i}`).font).to.deep.equal(
           testUtils.styles.fonts.comicSansUdB16,
         );
-        expect(ws.getCell(`B${i}`).alignment).to.undefined();
+        expect(ws.getCell(`B${i}`).alignment).toBeUndefined();
         expect(ws.getCell(`C${i}`).fill).to.deep.equal(
           testUtils.styles.fills.redDarkVertical,
         );
-        expect(ws.getCell(`C${i}`).alignment).to.undefined();
+        expect(ws.getCell(`C${i}`).alignment).toBeUndefined();
       }
 
       expect(ws.getRow(1).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
       expect(ws.getRow(2).numFmt).to.equal(testUtils.styles.numFmts.numFmt1);
-      expect(ws.getRow(3).numFmt).to.be.undefined();
+      expect(ws.getRow(3).numFmt).toBeUndefined();
       expect(ws.getRow(3).font).to.deep.equal(
         testUtils.styles.fonts.broadwayRedOutline20,
       );

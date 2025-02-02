@@ -1,7 +1,7 @@
-const testUtils = require('../../utils/index');
+import testUtils from '../../utils/index';
 
-const Excel = require('#lib');
-const Dimensions = require('#lib/doc/range.js');
+import Excel from '#lib';
+import Dimensions from '#lib/doc/range.js';
 
 describe('Worksheet', () => {
   describe('Merge Cells', () => {

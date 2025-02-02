@@ -1,6 +1,6 @@
-const testUtils = require('../../utils/index');
+import testUtils from '../../utils/index';
 
-const Excel = require('#lib');
+import Excel from '#lib';
 
 describe('Worksheet', () => {
   describe('Styles', () => {
@@ -39,7 +39,7 @@ describe('Worksheet', () => {
         testUtils.styles.fills.redGreenDarkTrellis,
       );
 
-      expect(ws.findCell('B1')).to.be.undefined();
+      expect(ws.findCell('B1')).toBeUndefined();
 
       expect(ws.getCell('C1').numFmt).to.deep.equal(
         testUtils.styles.numFmts.numFmt2,
@@ -111,7 +111,7 @@ describe('Worksheet', () => {
         testUtils.styles.fills.redGreenDarkTrellis,
       );
 
-      expect(ws.findRow(2)).to.be.undefined();
+      expect(ws.findRow(2)).toBeUndefined();
 
       expect(ws.getCell('A3').numFmt).to.deep.equal(
         testUtils.styles.numFmts.numFmt2,

@@ -1,16 +1,18 @@
-const _ = require('./under-dash');
-const tools = require('./tools');
-
-const testWorkbookReader = require('./test-workbook-reader');
-
-const Row = require('#lib/doc/row.js');
-const Column = require('#lib/doc/column.js');
+import Column from '#lib/doc/column.js';
+import Row from '#lib/doc/row.js';
+import testWorkbookReader from './test-workbook-reader';
+import conditionalFormatting from './testSheets/test-conditional-formatting-sheet';
+import dataValidations from './testSheets/test-data-validation-sheet';
+import splice from './testSheets/test-spliced-sheet';
+import values from './testSheets/test-values-sheet';
+import tools from './tools';
+import _ from './under-dash';
 
 const testSheets = {
-  dataValidations: require('./test-data-validation-sheet'),
-  conditionalFormatting: require('./test-conditional-formatting-sheet'),
-  values: require('./test-values-sheet'),
-  splice: require('./test-spliced-sheet'),
+  dataValidations,
+  conditionalFormatting,
+  values,
+  splice,
 };
 
 function getOptions(docType, options) {
@@ -46,7 +48,7 @@ function getOptions(docType, options) {
   return Object.assign(result, options);
 }
 
-module.exports = {
+const utils = {
   views: tools.fix(require('./data/views.json')),
   testValues: tools.fix(require('./data/sheet-values.json')),
   styles: tools.fix(require('./data/styles.json')),
@@ -77,7 +79,7 @@ module.exports = {
     options = getOptions(docType, options);
     sheets = sheets || ['values'];
 
-    expect(workbook).to.not.be.undefined();
+    expect(workbook).not.toBeUndefined();
 
     if (options.checkViews) {
       expect(workbook.views).to.deep.equal([
@@ -167,3 +169,7 @@ module.exports = {
     };
   },
 };
+
+export const { createSheetMock } = utils;
+
+export default utils;

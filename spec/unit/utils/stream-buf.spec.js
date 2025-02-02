@@ -1,8 +1,8 @@
-const fs = require('node:fs');
-const path = require('node:path');
+import fs from 'node:fs';
+import path from 'node:path';
 
-const StreamBuf = require('#lib/utils/stream-buf.js');
-const StringBuf = require('#lib/utils/string-buf.js');
+import StreamBuf from '#lib/utils/stream-buf.js';
+import StringBuf from '#lib/utils/string-buf.js';
 
 describe('StreamBuf', () => {
   // StreamBuf is designed as a general-purpose writable-readable stream
@@ -13,7 +13,7 @@ describe('StreamBuf', () => {
     const stream = new StreamBuf();
     stream.write('Hello, World!');
     const chunk = stream.read();
-    expect(chunk instanceof Buffer).to.be.ok();
+    expect(chunk instanceof Buffer).toBeTruthy();
     expect(chunk.toString('UTF8')).to.equal('Hello, World!');
   });
 
@@ -23,7 +23,7 @@ describe('StreamBuf', () => {
     strBuf.addText('Hello, World!');
     stream.write(strBuf);
     const chunk = stream.read();
-    expect(chunk instanceof Buffer).to.be.ok();
+    expect(chunk instanceof Buffer).toBeTruthy();
     expect(chunk.toString('UTF8')).to.equal('Hello, World!');
   });
 

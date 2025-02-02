@@ -1,7 +1,7 @@
-const fs = require('node:fs');
-const { promisify } = require('node:util');
+import fs from 'node:fs';
+import { promisify } from 'node:util';
 
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const IMAGE_FILENAME = `${__dirname}/../data/image.png`;
 const TEST_XLSX_FILE_NAME = './spec/out/wb.test.xlsx';
@@ -33,7 +33,7 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
@@ -71,7 +71,7 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           expect(ws.getCell('A1').value).to.equal('Hello, World!');
           expect(ws.getCell('A2').value).to.deep.equal({
@@ -121,7 +121,7 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
@@ -162,7 +162,7 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
@@ -209,7 +209,7 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })
@@ -267,7 +267,7 @@ describe('Workbook', () => {
         })
         .then(() => {
           ws2 = wb2.getWorksheet('blort');
-          expect(ws2).to.not.be.undefined();
+          expect(ws2).not.toBeUndefined();
 
           return fsReadFileAsync(IMAGE_FILENAME);
         })

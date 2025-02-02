@@ -1,4 +1,4 @@
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 describe('github issues', () => {
   it('issue 771 - Issue with dataValidation without type and with formula1 or formula2', () => {

@@ -1,6 +1,6 @@
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const UnderlineXform = require('#lib/xlsx/xform/style/underline-xform.js');
+import UnderlineXform from '#lib/xlsx/xform/style/underline-xform.js';
 
 const expectations = [
   {

@@ -7,6 +7,7 @@
     "Guyon Roche <guyon@live.com>",
     "Paweł Dąbrowski <dabrowskip9@gmail.com>"
   ],
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/paolostyle/exceljs.git"
@@ -27,14 +28,11 @@
     "index.d.ts"
   ],
   "imports": {
-    "#lib": "./lib/index.js",
-    "#lib/*": "./lib/*"
+    "#lib": "./esm/index.js",
+    "#lib/*": "./esm/*"
   },
   "scripts": {
-    "test": "npm run build && npm run test:unit && npm run test:integration && npm run test:end-to-end",
-    "test:unit": "mocha --require spec/config/setup spec/unit --recursive",
-    "test:integration": "mocha --require spec/config/setup spec/integration --recursive",
-    "test:end-to-end": "mocha --require spec/config/setup spec/end-to-end --recursive",
+    "test": "vitest",
     "test:manual": "node spec/manual/app.js",
     "lint": "biome check",
     "lint:fix": "biome check --fix",
@@ -56,32 +54,34 @@
     "sheets"
   ],
   "dependencies": {
-    "archiver": "^5.0.0",
-    "dayjs": "^1.8.34",
-    "fast-csv": "^4.3.1",
+    "@zip.js/zip.js": "^2.7.57",
+    "archiver": "^5.3.2",
+    "dayjs": "^1.11.13",
+    "fast-csv": "^5.0.2",
     "jszip": "^3.10.1",
     "readable-stream": "^3.6.0",
     "saxes": "^5.0.1",
-    "tmp": "^0.2.0",
+    "tmp": "^0.2.3",
     "unzipper": "^0.10.11",
-    "uuid": "^8.3.0"
+    "web-streams-polyfill": "^4.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/chai": "^4.2.12",
-    "@types/mocha": "^8.0.3",
-    "@types/node": "^14.18.63",
-    "chai": "^4.2.0",
-    "chai-datetime": "^1.7.0",
-    "chai-xml": "^0.3.2",
-    "dirty-chai": "^2.0.1",
+    "@types/bun": "^1.2.2",
+    "@types/deno": "^2.0.0",
+    "@types/node": "^22.13.0",
+    "@types/chai-xml": "^0.3.6",
+    "@types/chai-datetime": "1.0.0",
+    "chai-datetime": "^1.8.1",
+    "chai-xml": "^0.4.1",
     "express": "^4.16.4",
     "got": "^9.0.0",
     "husky": "^9.1.7",
     "knip": "^5.43.6",
-    "mocha": "^7.2.0",
     "tsup": "^8.3.6",
-    "typescript": "^5.7.3"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.4"
   },
   "packageManager": "pnpm@10.1.0+sha512.c89847b0667ddab50396bbbd008a2a43cf3b581efd59cf5d9aa8923ea1fb4b8106c041d540d08acb095037594d73ebc51e1ec89ee40c88b30b8a66c0fae0ac1b",
   "pnpm": {

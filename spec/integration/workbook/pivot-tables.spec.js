@@ -1,13 +1,13 @@
 // *Note*: `fs.promises` not supported before Node.js 11.14.0;
 // ExcelJS version range '>=8.3.0' (as of 2023-10-08).
-const fs = require('node:fs');
-const { promisify } = require('node:util');
+import fs from 'node:fs';
+import { promisify } from 'node:util';
 
 const fsReadFileAsync = promisify(fs.readFile);
 
-const JSZip = require('jszip');
+import JSZip from 'jszip';
 
-const ExcelJS = require('#lib');
+import ExcelJS from '#lib';
 
 const PIVOT_TABLE_FILEPATHS = [
   'xl/pivotCache/pivotCacheRecords1.xml',
@@ -53,7 +53,7 @@ describe('Workbook', () => {
         const buffer = await fsReadFileAsync(TEST_XLSX_FILEPATH);
         const zip = await JSZip.loadAsync(buffer);
         for (const filepath of PIVOT_TABLE_FILEPATHS) {
-          expect(zip.files[filepath]).to.not.be.undefined();
+          expect(zip.files[filepath]).not.toBeUndefined();
         }
       });
     });
@@ -70,7 +70,7 @@ describe('Workbook', () => {
         const buffer = await fsReadFileAsync(TEST_XLSX_FILEPATH);
         const zip = await JSZip.loadAsync(buffer);
         for (const filepath of PIVOT_TABLE_FILEPATHS) {
-          expect(zip.files[filepath]).to.be.undefined();
+          expect(zip.files[filepath]).toBeUndefined();
         }
       });
     });

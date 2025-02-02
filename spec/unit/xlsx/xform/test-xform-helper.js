@@ -1,10 +1,11 @@
-const { PassThrough } = require('readable-stream');
-const { cloneDeep, each } = require('../../../utils/under-dash');
-const CompyXform = require('./compy-xform');
+import { PassThrough } from 'readable-stream';
+import parseSax from '#lib/utils/parse-sax.js';
+import XmlStream from '#lib/utils/xml-stream.js';
+import BooleanXform from '#lib/xlsx/xform/simple/boolean-xform.js';
+import _ from '../../../utils/under-dash.js';
+import CompyXform from './compy-xform';
 
-const parseSax = require('#lib/utils/parse-sax.js');
-const XmlStream = require('#lib/utils/xml-stream.js');
-const BooleanXform = require('#lib/xlsx/xform/simple/boolean-xform.js');
+const { cloneDeep, each } = _;
 
 function getExpectation(expectation, name) {
   if (!Object.hasOwn(expectation, name)) {
@@ -207,4 +208,4 @@ function testXform(expectations) {
   });
 }
 
-module.exports = testXform;
+export default testXform;

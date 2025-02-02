@@ -1,10 +1,9 @@
-const path = require('node:path');
+import path from 'node:path';
 
-const { expect } = require('chai');
-const testutils = require('../utils/index');
+import testutils from '../utils/index';
 
-const ExcelJS = require('#lib');
-const Range = require('#lib/doc/range.js');
+import ExcelJS from '#lib';
+import Range from '#lib/doc/range.js';
 
 describe('Worksheet', () => {
   describe('Values', () => {
@@ -856,7 +855,7 @@ describe('Worksheet', () => {
       testutils.styles.fills.redGreenDarkTrellis,
     );
 
-    expect(ws.findCell('B1')).to.be.undefined();
+    expect(ws.findCell('B1')).toBeUndefined();
 
     expect(ws.getCell('C1').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
     expect(ws.getCell('C1').font).to.deep.equal(
@@ -921,7 +920,7 @@ describe('Worksheet', () => {
       testutils.styles.fills.redGreenDarkTrellis,
     );
 
-    expect(ws.findRow(2)).to.be.undefined();
+    expect(ws.findRow(2)).toBeUndefined();
 
     expect(ws.getCell('A3').numFmt).to.equal(testutils.styles.numFmts.numFmt2);
     expect(ws.getCell('A3').font).to.deep.equal(

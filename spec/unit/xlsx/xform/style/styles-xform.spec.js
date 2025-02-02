@@ -1,9 +1,9 @@
-const fs = require('node:fs');
+import fs from 'node:fs';
 
-const testXformHelper = require('../test-xform-helper');
+import testXformHelper from '../test-xform-helper';
 
-const StylesXform = require('#lib/xlsx/xform/style/styles-xform.js');
-const XmlStream = require('#lib/utils/xml-stream.js');
+import XmlStream from '#lib/utils/xml-stream.js';
+import StylesXform from '#lib/xlsx/xform/style/styles-xform.js';
 
 const expectations = [
   {

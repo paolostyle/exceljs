@@ -1,4 +1,4 @@
-const colCache = require('#lib/utils/col-cache.js');
+import colCache from '#lib/utils/col-cache.js';
 
 describe('colCache', () => {
   it('caches values', () => {
@@ -84,9 +84,9 @@ describe('colCache', () => {
   });
 
   it('validates addresses properly', () => {
-    expect(colCache.validateAddress('A1')).to.be.ok();
-    expect(colCache.validateAddress('AA10')).to.be.ok();
-    expect(colCache.validateAddress('ABC100000')).to.be.ok();
+    expect(colCache.validateAddress('A1')).toBeTruthy();
+    expect(colCache.validateAddress('AA10')).toBeTruthy();
+    expect(colCache.validateAddress('ABC100000')).toBeTruthy();
 
     expect(() => {
       colCache.validateAddress('A');
