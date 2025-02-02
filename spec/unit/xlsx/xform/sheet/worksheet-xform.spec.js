@@ -2,7 +2,7 @@ import fs from 'node:fs';
 
 import testXformHelper from '../test-xform-helper';
 
-import Enums from '#lib/doc/enums.js';
+import { ValueType } from '#lib/doc/enums.ts';
 import XmlStream from '#lib/utils/xml-stream.js';
 import WorksheetXform from '#lib/xlsx/xform/sheet/worksheet-xform.js';
 
@@ -11,7 +11,7 @@ import StylesXform from '#lib/xlsx/xform/style/styles-xform.js';
 
 const fakeStyles = {
   addStyleModel(style, cellType) {
-    if (cellType === Enums.ValueType.Date) {
+    if (cellType === ValueType.Date) {
       return 1;
     }
     if (style?.font) {

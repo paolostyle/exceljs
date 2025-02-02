@@ -1,7 +1,7 @@
 import colCache from '../utils/col-cache.js';
 import _ from '../utils/under-dash.js';
 import Cell from './cell.js';
-import Enums from './enums.js';
+import { ValueType } from './enums.ts';
 
 class Row {
   constructor(worksheet, number) {
@@ -136,7 +136,7 @@ class Row {
       }
     } else {
       this._cells.forEach((cell, index) => {
-        if (cell && cell.type !== Enums.ValueType.Null) {
+        if (cell && cell.type !== ValueType.Null) {
           iteratee(cell, index + 1);
         }
       });
@@ -163,7 +163,7 @@ class Row {
   get values() {
     const values = [];
     this._cells.forEach((cell) => {
-      if (cell && cell.type !== Enums.ValueType.Null) {
+      if (cell && cell.type !== ValueType.Null) {
         values[cell.col] = cell.value;
       }
     });
@@ -207,10 +207,7 @@ class Row {
 
   // returns true if the row includes at least one cell with a value
   get hasValues() {
-    return _.some(
-      this._cells,
-      (cell) => cell && cell.type !== Enums.ValueType.Null,
-    );
+    return _.some(this._cells, (cell) => cell && cell.type !== ValueType.Null);
   }
 
   get cellCount() {
@@ -230,7 +227,7 @@ class Row {
     let min = 0;
     let max = 0;
     this._cells.forEach((cell) => {
-      if (cell && cell.type !== Enums.ValueType.Null) {
+      if (cell && cell.type !== ValueType.Null) {
         if (!min || min > cell.col) {
           min = cell.col;
         }

@@ -1,4 +1,4 @@
-import Enums from '../../../doc/enums.js';
+import { ReadingOrder } from '../../../doc/enums.ts';
 import utils from '../../../utils/utils.js';
 import BaseXform from '../base-xform.js';
 
@@ -52,9 +52,9 @@ const validation = {
   readingOrder(value) {
     switch (value) {
       case 'ltr':
-        return Enums.ReadingOrder.LeftToRight;
+        return ReadingOrder.LeftToRight;
       case 'rtl':
-        return Enums.ReadingOrder.RightToLeft;
+        return ReadingOrder.RightToLeft;
       default:
         return undefined;
     }

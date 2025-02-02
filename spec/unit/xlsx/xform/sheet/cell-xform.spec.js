@@ -1,12 +1,12 @@
 import testXformHelper from '../test-xform-helper';
 
-import Enums from '#lib/doc/enums.js';
+import { ValueType } from '#lib/doc/enums.ts';
 import CellXform from '#lib/xlsx/xform/sheet/cell-xform.js';
 import SharedStringsXform from '#lib/xlsx/xform/strings/shared-strings-xform.js';
 
 const fakeStyles = {
   addStyleModel(style, effectiveType) {
-    if (effectiveType === Enums.ValueType.Date) {
+    if (effectiveType === ValueType.Date) {
       return 1;
     }
     return 0;
@@ -31,9 +31,9 @@ const expectations = [
     create() {
       return new CellXform();
     },
-    preparedModel: { address: 'A1', type: Enums.ValueType.Null, styleId: 1 },
+    preparedModel: { address: 'A1', type: ValueType.Null, styleId: 1 },
     xml: '<c r="A1" s="1" />',
-    parsedModel: { address: 'A1', type: Enums.ValueType.Null, styleId: 1 },
+    parsedModel: { address: 'A1', type: ValueType.Null, styleId: 1 },
     tests: ['render', 'renderIn', 'parse'],
   },
   {
@@ -41,8 +41,8 @@ const expectations = [
     create() {
       return new CellXform();
     },
-    preparedModel: { address: 'A1', type: Enums.ValueType.Number, value: 5 },
-    parsedModel: { address: 'A1', type: Enums.ValueType.Number, value: 5 },
+    preparedModel: { address: 'A1', type: ValueType.Number, value: 5 },
+    parsedModel: { address: 'A1', type: ValueType.Number, value: 5 },
     xml: '<c r="A1"><v>5</v></c>',
     tests: ['render', 'renderIn', 'parse'],
   },
@@ -53,10 +53,10 @@ const expectations = [
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.Boolean,
+      type: ValueType.Boolean,
       value: true,
     },
-    parsedModel: { address: 'A1', type: Enums.ValueType.Boolean, value: true },
+    parsedModel: { address: 'A1', type: ValueType.Boolean, value: true },
     xml: '<c r="A1" t="b"><v>1</v></c>',
     tests: ['render', 'renderIn', 'parse'],
   },
@@ -67,12 +67,12 @@ const expectations = [
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.Error,
+      type: ValueType.Error,
       value: { error: '#N/A' },
     },
     parsedModel: {
       address: 'A1',
-      type: Enums.ValueType.Error,
+      type: ValueType.Error,
       value: { error: '#N/A' },
     },
     xml: '<c r="A1" t="e"><v>#N/A</v></c>',
@@ -83,17 +83,17 @@ const expectations = [
     create() {
       return new CellXform();
     },
-    initialModel: { address: 'A1', type: Enums.ValueType.String, value: 'Foo' },
+    initialModel: { address: 'A1', type: ValueType.String, value: 'Foo' },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: 'Foo',
     },
     xml: '<c r="A1" t="str"><v>Foo</v></c>',
-    parsedModel: { address: 'A1', type: Enums.ValueType.String, value: 'Foo' },
+    parsedModel: { address: 'A1', type: ValueType.String, value: 'Foo' },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: 'Foo',
     },
     tests: ['prepare', 'render', 'renderIn', 'parse', 'reconcile'],
@@ -106,23 +106,23 @@ const expectations = [
     },
     initialModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: '6E1000',
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: '6E1000',
     },
     xml: '<c r="A1" t="str"><v>6E1000</v></c>',
     parsedModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: '6E1000',
     },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: '6E1000',
     },
     tests: ['prepare', 'render', 'renderIn', 'parse', 'reconcile'],
@@ -137,10 +137,10 @@ const expectations = [
       return new CellXform();
     },
     xml: '<c r="A1" t="inlineStr"><is><t>Foo</t></is></c>',
-    parsedModel: { address: 'A1', type: Enums.ValueType.String, value: 'Foo' },
+    parsedModel: { address: 'A1', type: ValueType.String, value: 'Foo' },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: 'Foo',
     },
     tests: ['parse', 'reconcile'],
@@ -153,7 +153,7 @@ const expectations = [
     },
     initialModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: {
         richText: [
           { font: { color: { argb: 'FF0000' } }, text: 'red' },
@@ -163,7 +163,7 @@ const expectations = [
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: {
         richText: [
           { font: { color: { argb: 'FF0000' } }, text: 'red' },
@@ -174,7 +174,7 @@ const expectations = [
     xml: '<c r="A1" t="inlineStr"><is><r><rPr><color rgb="FF0000"/></rPr><t>red</t></r><r><rPr><color rgb="00FF00"/></rPr><t>green</t></r></is></c>',
     parsedModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: {
         richText: [
           { font: { color: { argb: 'FF0000' } }, text: 'red' },
@@ -184,7 +184,7 @@ const expectations = [
     },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.RichText,
+      type: ValueType.RichText,
       value: {
         richText: [
           { font: { color: { argb: 'FF0000' } }, text: 'red' },
@@ -200,18 +200,18 @@ const expectations = [
     create() {
       return new CellXform();
     },
-    initialModel: { address: 'A1', type: Enums.ValueType.String, value: 'Foo' },
+    initialModel: { address: 'A1', type: ValueType.String, value: 'Foo' },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: 'Foo',
       ssId: 0,
     },
     xml: '<c r="A1" t="s"><v>0</v></c>',
-    parsedModel: { address: 'A1', type: Enums.ValueType.String, value: 0 },
+    parsedModel: { address: 'A1', type: ValueType.String, value: 0 },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: 'Foo',
     },
     tests: ['prepare', 'render', 'renderIn', 'parse', 'reconcile'],
@@ -228,7 +228,7 @@ const expectations = [
     },
     initialModel: {
       address: 'A1',
-      type: Enums.ValueType.RichText,
+      type: ValueType.RichText,
       value: {
         richText: [
           { font: { color: { argb: 'FF0000' } }, text: 'red' },
@@ -238,7 +238,7 @@ const expectations = [
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.RichText,
+      type: ValueType.RichText,
       value: {
         richText: [
           { font: { color: { argb: 'FF0000' } }, text: 'red' },
@@ -250,12 +250,12 @@ const expectations = [
     xml: '<c r="A1" t="s"><v>0</v></c>',
     parsedModel: {
       address: 'A1',
-      type: Enums.ValueType.String,
+      type: ValueType.String,
       value: 0,
     },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.RichText,
+      type: ValueType.RichText,
       value: {
         richText: [
           { font: { color: { argb: 'FF0000' } }, text: 'red' },
@@ -277,25 +277,25 @@ const expectations = [
     },
     initialModel: {
       address: 'A1',
-      type: Enums.ValueType.Date,
+      type: ValueType.Date,
       value: new Date('2016-06-09T00:00:00.000Z'),
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.Date,
+      type: ValueType.Date,
       value: new Date('2016-06-09T00:00:00.000Z'),
       styleId: 1,
     },
     xml: '<c r="A1" s="1"><v>42530</v></c>',
     parsedModel: {
       address: 'A1',
-      type: Enums.ValueType.Number,
+      type: ValueType.Number,
       value: 42530,
       styleId: 1,
     },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.Date,
+      type: ValueType.Date,
       value: new Date('2016-06-09T00:00:00.000Z'),
       style: { numFmt: 'mm-dd-yy' },
     },
@@ -314,22 +314,22 @@ const expectations = [
     },
     initialModel: {
       address: 'H1',
-      type: Enums.ValueType.Hyperlink,
+      type: ValueType.Hyperlink,
       hyperlink: 'http://www.foo.com',
       text: 'www.foo.com',
     },
     preparedModel: {
       address: 'H1',
-      type: Enums.ValueType.Hyperlink,
+      type: ValueType.Hyperlink,
       hyperlink: 'http://www.foo.com',
       text: 'www.foo.com',
       ssId: 0,
     },
     xml: '<c r="H1" t="s"><v>0</v></c>',
-    parsedModel: { address: 'H1', type: Enums.ValueType.String, value: 0 },
+    parsedModel: { address: 'H1', type: ValueType.String, value: 0 },
     reconciledModel: {
       address: 'H1',
-      type: Enums.ValueType.Hyperlink,
+      type: ValueType.Hyperlink,
       text: 'www.foo.com',
       hyperlink: 'http://www.foo.com',
     },
@@ -348,26 +348,26 @@ const expectations = [
     },
     initialModel: {
       address: 'A1',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       formula: 'A2',
       result: 'Foo',
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       formula: 'A2',
       result: 'Foo',
     },
     xml: '<c r="A1" t="str"><f>A2</f><v>Foo</v></c>',
     parsedModel: {
       address: 'A1',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       formula: 'A2',
       result: 'Foo',
     },
     reconciledModel: {
       address: 'A1',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       formula: 'A2',
       result: 'Foo',
     },
@@ -388,14 +388,14 @@ const expectations = [
     },
     preparedModel: {
       address: 'A1',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       formula: 'A2',
       result: 7,
     },
     xml: '<c r="A1"><f>A2</f><v>7</v></c>',
     parsedModel: {
       address: 'A1',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       formula: 'A2',
       result: 7,
     },
@@ -409,7 +409,7 @@ const expectations = [
     },
     preparedModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       shareType: 'shared',
       ref: 'A2:B2',
       formula: 'A1',
@@ -419,7 +419,7 @@ const expectations = [
     xml: '<c r="A2"><f t="shared" ref="A2:B2" si="0">A1</f><v>2</v></c>',
     parsedModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       shareType: 'shared',
       ref: 'A2:B2',
       formula: 'A1',
@@ -428,7 +428,7 @@ const expectations = [
     },
     reconciledModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       shareType: 'shared',
       ref: 'A2:B2',
       formula: 'A1',
@@ -450,13 +450,13 @@ const expectations = [
     },
     initialModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       sharedFormula: 'A1',
       result: 2,
     },
     preparedModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       sharedFormula: 'A1',
       result: 2,
       si: 0,
@@ -464,14 +464,14 @@ const expectations = [
     xml: '<c r="A2"><f t="shared" si="0" /><v>2</v></c>',
     parsedModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       result: 2,
       shareType: 'shared',
       si: '0',
     },
     reconciledModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       result: 2,
       sharedFormula: 'A1',
     },
@@ -483,7 +483,7 @@ const expectations = [
       formulae: {
         A1: {
           address: 'A1',
-          type: Enums.ValueType.Formula,
+          type: ValueType.Formula,
           formula: 'ROW()',
           result: 1,
           si: 0,
@@ -500,7 +500,7 @@ const expectations = [
     },
     preparedModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       shareType: 'array',
       ref: 'A2:B2',
       formula: 'A1',
@@ -509,7 +509,7 @@ const expectations = [
     xml: '<c r="A2"><f t="array" ref="A2:B2">A1</f><v>2</v></c>',
     parsedModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       shareType: 'array',
       ref: 'A2:B2',
       formula: 'A1',
@@ -517,7 +517,7 @@ const expectations = [
     },
     reconciledModel: {
       address: 'A2',
-      type: Enums.ValueType.Formula,
+      type: ValueType.Formula,
       shareType: 'array',
       ref: 'A2:B2',
       formula: 'A1',

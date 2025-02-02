@@ -1,4 +1,4 @@
-import Enums from '../../../doc/enums.js';
+import { ValueType } from '../../../doc/enums.ts';
 import XmlStream from '../../../utils/xml-stream.js';
 import BaseXform from '../base-xform.js';
 import ListXform from '../list-xform.js';
@@ -286,16 +286,16 @@ class StylesXform extends BaseXform {
     }
 
     const style = {};
-    cellType = cellType || Enums.ValueType.Number;
+    cellType = cellType || ValueType.Number;
 
     if (model.numFmt) {
       style.numFmtId = this._addNumFmtStr(model.numFmt);
     } else {
       switch (cellType) {
-        case Enums.ValueType.Number:
+        case ValueType.Number:
           style.numFmtId = this._addNumFmtStr('General');
           break;
-        case Enums.ValueType.Date:
+        case ValueType.Date:
           style.numFmtId = this._addNumFmtStr('mm-dd-yy');
           break;
         default:
@@ -563,7 +563,7 @@ class StylesXformMock extends StylesXform {
   // the styleId is returned. Note: cellType is used when numFmt not defined
   addStyleModel(model, cellType) {
     switch (cellType) {
-      case Enums.ValueType.Date:
+      case ValueType.Date:
         return this.dateStyleId;
       default:
         return 0;

@@ -1,6 +1,6 @@
 import colCache from '../utils/col-cache.js';
 import _ from '../utils/under-dash.js';
-import Enums from './enums.js';
+import { ValueType } from './enums.ts';
 
 const DEFAULT_COLUMN_WIDTH = 9;
 
@@ -183,7 +183,7 @@ class Column {
   get values() {
     const v = [];
     this.eachCell((cell, rowNumber) => {
-      if (cell && cell.type !== Enums.ValueType.Null) {
+      if (cell && cell.type !== ValueType.Null) {
         v[rowNumber] = cell.value;
       }
     });

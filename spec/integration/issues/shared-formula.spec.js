@@ -1,5 +1,5 @@
 import ExcelJS from '#lib';
-import Enums from '#lib/doc/enums.js';
+import { ValueType } from '#lib/doc/enums.ts';
 
 describe('github issues', () => {
   describe('Shared Formulas', () => {
@@ -30,8 +30,8 @@ describe('github issues', () => {
           .readFile('./spec/integration/data/fibonacci.xlsx')
           .then(() => {
             const ws = wb.getWorksheet('fib');
-            expect(ws.getCell('A4').type).to.equal(Enums.ValueType.Formula);
-            expect(ws.getCell('A5').type).to.equal(Enums.ValueType.Formula);
+            expect(ws.getCell('A4').type).to.equal(ValueType.Formula);
+            expect(ws.getCell('A5').type).to.equal(ValueType.Formula);
           });
       });
       it('copied cells should have the same fields', () => {

@@ -1,6 +1,6 @@
 import testXformHelper from '../test-xform-helper';
 
-import Enums from '#lib/doc/enums.js';
+import { ValueType } from '#lib/doc/enums.ts';
 import RowXform from '#lib/xlsx/xform/sheet/row-xform.js';
 import SharedStringsXform from '#lib/xlsx/xform/strings/shared-strings-xform.js';
 
@@ -26,7 +26,7 @@ const expectations = [
       min: 1,
       max: 1,
       style: {},
-      cells: [{ address: 'A1', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A1', type: ValueType.Number, value: 5 }],
     },
     get preparedModel() {
       return this.initialModel;
@@ -36,13 +36,13 @@ const expectations = [
       number: 1,
       min: 1,
       max: 1,
-      cells: [{ address: 'A1', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A1', type: ValueType.Number, value: 5 }],
     },
     reconciledModel: {
       number: 1,
       min: 1,
       max: 1,
-      cells: [{ address: 'A1', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A1', type: ValueType.Number, value: 5 }],
       style: {},
     },
     tests: ['prepare', 'render', 'renderIn', 'parse', 'reconcile'],
@@ -58,7 +58,7 @@ const expectations = [
     initialModel: {
       number: 1,
       style: {},
-      cells: [{ address: 'A1', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A1', type: ValueType.Number, value: 5 }],
     },
     get preparedModel() {
       return this.initialModel;
@@ -66,11 +66,11 @@ const expectations = [
     xml: '<row r="1" x14ac:dyDescent="0.25"><c r="A1"><v>5</v></c></row>',
     parsedModel: {
       number: 1,
-      cells: [{ address: 'A1', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A1', type: ValueType.Number, value: 5 }],
     },
     reconciledModel: {
       number: 1,
-      cells: [{ address: 'A1', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A1', type: ValueType.Number, value: 5 }],
       style: {},
     },
     tests: ['prepare', 'render', 'renderIn', 'parse', 'reconcile'],
@@ -88,14 +88,14 @@ const expectations = [
       min: 1,
       max: 1,
       style: { numFmt: '#' },
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
     },
     preparedModel: {
       number: 2,
       min: 1,
       max: 1,
       style: { numFmt: '#' },
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
       styleId: 1,
     },
     xml: '<row r="2" spans="1:1" s="1" customFormat="1" x14ac:dyDescent="0.25"><c r="A2"><v>5</v></c></row>',
@@ -103,7 +103,7 @@ const expectations = [
       number: 2,
       min: 1,
       max: 1,
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
       styleId: 1,
     },
     reconciledModel: {
@@ -111,7 +111,7 @@ const expectations = [
       min: 1,
       max: 1,
       style: { numFmt: '#' },
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
     },
     tests: ['prepare', 'render', 'renderIn', 'parse', 'reconcile'],
     options: {
@@ -128,7 +128,7 @@ const expectations = [
       min: 1,
       max: 1,
       style: { numFmt: '#' },
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
       outlineLevel: 1,
       collapsed: true,
     },
@@ -137,7 +137,7 @@ const expectations = [
       min: 1,
       max: 1,
       style: { numFmt: '#' },
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
       outlineLevel: 1,
       styleId: 1,
       collapsed: true,
@@ -147,7 +147,7 @@ const expectations = [
       number: 2,
       min: 1,
       max: 1,
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
       outlineLevel: 1,
       collapsed: true,
       styleId: 1,
@@ -157,7 +157,7 @@ const expectations = [
       min: 1,
       max: 1,
       style: { numFmt: '#' },
-      cells: [{ address: 'A2', type: Enums.ValueType.Number, value: 5 }],
+      cells: [{ address: 'A2', type: ValueType.Number, value: 5 }],
       outlineLevel: 1,
       collapsed: true,
     },

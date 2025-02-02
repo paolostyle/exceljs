@@ -1,7 +1,9 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.js'],
+  entry: {
+    exceljs: 'src/index.js',
+  },
   clean: true,
   format: ['esm', 'cjs'],
 });

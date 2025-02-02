@@ -1,4 +1,4 @@
-import Enums from '../../../doc/enums.js';
+import { ValueType } from '../../../doc/enums.ts';
 import Range from '../../../doc/range.js';
 import colCache from '../../../utils/col-cache.js';
 import _ from '../../../utils/under-dash.js';
@@ -34,10 +34,10 @@ class Merges {
           if (!cell) {
             // nulls are not included in document - so if master cell has no value - add a null one here
             row.cells[j] = {
-              type: Enums.ValueType.Null,
+              type: ValueType.Null,
               address: colCache.encodeAddress(i, j),
             };
-          } else if (cell.type === Enums.ValueType.Merge) {
+          } else if (cell.type === ValueType.Merge) {
             cell.master = dimensions.tl;
           }
         }

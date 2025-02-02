@@ -1,4 +1,4 @@
-import Enums from '#lib/doc/enums.js';
+import { ValueType } from '#lib/doc/enums.ts';
 
 export default {
   rows: {
@@ -20,36 +20,36 @@ export default {
         expect(ws).not.toBeUndefined();
 
         expect(ws.getCell('A1').value).to.equal('1,1');
-        expect(ws.getCell('A1').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('A1').type).to.equal(ValueType.String);
         expect(ws.getCell('B1').value).to.equal('1,2');
-        expect(ws.getCell('B1').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('B1').type).to.equal(ValueType.String);
         expect(ws.getCell('C1').value).to.equal('1,3');
-        expect(ws.getCell('C1').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('C1').type).to.equal(ValueType.String);
 
-        expect(ws.getCell('A2').type).to.equal(Enums.ValueType.Null);
-        expect(ws.getCell('B2').type).to.equal(Enums.ValueType.Null);
-        expect(ws.getCell('C2').type).to.equal(Enums.ValueType.Null);
+        expect(ws.getCell('A2').type).to.equal(ValueType.Null);
+        expect(ws.getCell('B2').type).to.equal(ValueType.Null);
+        expect(ws.getCell('C2').type).to.equal(ValueType.Null);
 
         expect(ws.getCell('A3').value).to.equal(4.1);
-        expect(ws.getCell('A3').type).to.equal(Enums.ValueType.Number);
-        expect(ws.getCell('B3').type).to.equal(Enums.ValueType.Null);
+        expect(ws.getCell('A3').type).to.equal(ValueType.Number);
+        expect(ws.getCell('B3').type).to.equal(ValueType.Null);
         expect(ws.getCell('C3').value).to.equal(4.3);
-        expect(ws.getCell('C3').type).to.equal(Enums.ValueType.Number);
+        expect(ws.getCell('C3').type).to.equal(ValueType.Number);
 
         expect(ws.getCell('A4').value).to.equal('5,1');
-        expect(ws.getCell('A4').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('A4').type).to.equal(ValueType.String);
         expect(ws.getCell('B4').value).to.equal('5,2');
-        expect(ws.getCell('B4').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('B4').type).to.equal(ValueType.String);
         expect(ws.getCell('C4').value).to.equal('5,3');
-        expect(ws.getCell('C4').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('C4').type).to.equal(ValueType.String);
 
         ws.addRow(['5,1b', '5,2b', '5,3b']);
         expect(ws.getCell('A5').value).to.equal('5,1b');
-        expect(ws.getCell('A5').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('A5').type).to.equal(ValueType.String);
         expect(ws.getCell('B5').value).to.equal('5,2b');
-        expect(ws.getCell('B5').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('B5').type).to.equal(ValueType.String);
         expect(ws.getCell('C5').value).to.equal('5,3b');
-        expect(ws.getCell('C5').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('C5').type).to.equal(ValueType.String);
       },
     },
     insertFewer: {
@@ -615,21 +615,21 @@ export default {
         expect(ws).not.toBeUndefined();
 
         expect(ws.getCell('A1').value).to.equal('id1');
-        expect(ws.getCell('A1').type).to.equal(Enums.ValueType.String);
+        expect(ws.getCell('A1').type).to.equal(ValueType.String);
         expect(ws.getCell('B1').value).to.equal('dob1');
-        expect(ws.getCell('B1').type).to.equal(Enums.ValueType.String);
-        expect(ws.getCell('C1').type).to.equal(Enums.ValueType.Null);
+        expect(ws.getCell('B1').type).to.equal(ValueType.String);
+        expect(ws.getCell('C1').type).to.equal(ValueType.Null);
 
         expect(ws.getCell('A2').value).to.equal(2);
-        expect(ws.getCell('A2').type).to.equal(Enums.ValueType.Number);
+        expect(ws.getCell('A2').type).to.equal(ValueType.Number);
         expect(ws.getCell('B2').value).to.equal('dob2');
-        expect(ws.getCell('B2').type).to.equal(Enums.ValueType.String);
-        expect(ws.getCell('C2').type).to.equal(Enums.ValueType.Null);
+        expect(ws.getCell('B2').type).to.equal(ValueType.String);
+        expect(ws.getCell('C2').type).to.equal(ValueType.Null);
 
-        expect(ws.getCell('A3').type).to.equal(Enums.ValueType.Null);
+        expect(ws.getCell('A3').type).to.equal(ValueType.Null);
         expect(ws.getCell('B3').value).to.equal(3);
-        expect(ws.getCell('B3').type).to.equal(Enums.ValueType.Number);
-        expect(ws.getCell('C3').type).to.equal(Enums.ValueType.Null);
+        expect(ws.getCell('B3').type).to.equal(ValueType.Number);
+        expect(ws.getCell('C3').type).to.equal(ValueType.Null);
       },
     },
     insertFewer: {

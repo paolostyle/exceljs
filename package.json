@@ -15,9 +15,9 @@
   "engines": {
     "node": ">=20"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "browser": "./dist/index.mjs",
+  "main": "./dist/exceljs.cjs",
+  "module": "./dist/exceljs.js",
+  "browser": "./dist/exceljs.js",
   "types": "./index.d.ts",
   "files": [
     "dist",

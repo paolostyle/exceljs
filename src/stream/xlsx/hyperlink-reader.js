@@ -1,5 +1,5 @@
 import { EventEmitter } from 'node:events';
-import Enums from '../../doc/enums.js';
+import { RelationshipType } from '../../doc/enums.ts';
 import parseSax from '../../utils/parse-sax.js';
 import RelType from '../../xlsx/rel-type.js';
 
@@ -52,7 +52,7 @@ class HyperlinkReader extends EventEmitter {
                 case RelType.Hyperlink:
                   {
                     const relationship = {
-                      type: Enums.RelationshipType.Styles,
+                      type: RelationshipType.Styles,
                       rId,
                       target: node.attributes.Target,
                       targetMode: node.attributes.TargetMode,

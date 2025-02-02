@@ -1,6 +1,6 @@
 import { createSheetMock } from '../../utils/index';
 
-import Enums from '#lib/doc/enums.js';
+import { ValueType } from '#lib/doc/enums.ts';
 
 describe('Row', () => {
   it('stores cells', () => {
@@ -13,20 +13,20 @@ describe('Row', () => {
 
     const a1 = row1.getCell(1);
     expect(a1.address).to.equal('A1');
-    expect(a1.type).to.equal(Enums.ValueType.Null);
+    expect(a1.type).to.equal(ValueType.Null);
     expect(row1.hasValues).toBeFalsy();
 
     expect(row1.getCell('A')).to.equal(a1);
     expect(row1.getCell('name')).to.equal(a1);
 
     a1.value = 5;
-    expect(a1.type).to.equal(Enums.ValueType.Number);
+    expect(a1.type).to.equal(ValueType.Number);
     expect(row1.hasValues).toBeTruthy();
 
     const b1 = row1.getCell(2);
     expect(b1.address).to.equal('B1');
-    expect(b1.type).to.equal(Enums.ValueType.Null);
-    expect(a1.type).to.equal(Enums.ValueType.Number);
+    expect(b1.type).to.equal(ValueType.Null);
+    expect(a1.type).to.equal(ValueType.Number);
 
     b1.value = 'Hello, World!';
     const d1 = row1.getCell(4);
@@ -47,9 +47,9 @@ describe('Row', () => {
 
     let count = 0;
     row1.eachCell((cell, colNumber) => {
-      expect(cell.type).to.not.equal(Enums.ValueType.Null);
+      expect(cell.type).to.not.equal(ValueType.Null);
       switch (cell.type) {
-        case Enums.ValueType.Hyperlink:
+        case ValueType.Hyperlink:
           expect(cell.value).to.deep.equal(values[colNumber]);
           break;
         default:
@@ -92,7 +92,7 @@ describe('Row', () => {
     expect(row1.getCell(1).value).to.equal(7);
     expect(row1.getCell(2).value).toBeNull();
     expect(row1.getCell(3).value).to.equal('Not Null!');
-    expect(row1.getCell(5).type).to.equal(Enums.ValueType.Date);
+    expect(row1.getCell(5).type).to.equal(ValueType.Date);
     expect(row1.values).to.deep.equal([, 7, , 'Not Null!', , now]);
 
     // set values by object
@@ -103,7 +103,7 @@ describe('Row', () => {
     };
     expect(row1.getCell(1).value).to.equal(9);
     expect(row1.getCell(2).value).to.equal('Dobbie');
-    expect(row1.getCell(3).type).to.equal(Enums.ValueType.Date);
+    expect(row1.getCell(3).type).to.equal(ValueType.Date);
     expect(row1.getCell(5).value).toBeNull();
     expect(row1.values).to.deep.equal([, 9, 'Dobbie', now]);
   });
@@ -122,13 +122,13 @@ describe('Row', () => {
 
       row.splice(3, 3);
       expect(row.getCell(2).value).to.equal(2);
-      expect(row.getCell(2).type).to.equal(Enums.ValueType.Number);
+      expect(row.getCell(2).type).to.equal(ValueType.Number);
       expect(row.getCell(2).address).to.equal('B1');
       expect(row.getCell(4).value).to.equal(7);
-      expect(row.getCell(4).type).to.equal(Enums.ValueType.Number);
+      expect(row.getCell(4).type).to.equal(ValueType.Number);
       expect(row.getCell(4).address).to.equal('D1');
       expect(row.getCell(8).value).to.equal('eleven');
-      expect(row.getCell(8).type).to.equal(Enums.ValueType.String);
+      expect(row.getCell(8).type).to.equal(ValueType.String);
       expect(row.getCell(8).address).to.equal('H1');
     });
 
@@ -274,21 +274,21 @@ describe('Row', () => {
 
     expect(row1.model).to.deep.equal({
       cells: [
-        { address: 'A1', type: Enums.ValueType.Number, value: 5, style: {} },
+        { address: 'A1', type: ValueType.Number, value: 5, style: {} },
         {
           address: 'B1',
-          type: Enums.ValueType.String,
+          type: ValueType.String,
           value: 'Hello, World!',
           style: {},
         },
         {
           address: 'D1',
-          type: Enums.ValueType.Hyperlink,
+          type: ValueType.Hyperlink,
           text: 'www.hyperlink.com',
           hyperlink: 'http://www.hyperlink.com',
           style: {},
         },
-        { address: 'E1', type: Enums.ValueType.Null, style: {} },
+        { address: 'E1', type: ValueType.Null, style: {} },
       ],
       number: 1,
       min: 1,
@@ -307,9 +307,7 @@ describe('Row', () => {
     row3.getCell(1).value = 5;
     row3.outlineLevel = 1;
     expect(row3.model).to.deep.equal({
-      cells: [
-        { address: 'A3', type: Enums.ValueType.Number, value: 5, style: {} },
-      ],
+      cells: [{ address: 'A3', type: ValueType.Number, value: 5, style: {} }],
       number: 3,
       min: 1,
       max: 1,
@@ -326,11 +324,11 @@ describe('Row', () => {
     const row1 = sheet.getRow(1);
     row1.model = {
       cells: [
-        { address: 'A1', type: Enums.ValueType.Number, value: 5 },
-        { address: 'B1', type: Enums.ValueType.String, value: 'Hello, World!' },
+        { address: 'A1', type: ValueType.Number, value: 5 },
+        { address: 'B1', type: ValueType.String, value: 'Hello, World!' },
         {
           address: 'D1',
-          type: Enums.ValueType.Hyperlink,
+          type: ValueType.Hyperlink,
           text: 'www.hyperlink.com',
           hyperlink: 'http://www.hyperlink.com',
         },
@@ -349,16 +347,16 @@ describe('Row', () => {
       ,
       { hyperlink: 'http://www.hyperlink.com', text: 'www.hyperlink.com' },
     ]);
-    expect(row1.getCell(1).type).to.equal(Enums.ValueType.Number);
+    expect(row1.getCell(1).type).to.equal(ValueType.Number);
     expect(row1.getCell(1).value).to.equal(5);
-    expect(row1.getCell(2).type).to.equal(Enums.ValueType.String);
+    expect(row1.getCell(2).type).to.equal(ValueType.String);
     expect(row1.getCell(2).value).to.equal('Hello, World!');
-    expect(row1.getCell(4).type).to.equal(Enums.ValueType.Hyperlink);
+    expect(row1.getCell(4).type).to.equal(ValueType.Hyperlink);
     expect(row1.getCell(4).value).to.deep.equal({
       hyperlink: 'http://www.hyperlink.com',
       text: 'www.hyperlink.com',
     });
-    expect(row1.getCell(5).type).to.equal(Enums.ValueType.Null);
+    expect(row1.getCell(5).type).to.equal(ValueType.Null);
     expect(row1.height - 32.5).to.be.below(0.00000001);
   });
 

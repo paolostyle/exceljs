@@ -1,5 +1,5 @@
 import Cell from '#lib/doc/cell.js';
-import Enums from '#lib/doc/enums.js';
+import { FormulaType, ValueType } from '#lib/doc/enums.ts';
 import colCache from '#lib/utils/col-cache.js';
 
 const sheetMock = {
@@ -95,32 +95,32 @@ describe('Cell', () => {
     expect(a1.address).to.equal('A1');
     expect(a1.$col$row).to.equal('$A$1');
 
-    expect(a1.type).to.equal(Enums.ValueType.Null);
+    expect(a1.type).to.equal(ValueType.Null);
 
     expect((a1.value = 5)).to.equal(5);
     expect(a1.value).to.equal(5);
-    expect(a1.type).to.equal(Enums.ValueType.Number);
+    expect(a1.type).to.equal(ValueType.Number);
 
     const strValue = 'Hello, World!';
     expect((a1.value = strValue)).to.equal(strValue);
     expect(a1.value).to.equal(strValue);
-    expect(a1.type).to.equal(Enums.ValueType.String);
+    expect(a1.type).to.equal(ValueType.String);
 
     const dateValue = new Date();
     expect((a1.value = dateValue)).to.equal(dateValue);
     expect(a1.value).to.equal(dateValue);
-    expect(a1.type).to.equal(Enums.ValueType.Date);
+    expect(a1.type).to.equal(ValueType.Date);
 
     let formulaValue = { formula: 'A2', result: 5 };
     expect((a1.value = formulaValue)).to.deep.equal(formulaValue);
     expect(a1.value).to.deep.equal(formulaValue);
-    expect(a1.type).to.equal(Enums.ValueType.Formula);
+    expect(a1.type).to.equal(ValueType.Formula);
 
     // no result
     formulaValue = { formula: 'A3' };
     expect((a1.value = formulaValue)).to.deep.equal(formulaValue);
     expect(a1.value).to.deep.equal({ formula: 'A3' });
-    expect(a1.type).to.equal(Enums.ValueType.Formula);
+    expect(a1.type).to.equal(ValueType.Formula);
 
     const hyperlinkValue = {
       hyperlink: 'http://www.link.com',
@@ -128,13 +128,13 @@ describe('Cell', () => {
     };
     expect((a1.value = hyperlinkValue)).to.deep.equal(hyperlinkValue);
     expect(a1.value).to.deep.equal(hyperlinkValue);
-    expect(a1.type).to.equal(Enums.ValueType.Hyperlink);
+    expect(a1.type).to.equal(ValueType.Hyperlink);
 
     expect((a1.value = null)).toBeNull();
-    expect(a1.type).to.equal(Enums.ValueType.Null);
+    expect(a1.type).to.equal(ValueType.Null);
 
     expect((a1.value = { json: 'data' })).to.deep.equal({ json: 'data' });
-    expect(a1.type).to.equal(Enums.ValueType.String);
+    expect(a1.type).to.equal(ValueType.String);
   });
   it('validates options on construction', () => {
     const row = sheetMock.getRow(1);
@@ -172,7 +172,7 @@ describe('Cell', () => {
     a2.merge(a1);
 
     expect(a2.value).to.equal(5);
-    expect(a2.type).to.equal(Enums.ValueType.Merge);
+    expect(a2.type).to.equal(ValueType.Merge);
     expect(a1._mergeCount).to.equal(1);
     expect(a1.isMerged).toBeTruthy();
     expect(a2.isMerged).toBeTruthy();
@@ -191,7 +191,7 @@ describe('Cell', () => {
 
     // unmerge should work also
     a2.unmerge();
-    expect(a2.type).to.equal(Enums.ValueType.Null);
+    expect(a2.type).to.equal(ValueType.Null);
     expect(a1._mergeCount).to.equal(0);
     expect(a1.isMerged).toBeFalsy();
     expect(a2.isMerged).toBeFalsy();
@@ -213,7 +213,7 @@ describe('Cell', () => {
 
     a1._upgradeToHyperlink(linkValue);
 
-    expect(a1.type).to.equal(Enums.ValueType.Hyperlink);
+    expect(a1.type).to.equal(ValueType.Hyperlink);
   });
 
   it("doesn't upgrade from non-string to hyperlink", () => {
@@ -226,27 +226,27 @@ describe('Cell', () => {
 
     // null
     a1._upgradeToHyperlink(linkValue);
-    expect(a1.type).to.equal(Enums.ValueType.Null);
+    expect(a1.type).to.equal(ValueType.Null);
 
     // number
     a1.value = 5;
     a1._upgradeToHyperlink(linkValue);
-    expect(a1.type).to.equal(Enums.ValueType.Number);
+    expect(a1.type).to.equal(ValueType.Number);
 
     // date
     a1.value = new Date();
     a1._upgradeToHyperlink(linkValue);
-    expect(a1.type).to.equal(Enums.ValueType.Date);
+    expect(a1.type).to.equal(ValueType.Date);
 
     // formula
     a1.value = { formula: 'A2' };
     a1._upgradeToHyperlink(linkValue);
-    expect(a1.type).to.equal(Enums.ValueType.Formula);
+    expect(a1.type).to.equal(ValueType.Formula);
 
     // hyperlink
     a1.value = { hyperlink: 'http://www.link2.com', text: 'www.link2.com' };
     a1._upgradeToHyperlink(linkValue);
-    expect(a1.type).to.deep.equal(Enums.ValueType.Hyperlink);
+    expect(a1.type).to.deep.equal(ValueType.Hyperlink);
 
     // cleanup
     a1.value = null;
@@ -282,32 +282,32 @@ describe('Cell', () => {
 
     const a1 = sheetMock.getCell('A1');
 
-    expect(a1.type).to.equal(Enums.ValueType.Null);
-    expect(a1.effectiveType).to.equal(Enums.ValueType.Null);
+    expect(a1.type).to.equal(ValueType.Null);
+    expect(a1.effectiveType).to.equal(ValueType.Null);
 
     a1.value = 5;
-    expect(a1.type).to.equal(Enums.ValueType.Number);
-    expect(a1.effectiveType).to.equal(Enums.ValueType.Number);
+    expect(a1.type).to.equal(ValueType.Number);
+    expect(a1.effectiveType).to.equal(ValueType.Number);
 
     a1.value = 'Hello, World!';
-    expect(a1.type).to.equal(Enums.ValueType.String);
-    expect(a1.effectiveType).to.equal(Enums.ValueType.String);
+    expect(a1.type).to.equal(ValueType.String);
+    expect(a1.effectiveType).to.equal(ValueType.String);
 
     a1.value = new Date();
-    expect(a1.type).to.equal(Enums.ValueType.Date);
-    expect(a1.effectiveType).to.equal(Enums.ValueType.Date);
+    expect(a1.type).to.equal(ValueType.Date);
+    expect(a1.effectiveType).to.equal(ValueType.Date);
 
     a1.value = { formula: 'A2', result: 5 };
-    expect(a1.type).to.deep.equal(Enums.ValueType.Formula);
-    expect(a1.effectiveType).to.equal(Enums.ValueType.Number);
+    expect(a1.type).to.deep.equal(ValueType.Formula);
+    expect(a1.effectiveType).to.equal(ValueType.Number);
 
     a1.value = { formula: 'A2', result: 'Hello, World!' };
-    expect(a1.type).to.deep.equal(Enums.ValueType.Formula);
-    expect(a1.effectiveType).to.equal(Enums.ValueType.String);
+    expect(a1.type).to.deep.equal(ValueType.Formula);
+    expect(a1.effectiveType).to.equal(ValueType.String);
 
     a1.value = { hyperlink: 'http://www.link.com', text: 'www.link.com' };
-    expect(a1.type).to.deep.equal(Enums.ValueType.Hyperlink);
-    expect(a1.effectiveType).to.equal(Enums.ValueType.Hyperlink);
+    expect(a1.type).to.deep.equal(ValueType.Hyperlink);
+    expect(a1.effectiveType).to.equal(ValueType.Hyperlink);
   });
 
   it('shares formulas', () => {
@@ -319,10 +319,10 @@ describe('Cell', () => {
     b1.value = { formula: 'A1+1', result: 2 };
     c1.value = { sharedFormula: 'B1', result: 3 };
 
-    expect(b1.type).to.equal(Enums.ValueType.Formula);
-    expect(b1.formulaType).to.equal(Enums.FormulaType.Master);
-    expect(c1.type).to.equal(Enums.ValueType.Formula);
-    expect(c1.formulaType).to.equal(Enums.FormulaType.Shared);
+    expect(b1.type).to.equal(ValueType.Formula);
+    expect(b1.formulaType).to.equal(FormulaType.Master);
+    expect(c1.type).to.equal(ValueType.Formula);
+    expect(c1.formulaType).to.equal(FormulaType.Shared);
     expect(c1.formula).to.equal('B1+1');
   });
 

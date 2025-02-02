@@ -1,7 +1,7 @@
 import colCache from '../utils/col-cache.js';
 import { slideFormula } from '../utils/shared-formula.js';
 import _ from '../utils/under-dash.js';
-import Enums from './enums.js';
+import { FormulaType, ValueType } from './enums.ts';
 import Note from './note.js';
 // Cell requirements
 //  Operate inside a worksheet
@@ -353,8 +353,9 @@ class Cell {
       this.style = {};
     }
   }
+
+  static Types = ValueType;
 }
-Cell.Types = Enums.ValueType;
 
 // =============================================================================
 // Internal Value Types
@@ -805,12 +806,12 @@ class FormulaValue {
 
   get formulaType() {
     if (this.model.formula) {
-      return Enums.FormulaType.Master;
+      return FormulaType.Master;
     }
     if (this.model.sharedFormula) {
-      return Enums.FormulaType.Shared;
+      return FormulaType.Shared;
     }
-    return Enums.FormulaType.None;
+    return FormulaType.None;
   }
 
   get result() {
@@ -828,25 +829,25 @@ class FormulaValue {
   get effectiveType() {
     const v = this.model.result;
     if (v === null || v === undefined) {
-      return Enums.ValueType.Null;
+      return ValueType.Null;
     }
     if (v instanceof String || typeof v === 'string') {
-      return Enums.ValueType.String;
+      return ValueType.String;
     }
     if (typeof v === 'number') {
-      return Enums.ValueType.Number;
+      return ValueType.Number;
     }
     if (v instanceof Date) {
-      return Enums.ValueType.Date;
+      return ValueType.Date;
     }
     if (v.text && v.hyperlink) {
-      return Enums.ValueType.Hyperlink;
+      return ValueType.Hyperlink;
     }
     if (v.formula) {
-      return Enums.ValueType.Formula;
+      return ValueType.Formula;
     }
 
-    return Enums.ValueType.Null;
+    return ValueType.Null;
   }
 
   get address() {

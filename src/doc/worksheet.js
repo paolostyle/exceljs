@@ -4,7 +4,7 @@ import Encryptor from '../utils/encryptor.js';
 import _ from '../utils/under-dash.js';
 import Column from './column.js';
 import DataValidations from './data-validations.js';
-import Enums from './enums.js';
+import { ValueType } from './enums.ts';
 import Image from './image.js';
 import { makePivotTable } from './pivot-table.js';
 import Range from './range.js';
@@ -694,7 +694,7 @@ class Worksheet {
       for (let j = dimensions.left; j <= dimensions.right; j++) {
         const cell = this.findCell(i, j);
         if (cell) {
-          if (cell.type === Enums.ValueType.Merge) {
+          if (cell.type === ValueType.Merge) {
             // this cell merges to another master
             this._unMergeMaster(cell.master);
           } else if (this._merges[cell.address]) {
