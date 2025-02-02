@@ -90,5 +90,10 @@
       "esbuild",
       "@biomejs/biome"
     ]
+  },
+  "cjs2esm": {
+    "input": [
+      "lib"
+    ]
   }
 }
