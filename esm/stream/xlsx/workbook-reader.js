@@ -1,9 +1,10 @@
-import { ZipReaderStream } from '@zip.js/zip.js';
-import { loadFileToStream, writeFileFromStream } from '../../utils/files.js';
-
 import { EventEmitter } from 'node:events';
 import fs from 'node:fs';
+import nodeStream from 'node:stream';
+import { PassThrough, Readable } from 'readable-stream';
 import tmp from 'tmp';
+import unzip from 'unzipper';
+import iterateStream from '../../utils/iterate-stream';
 import parseSax from '../../utils/parse-sax.js';
 import WorkbookXform from '../../xlsx/xform/book/workbook-xform.js';
 import RelationshipsXform from '../../xlsx/xform/core/relationships-xform.js';
@@ -30,6 +31,16 @@ class WorkbookReader extends EventEmitter {
 
     this.styles = new StyleManager();
     this.styles.init();
+  }
+
+  _getStream(input) {
+    if (input instanceof nodeStream.Readable || input instanceof Readable) {
+      return input;
+    }
+    if (typeof input === 'string') {
+      return fs.createReadStream(input);
+    }
+    throw new Error(`Could not recognise input: ${input}`);
   }
 
   async read(input, options) {
@@ -65,35 +76,37 @@ class WorkbookReader extends EventEmitter {
 
   async *parse(input, options) {
     if (options) this.options = options;
+    const stream = (this.stream = this._getStream(input || this.input));
+    const zip = unzip.Parse({ forceStream: true });
+    stream.pipe(zip);
 
-    this.stream = await loadFileToStream(input);
     // worksheets, deferred for parsing after shared strings reading
     const waitingWorkSheets = [];
 
-    for await (const entry of this.stream.pipeThrough(new ZipReaderStream())) {
-      switch (entry.filename) {
+    for await (const entry of iterateStream(zip)) {
+      let match;
+      let sheetNo;
+      switch (entry.path) {
         case '_rels/.rels':
           break;
         case 'xl/_rels/workbook.xml.rels':
-          await this._parseRels(entry.readable);
+          await this._parseRels(entry);
           break;
         case 'xl/workbook.xml':
-          await this._parseWorkbook(entry.readable);
+          await this._parseWorkbook(entry);
           break;
         case 'xl/sharedStrings.xml':
-          yield* this._parseSharedStrings(entry.readable);
+          yield* this._parseSharedStrings(entry);
           break;
         case 'xl/styles.xml':
-          await this._parseStyles(entry.readable);
+          await this._parseStyles(entry);
           break;
-        default: {
-          const worksheetMatch = entry.filename.match(
-            /xl\/worksheets\/sheet(\d+)[.]xml/,
-          );
-          if (worksheetMatch) {
-            const sheetNo = worksheetMatch[1];
+        default:
+          if (entry.path.match(/xl\/worksheets\/sheet\d+[.]xml/)) {
+            match = entry.path.match(/xl\/worksheets\/sheet(\d+)[.]xml/);
+            sheetNo = match[1];
             if (this.sharedStrings && this.workbookRels) {
-              yield* this._parseWorksheet(entry.readable, sheetNo);
+              yield* this._parseWorksheet(iterateStream(entry), sheetNo);
             } else {
               // create temp file for each worksheet
               await new Promise((resolve, reject) => {
@@ -107,23 +120,27 @@ class WorkbookReader extends EventEmitter {
                     tempFileCleanupCallback,
                   });
 
-                  return writeFileFromStream(entry.readable, path)
-                    .then(resolve)
-                    .catch(reject);
+                  const tempStream = fs.createWriteStream(path);
+                  tempStream.on('error', reject);
+                  entry.pipe(tempStream);
+                  return tempStream.on('finish', () => {
+                    return resolve();
+                  });
                 });
               });
             }
-            break;
-          }
-          const hyperlinkMatch = entry.filename.match(
-            /xl\/worksheets\/sheet(\d+)[.]xml/,
-          );
-          if (hyperlinkMatch) {
-            yield* this._parseHyperlinks(entry.readable, hyperlinkMatch[1]);
+          } else if (
+            entry.path.match(/xl\/worksheets\/_rels\/sheet\d+[.]xml.rels/)
+          ) {
+            match = entry.path.match(
+              /xl\/worksheets\/_rels\/sheet(\d+)[.]xml.rels/,
+            );
+            sheetNo = match[1];
+            yield* this._parseHyperlinks(iterateStream(entry), sheetNo);
           }
           break;
-        }
       }
+      entry.autodrain();
     }
 
     for (const {
@@ -131,7 +148,12 @@ class WorkbookReader extends EventEmitter {
       path,
       tempFileCleanupCallback,
     } of waitingWorkSheets) {
-      const fileStream = fs.createReadStream(path);
+      let fileStream = fs.createReadStream(path);
+      // TODO: Remove once node v8 is deprecated
+      // Detect and upgrade old fileStreams
+      if (!fileStream[Symbol.asyncIterator]) {
+        fileStream = fileStream.pipe(new PassThrough());
+      }
       yield* this._parseWorksheet(fileStream, sheetNo);
       tempFileCleanupCallback();
     }
@@ -145,16 +167,14 @@ class WorkbookReader extends EventEmitter {
 
   async _parseRels(entry) {
     const xform = new RelationshipsXform();
-    this.workbookRels = await xform.parseStream(entry);
+    this.workbookRels = await xform.parseStream(iterateStream(entry));
   }
 
   async _parseWorkbook(entry) {
-    if (!entry) return;
-
     this._emitEntry({ type: 'workbook' });
 
     const workbook = new WorkbookXform();
-    await workbook.parseStream(entry);
+    await workbook.parseStream(iterateStream(entry));
 
     this.properties = workbook.map.workbookPr;
     this.model = workbook.model;
@@ -176,7 +196,7 @@ class WorkbookReader extends EventEmitter {
     let richText = [];
     let index = 0;
     let font = null;
-    for await (const events of parseSax(entry)) {
+    for await (const events of parseSax(iterateStream(entry))) {
       for (const { eventType, value } of events) {
         if (eventType === 'opentag') {
           const node = value;
@@ -279,7 +299,7 @@ class WorkbookReader extends EventEmitter {
     this._emitEntry({ type: 'styles' });
     if (this.options.styles === 'cache') {
       this.styles = new StyleManager();
-      await this.styles.parseStream(entry);
+      await this.styles.parseStream(iterateStream(entry));
     }
   }
 
@@ -320,6 +340,7 @@ class WorkbookReader extends EventEmitter {
       yield { eventType: 'hyperlinks', value: hyperlinksReader };
     }
   }
+
   static Options = {
     worksheets: ['emit', 'ignore'],
     sharedStrings: ['cache', 'emit', 'ignore'],
