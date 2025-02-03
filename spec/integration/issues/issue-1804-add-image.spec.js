@@ -1,4 +1,4 @@
-const ExcelJS = verquire('exceljs');
+import ExcelJS from '#lib';
 
 // this file to contain integration tests created from github issues
 const TEST_XLSX_FILE_NAME = './spec/out/wb-issue-1804.test.xlsx';
@@ -6,7 +6,7 @@ const IMAGE_FILENAME1 = `${__dirname}/../data/image.png`;
 const IMAGE_FILENAME2 = `${__dirname}/../data/image1.jpg`;
 
 describe('github issues', () => {
-  it('issue 1804 - add wrong image', () => {
+  it('issue 1804 - add wrong image', async () => {
     const wb = new ExcelJS.Workbook();
     const ws = wb.addWorksheet('Sheet1');
 
@@ -28,15 +28,11 @@ describe('github issues', () => {
     ws.getRow(3).getCell(2).value = 'image1';
     ws.getRow(5).getCell(2).value = 'image1';
 
-    return wb.xlsx
-      .writeFile(TEST_XLSX_FILE_NAME)
-      .then(() => {
-        const wb2 = new ExcelJS.Workbook();
-        return wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
-      })
-      .then(wb2 => {
-        const ws2 = wb2.getWorksheet('Sheet1');
-        expect(ws2._media[1].imageId).to.equal(ws2._media[2].imageId);
-      });
-  }).timeout(6000);
+    await wb.xlsx.writeFile(TEST_XLSX_FILE_NAME);
+    const wb2 = new ExcelJS.Workbook();
+    const wb2_1 = await wb2.xlsx.readFile(TEST_XLSX_FILE_NAME);
+    const ws2 = wb2_1.getWorksheet('Sheet1');
+
+    expect(ws2._media[1].imageId).to.equal(ws2._media[2].imageId);
+  });
 });

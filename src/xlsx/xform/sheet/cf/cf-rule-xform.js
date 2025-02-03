@@ -153,7 +153,9 @@ class CfRuleXform extends CompositeXform {
       priority: model.priority,
     });
 
-    this.formulaXform.render(xmlStream, model.formulae[0]);
+    if (model.formulae?.[0]) {
+      this.formulaXform.render(xmlStream, model.formulae[0]);
+    }
 
     xmlStream.closeNode();
   }

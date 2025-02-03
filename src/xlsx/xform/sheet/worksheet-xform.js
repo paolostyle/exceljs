@@ -236,7 +236,7 @@ class WorkSheetXform extends BaseXform {
         }
         let rIdImage =
           this.preImageId === medium.imageId
-            ? drawingRelsHash[medium.imageId]
+            ? this.preRIdImage
             : drawingRelsHash[drawing.rels.length];
         if (!rIdImage) {
           rIdImage = nextRid(drawing.rels);
@@ -269,6 +269,7 @@ class WorkSheetXform extends BaseXform {
           });
         }
         this.preImageId = medium.imageId;
+        this.preRIdImage = rIdImage;
         drawing.anchors.push(anchor);
       }
     });
