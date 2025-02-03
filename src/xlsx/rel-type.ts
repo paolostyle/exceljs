@@ -1,4 +1,4 @@
-const RelType = {
+export const RelType = {
   OfficeDocument:
     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument',
   Worksheet:
@@ -31,6 +31,4 @@ const RelType = {
     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotCacheRecords',
   PivotTable:
     'http://schemas.openxmlformats.org/officeDocument/2006/relationships/pivotTable',
-};
-
-export default RelType;
+} as const;

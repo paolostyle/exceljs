@@ -24,7 +24,7 @@ class Row {
   // Inform Streaming Writer that this row (and all rows before it) are complete
   // and ready to write. Has no effect on Worksheet document
   commit() {
-    this._worksheet._commitRow(this); // eslint-disable-line no-underscore-dangle
+    this._worksheet._commitRow(this);
   }
 
   // helps GC by breaking cyclic references
@@ -88,12 +88,10 @@ class Row {
           cDst = this.getCell(i);
           cDst.value = cSrc.value;
           cDst.style = cSrc.style;
-          // eslint-disable-next-line no-underscore-dangle
           cDst._comment = cSrc._comment;
         } else if (cDst) {
           cDst.value = null;
           cDst.style = {};
-          // eslint-disable-next-line no-underscore-dangle
           cDst._comment = undefined;
         }
       }
@@ -105,7 +103,6 @@ class Row {
           cDst = this.getCell(i + nExpand);
           cDst.value = cSrc.value;
           cDst.style = cSrc.style;
-          // eslint-disable-next-line no-underscore-dangle
           cDst._comment = cSrc._comment;
         } else {
           this._cells[i + nExpand - 1] = undefined;
@@ -118,7 +115,6 @@ class Row {
       cDst = this.getCell(start + i);
       cDst.value = inserts[i];
       cDst.style = {};
-      // eslint-disable-next-line no-underscore-dangle
       cDst._comment = undefined;
     }
   }

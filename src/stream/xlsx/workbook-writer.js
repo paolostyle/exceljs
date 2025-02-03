@@ -3,7 +3,7 @@ import Archiver from 'archiver';
 import DefinedNames from '../../doc/defined-names.js';
 import SharedStrings from '../../utils/shared-strings.js';
 import StreamBuf from '../../utils/stream-buf.js';
-import RelType from '../../xlsx/rel-type.js';
+import { RelType } from '../../xlsx/rel-type.ts';
 import WorkbookXform from '../../xlsx/xform/book/workbook-xform.js';
 import AppXform from '../../xlsx/xform/core/app-xform.js';
 import ContentTypesXform from '../../xlsx/xform/core/content-types-xform.js';
@@ -11,7 +11,7 @@ import CoreXform from '../../xlsx/xform/core/core-xform.js';
 import RelationshipsXform from '../../xlsx/xform/core/relationships-xform.js';
 import SharedStringsXform from '../../xlsx/xform/strings/shared-strings-xform.js';
 import StylesXform from '../../xlsx/xform/style/styles-xform.js';
-import theme1Xml from '../../xlsx/xml/theme1.js';
+import theme1Xml from '../../xlsx/xml/theme1.xml?raw';
 import WorksheetWriter from './worksheet-writer.js';
 
 class WorkbookWriter {

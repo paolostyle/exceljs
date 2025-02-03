@@ -6,7 +6,7 @@ import colCache from '../../utils/col-cache.js';
 import Encryptor from '../../utils/encryptor.js';
 import StringBuf from '../../utils/string-buf.js';
 import _ from '../../utils/under-dash.js';
-import RelType from '../../xlsx/rel-type.js';
+import { RelType } from '../../xlsx/rel-type.ts';
 import ListXform from '../../xlsx/xform/list-xform.js';
 import AutoFilterXform from '../../xlsx/xform/sheet/auto-filter-xform.js';
 import ConditionalFormattingsXform from '../../xlsx/xform/sheet/cf/conditional-formattings-xform.js';
@@ -213,7 +213,6 @@ class WorksheetWriter {
 
   get stream() {
     if (!this._stream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._stream = this._workbook._openStream(
         `/xl/worksheets/sheet${this.id}.xml`,
       );
@@ -664,7 +663,6 @@ class WorksheetWriter {
   }
 
   _writeHyperlinks() {
-    // eslint-disable-next-line no-underscore-dangle
     this.stream.write(
       xform.hyperlinks.toXml(this._sheetRelsWriter._hyperlinks),
     );

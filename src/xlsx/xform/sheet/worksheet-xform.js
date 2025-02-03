@@ -1,7 +1,7 @@
 import colCache from '../../../utils/col-cache.js';
 import _ from '../../../utils/under-dash.js';
 import XmlStream from '../../../utils/xml-stream.js';
-import RelType from '../../rel-type.js';
+import { RelType } from '../../rel-type.ts';
 import BaseXform from '../base-xform.js';
 import ListXform from '../list-xform.js';
 import AutoFilterXform from './auto-filter-xform.js';

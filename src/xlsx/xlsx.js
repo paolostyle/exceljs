@@ -6,7 +6,7 @@ import StreamBuf from '../utils/stream-buf.js';
 import utils from '../utils/utils.js';
 import XmlStream from '../utils/xml-stream.js';
 import ZipWriter from '../utils/zip-writer.js';
-import RelType from './rel-type';
+import { RelType } from './rel-type.ts';
 import WorkbookXform from './xform/book/workbook-xform.js';
 import CommentsXform from './xform/comment/comments-xform.js';
 import VmlNotesXform from './xform/comment/vml-notes-xform.js';
@@ -22,7 +22,7 @@ import WorksheetXform from './xform/sheet/worksheet-xform.js';
 import SharedStringsXform from './xform/strings/shared-strings-xform.js';
 import StylesXform from './xform/style/styles-xform.js';
 import TableXform from './xform/table/table-xform.js';
-import theme1Xml from './xml/theme1.js';
+import theme1Xml from './xml/theme1.xml?raw';
 
 function fsReadFileAsync(filename, options) {
   return new Promise((resolve, reject) => {

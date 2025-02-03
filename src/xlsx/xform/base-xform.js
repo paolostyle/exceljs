@@ -2,7 +2,6 @@ import parseSax from '../../utils/parse-sax.js';
 import XmlStream from '../../utils/xml-stream.js';
 
 /* 'virtual' methods used as a form of documentation */
-/* eslint-disable class-methods-use-this */
 
 // Base class for Xforms
 class BaseXform {

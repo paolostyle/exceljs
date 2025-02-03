@@ -1,7 +1,7 @@
 import { EventEmitter } from 'node:events';
 import { RelationshipType } from '../../doc/enums.ts';
 import parseSax from '../../utils/parse-sax.js';
-import RelType from '../../xlsx/rel-type.js';
+import { RelType } from '../../xlsx/rel-type.ts';
 
 class HyperlinkReader extends EventEmitter {
   constructor({ workbook, id, iterator, options }) {

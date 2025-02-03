@@ -2,7 +2,6 @@ import fs from 'node:fs';
 
 // useful stuff
 const inherits = (cls, superCtor, statics, prototype) => {
-  // eslint-disable-next-line no-underscore-dangle
   cls.super_ = superCtor;
 
   if (!prototype) {

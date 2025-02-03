@@ -38,7 +38,6 @@ class StringBufChunk {
 
   // copy to target buffer
   copy(target, targetOffset, offset, length) {
-    // eslint-disable-next-line no-underscore-dangle
     return this._data._buf.copy(target, targetOffset, offset, length);
   }
 

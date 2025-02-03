@@ -1,15 +1,11 @@
-const fs = require('node:fs');
+const fs = require('node:fs/promises');
 const JSZip = require('jszip');
-
-// eslint-disable-next-line node/no-unsupported-features/node-builtins
-const fsp = fs.promises;
 
 const filename = process.argv[2];
 
 const jsZip = new JSZip();
 
-fsp
-  .readFileAsync(filename)
+fs.readFileAsync(filename)
   .then((data) => {
     console.log('data', data);
     return jsZip.loadAsync(data);

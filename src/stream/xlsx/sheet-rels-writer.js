@@ -1,5 +1,5 @@
 import utils from '../../utils/utils.js';
-import RelType from '../../xlsx/rel-type.js';
+import { RelType } from '../../xlsx/rel-type.ts';
 
 class HyperlinksProxy {
   constructor(sheetRelsWriter) {
@@ -27,7 +27,6 @@ class SheetRelsWriter {
 
   get stream() {
     if (!this._stream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._stream = this._workbook._openStream(
         `/xl/worksheets/_rels/sheet${this.id}.xml.rels`,
       );

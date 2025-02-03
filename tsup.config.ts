@@ -1,4 +1,5 @@
 import { defineConfig } from 'tsup';
+import RawPlugin from 'unplugin-raw/esbuild';
 
 export default defineConfig({
   entry: {
@@ -6,4 +7,5 @@ export default defineConfig({
   },
   clean: true,
   format: ['esm', 'cjs'],
+  plugins: [RawPlugin()],
 });

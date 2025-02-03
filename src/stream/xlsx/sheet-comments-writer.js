@@ -1,6 +1,6 @@
 import colCache from '../../utils/col-cache.js';
 import XmlStream from '../../utils/xml-stream.js';
-import RelType from '../../xlsx/rel-type.js';
+import { RelType } from '../../xlsx/rel-type.ts';
 import CommentXform from '../../xlsx/xform/comment/comment-xform.js';
 import VmlShapeXform from '../../xlsx/xform/comment/vml-shape-xform.js';
 
@@ -16,7 +16,6 @@ class SheetCommentsWriter {
 
   get commentsStream() {
     if (!this._commentsStream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._commentsStream = this._workbook._openStream(
         `/xl/comments${this.id}.xml`,
       );
@@ -26,7 +25,6 @@ class SheetCommentsWriter {
 
   get vmlStream() {
     if (!this._vmlStream) {
-      // eslint-disable-next-line no-underscore-dangle
       this._vmlStream = this._workbook._openStream(
         `xl/drawings/vmlDrawing${this.id}.vml`,
       );

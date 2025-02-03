@@ -1,5 +1,5 @@
 import _ from '../../../utils/under-dash.js';
-import defaultNumFormats from '../../defaultnumformats.js';
+import { defaultNumFormats } from '../../default-num-formats.ts';
 import BaseXform from '../base-xform.js';
 
 function hashDefaultFormats() {
